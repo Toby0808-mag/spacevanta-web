@@ -1,3 +1,5 @@
+docs(handoff): Agent分工升级为A网页/B模型装配谱系/C资产生产/D智能体；新增变更申请协议
+
 # SpaceVanta Web
 3D commerce frontend · Cloudflare Workers + Shopline 事实源
 
