@@ -21,12 +21,29 @@ alwaysApply: true
 ## 门禁声明（G1-G16）
 （G1-G15 条款保留原有详细定义，此处不重复展开，重点落地 G16）
 
-### G16 三端隔离（新增 · 2026-11-25）
-- **Drive（设计源）**：唯一存放 `HANDOFF_*.md` 及设计附录（FLOWCONTRACT 等）。**永不进 GitHub**。
-- **Cursor（施工场）**：仅从 Drive 接收图纸，执行一比一打造（本轮 A-1：React `src/components/...`，非 Liquid）。缺图/缺协议 → 报 `BLOCKED_BY_DESIGN`，禁自造活。
-- **GitHub（归档地）**：严禁提交 HANDOFF 原文件。仅允许 `handoffs/outgoing/<id>/SUMMARY.md`（≤40 行六段）+ `DEFERRED` 台账。
-- **目录物理约束**：
-  - `handoffs/incoming/`：恒空（图纸在 Drive，不落地 GitHub）。空 = 正常。
-  - `handoffs/requests/`：仅未提交草稿（如 PROP-003），已批准移走。
-  - `contracts/proposals/`：已批准/废除归档（正本在 `endpoints.json`）。
-- **A-1 特批**：本轮豁免附录四件套缺失，按 HANDOFF 段 0-3 + forge 约定；范围 Seam/RootModalPortal/HeroBridgeShell 等，零 Worker 交易，scene 部署 DEFERRED。
+### G16 三端隔离（v1.2 扩表 · 2026-11-26）
+- **Drive（设计源·唯一真源）**：存放 `HANDOFF_*` / `FLOWCONTRACT_*` / `L3_MANIFEST_*` /
+  `L3D_01..07`（灰度线图）/ `ASSET_MAP*` / `AGENT_ASSET_REGISTRY*` / `VERIFY_*` /
+  `PRESENT_LOG.md` / `L25_*.html`（设计留档）。
+  **永不进 GitHub**，Cursor 只读不留存。
+- **Cursor（施工场）**：仅从 Drive 读 `L3_MANIFEST_<page>_vNN.md` 一份即足够开工
+  （十段：一屏一职责／状态表／占位符注入点／资产谱系／冻结面／降级链／V-01..V-10／令牌四数／OQ表／DEFERRED）。
+  按 MANIFEST **重新实现**，`L25_*.html` 与 `L3D_*` 是"设计的照片"，**禁止在其基础上改**（违附录D §A.9）。
+  缺 MANIFEST → 报 `BLOCKED_BY_DESIGN`；MANIFEST 在但令牌四数未填 → 报 `BLOCKED_BY_TOKEN_BUDGET`，**均不造活**。
+- **GitHub（归档地·只存三样）**：
+  ✅ `src/components/...` 生产代码
+  ✅ `handoffs/outgoing/<id>/SUMMARY.md`（≤40 行六段 + G1–G16 自评表）
+  ✅ `handoffs/outgoing/DEFERRED.md`（owner + 解锁条件 + 连续 2 rev 升 BLOCKED）
+  ❌ **禁入仓正则（9 类，机器拦）**：
+     `HANDOFF_*` `FLOWCONTRACT_*` `L3_MANIFEST_*` `L3D_*` `ASSET_MAP*`
+     `AGENT_ASSET_REGISTRY*` `VERIFY_*` `L25_*.html` `MOCK*`
+     → 命中即 `check_gates.sh` **FAIL**，PR 不许合。
+- **目录物理约束（不变，重申）**：
+  - `handoffs/incoming/` 恒空（图纸在 Drive）。**空 = 正常**，不是待办。
+  - `handoffs/requests/` 仅未提交草稿（`PROP-NNN` 状态 PROPOSED）；已批准移 `contracts/proposals/`。
+  - `contracts/proposals/` 已批准/废除归档，**正本永远在 `endpoints.json` 的 `proposal_log`**。
+- **令牌巡检（对齐 PALETTE v1.2.1 补丁 5 + 附录D §D.6）**：
+  组件内禁裸 hex，只准 `var(--sv-*)`；`--sv-paper` / `--sv-paper-subtle` / `--sv-seam-aura` 属 `lockedTokens`，改动直接打回。
+  深金属底上的接缝必须 `aura=true`（`#1D6BFF` 2px 底 + `#E5FFFF` 1px 光芯，合成 11.72:1），单用 seam core 在 gunmetal 上仅 2.68:1 不合规。
+- **A-1 特批（延续）**：附录四件套缺失豁免，按 MANIFEST 段 0–3 + forge 约定；scene 真部署／Brand film 真片源／`{FILM_DURATION}`／3D 签名段 仍 DEFERRED。
+
