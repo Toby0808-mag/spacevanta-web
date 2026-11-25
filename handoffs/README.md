@@ -1,136 +1,168 @@
-SpaceVanta L3 施工单索引与多 Agent 协作协议
+handoffs/README.md · L3 施工单索引 · 入库规范 · Agent 分工
 
-本目录性质：只读真源（Read-Only Source of Truth）。 这里存放各流程/模型的 L3 工程移交单（HANDOFF）、资产登记表与 Agent 契约。 任何 Agent 不得就地修改已冻结的 HANDOFF；需要变更时，新建版本文件（v04 / v02）或提交《变更申请》，等总闸（用户）确认。
-0. 优先级与裁决顺序（冲突时从上到下）
+版本：v1.0.0｜配套：GROK_BUILD_CONTRACT.md v1.0.0 / AGENTS.md v1.0.0
 
-text
-1) GROK_BUILD_CONTRACT.md        ← 宪法（唯一真源，最高优先级）
-2) AGENTS.md                     ← 路由与禁碰层
-3) handoffs/README.md            ← 本文件：分工 + 变更协议
-4) handoffs/**/HANDOFF_*.md      ← 各流程 L3 施工单（段0/段2/段2.5/段3/段6 为冻结面）
-5) handoffs/bundle/ASSET_REGISTRY.md ← 全站模型资产登记表（Agent B 唯一维护）
-冲突处理铁律：低层与高层冲突 → 停手，输出《冲突点 + 两个方案的利弊 + 建议裁决》，等总闸确认。 严禁 Agent 自行裁决、静默兼容、或“先写了再说”。
+本文件是所有 Agent 找施工单的唯一入口。 规则一句话：Gemini 投 Drive → 总闸核对 → 原样搬进本目录 → 同一次 commit 更新第 6 节索引。
+1. 三存储分工（Agent 必读）
 
-1. 四 Agent 分工表
+位置	放什么	谁写	Agent 权限
+Google Drive SpaceVanta-L3/	Gemini 投的 L3 施工单（中转收件箱）	仅 Gemini	只读；永不在 Drive 创建/改/删/改名
+GitHub handoffs/	契约 + L3 快照（唯一真源）+ 索引	仅总闸	只读施工单；ASSET_REGISTRY.md 仅 B 写、C 改自己 SKU 行
+R2 sv-models	GLB / KTX2 / poster / silhouette	仅 Agent C	A/B/D 只通过 registry 拿 URL，禁直连猜路径
+Drive 目录约定
 
-Agent	职责	唯一产出 / 真源	禁碰（硬红线）
-A · 网页施工	Workers + 静态 Assets(wrangler)、页面骨架、Promote S0→S5 状态机、{{KEY}} 占位（textContent 渲染）、无障碍、fallback_poster	src/components/**、src/app 或 Workers 路由层	worker/* 内部逻辑、d1/migrations 历史、checkout*、PALETTE.json 锁令牌、PLACEHOLDERS.md
-B · 模型装配与谱系	全站模型五层谱系、锚点名（逐字冻结）/挂载顺序/snap 容差/seam_rail、SKU→锚点映射、Hot 额度分配（≤4）、装配契约、资产登记表	handoffs/bundle/ASSET_REGISTRY.md、src/three/rig/*.ts（纯装配，无材质无光照）	实际建模与 GLB 导出（归 C）、页面实现（归 A）、智能体（归 D）、一切交易数据
-C · 3D 资产生产	Blender→GLB 导出、draco/meshopt 压缩、LOD 预算、派生图（poster1600/thumb640/silhouette）、命名规范、R2 上传与自检报告	R2 桶 sv-models（https://assets.spacevanta.com）+ handoffs/**/ASSET_REPORT_*.md	锚点命名（归 B）、页面状态机（归 A）、智能体（归 D）、交易数据
-D · Space Rental 智能体	G-0 插座 props 契约、智能体能力登记表、G-0→G-1 升级闸门、非 PII 意图埋点草案	handoffs/agent-D/G0_agent_slot_contract.md、CAPABILITY_REGISTRY.md	AI 永不输出运费/时效/价格/库存/订单状态/可购买性；未收到「开 G-1」口令不得接 worker/ai/*、不得设计化身/起名/配色
-五层模型谱系（Agent B 管辖面）
 
-text
-L-Mother  母模型   Bundle_MOTHER ✅ / MTO_MOTHER ✅（0 三角面，纯逻辑装配根，永不上材质/高光/阴影）
-L-Hot     活跃子   Hot 舞台挂载态（Child_Tray + 已挂载 M-Proto）      全站 Hot ≤ 4
-L-Cold    沉睡子   Cold 卡 / 槽位芯片（poster + silhouette，0 次 GLB 请求）
-L-Proto   商品原型 M-Proto：每 SKU 恰好 1 份源几何，三态同源派生（Law 1）
-L-Deriv   派生图   poster1600 ≤90KB / thumb640 / silhouette（C 产出，B 登记）
-当前冻结 / 待补状态（勿误读为“只有 Bundle 母模型”）
+SpaceVanta-L3/
+├── _draft/      未定稿（缺 FLOW_ID/FREEZE_ID/段2/段6 任一项）→ 全员禁开工
+├── INBOX/       已定稿待入库 → 总闸核对后搬 GitHub
+└── ARCHIVE/     已入库的原件归档（总闸搬完移进来，标 _archived_vNN）
+版本漂移处理（唯一动作）
 
-项	状态	归属
-Bundle_MOTHER 锚点契约（anchor_A/B/C，A→B→C→A，6°/3mm，seam_rail 闭环）	✅ 已冻结	B
-MTO_MOTHER 锚点契约（slot_base/slot_lid/slot_ring，base→lid→ring）	✅ 规范就绪	B
-Child_Tray + 亮金属 SV 顶盖零穿模硬坐标（local Y 约束）	✅ 已定版	B
-Bundle 活跃子模型装配细则（Hot 舞台挂载态）	⏳ 待 B 提交	B
-Bundle 沉睡子模型细则（Cold 卡 silhouette 派生映射）	⏳ 待 B 提交	B
-MTO 活跃 / 沉睡子模型装配与 slot 参数域	⏳ 待 B 提交	B
-各 SKU M-Proto 实模（12 SKU 基线）	⏳ 全部 placeholder_only	C 生产 → B 登记
-Space Rental 智能体	🔒 G-0 只登记（⌀24mm 虚线圈，?sv_agent=off 可熔断）	D
-原则：母模型先行冻结锚点，不等子模型；子模型逐个到位、逐个登记、逐个激活，不阻塞页面开发。
-2. 《变更申请》协议（跨 Agent 改动必填）
+Drive 里 v05、GitHub 快照 v04 → 停手，输出：
 
-任何跨职责改动（锚点名 / R2 路径 / 资产状态 / 状态机 / 占位符键 / 路由前缀）必须先发申请，不得直接改码。
 
-text
+⚠️ 版本漂移：FLOW_ID=sv_flow_xxx  Git=v04 / Drive=v05
+请求总闸：确认 v05 是否定稿 → 搬入并 commit → 我再开工。
+（我不自行选用任一版本）
+
+
+2. 命名对照表（口误收敛，唯一口径）
+
+正式名	也常被叫成	角色	只交付	落点
+Gemini	Jimmy 奶 / Jimmy 奶泡 / 吉米	外部 L3 交付方（不在 A/B/C/D 内）	HANDOFF_*.md 纯文档	Drive INBOX → 本目录
+Agent A	A 减 A / 网页那个	网页/前端施工	Workers+Assets 组件	src/
+Agent B	A 减 B / 装配那个 / 母模型那个	全站模型装配与谱系	motherRig.ts + registry	src/three/rig/ + handoffs/bundle/
+Agent C	Drug bill / 抓 bill / Groq Bill / 建模那个	3D 资产生产	GLB/LOD/poster → R2	R2 + 检查报告
+Agent D	Space Rental 智能体 / G-0	智能体登记	插座 props 契约 + 能力表	handoffs/agent-D/
+Grok / Projects	我 / 参谋	出指令、审图、裁决	文本（不碰仓库）	对话
+Grok Build	Build 模式	❌ 已退役	—	本项目禁用（见契约 §2.1）
+总闸	你	唯一合并权	搬单、审 diff、push	—
+两条禁混装铁律
+
+Gemini 只交文档：不出图片、不出 GLB、不出 KTX2、不出代码。
+Agent C 只交资产走 R2：不出 HANDOFF、不改名锚点、不写页面。
+Git 存「约定」，R2 存「肉」，Drive 只是「收发室」。
+
+
+3. 四 Agent 分工速查
+
+Agent	白名单目录	开工前交什么	最大禁区
+A · 网页	src/components(除 three/rig)、src/client、src/pages、src/styles/dna.tokens.css(令牌段)	映射表 / 文件清单 / S0-S5 边界+0次GLB自证	锚点字面量、Worker 内部、GLB
+B · 装配	src/three/rig、handoffs/bundle/ASSET_REGISTRY.md	五层谱系表 / 母→槽→SKU 矩阵 / A←B 契约	页面路由、材质光照、实模
+C · 资产	R2 桶 + reports/asset-check/ + registry 自己那几行	生产规格确认 + 资产检查报告	三件套不齐标 ready、野命名
+D · 智能体	handoffs/agent-D/（G-1 后才开 src/agent-slot/）	G-0 props 契约 / 能力表 v0 / G-1 闸门清单	任何 fact 输出、无口令接 LLM
+并行规则：A ∥ B 可同时开工，接线点在 B 的 motherRig.ts；B 未交 → A 用 anchor:null stub，互不阻塞。
+
+
+4. 变更申请模板（跨 Agent 唯一通道）
+
+
 【申请】改什么 ID / 路径 / 状态：
-【影响】A / B / C / D 哪几方，各自要改哪几个文件：
-【为什么】业务或技术理由（一句到三句）：
-【迁移】旧值如何过渡（双写期？别名？灰度？）：
-【回滚】不行的情况下怎么退回去：
-【验证】怎么证明改对了（验收命令 / 截图点）：
-流程：申请 → 总闸确认 → 先在登记表写 proposed → 执行 → 验收 → 转 locked。 未确认前：只允许在登记表标 proposed，不许落代码。
+【归属】触及哪层契约、谁的产出：
+【影响】A：… / B：… / C：… / D：…（无影响也要写“无”）
+【为什么】不做会怎样（须有可验收口径）：
+【迁移】旧值怎么过渡、已有引用怎么改：
+【回滚】git revert 哪类提交 / registry 状态退回哪：
+【验证】跑什么断言算过：
+确认前登记处只写 proposed，不落代码、不改状态、不改名。
 
-3. 资产状态机（A / B / C 三方联动的唯一契约）
+5. 资产状态机（B 登记 / C 推进 / A 消费）
 
-text
-placeholder_only ──(C 三件套齐 + 自检过)──> ready ──(B 填 glbLod0Url)──> A 自动激活 S1..S5
-三件套 = LOD0.glb + poster1600.webp(≤90KB) + silhouette.svg，缺一不许标 ready。
-placeholder_only 时：Agent A 锁死 S0 COLD_IDLE，0 次 GLB 网络请求；点 [升维] 直接落 fallback_poster，保留已选配置，禁转圈/白屏/报错弹窗。
-命名逐字冻结：SV_MP_<SKU>_lod0|lod1|lod2.glb、_poster1600.webp、_thumb640.webp、_silhouette.svg。 禁止 _final / _v3 / _new / _test2 等野后缀。
-R2 路径：bundle/<SKU_ID>/…、mto/<SKU_ID>/…；域固定 https://assets.spacevanta.com，前端禁止硬编码其他源。
-4. 占位符与交易层铁律（全 Agent 通用）
 
-呈现层只保留 {{KEY}} 原文，用 textContent 渲染；缺失 / 超时 → 整块不渲染，禁编默认值、禁 MOCK 进 src/。
-const MOCK 只允许存在于 artifacts/design/*.html 设计样机与 *.test.ts，build 期须可 tree-shake。
-市场判定只认 URL 前缀 /{market}/ 与 sv_ship_to，绝不从 accept-language 猜；组件内禁硬编码 /en-us/。
-本仓所有 HANDOFF 批次对交易层（pricing / shipping / bundle 计价 / mto / season / config）默认只读消费；写入类（如 cart-commit）须单独口头放行进入 B 组。
-checkout* 全线【禁动】；d1/migrations 历史迁移【禁动】；PALETTE.json 的 lockedTokens（--sv-paper / --sv-paper-subtle / --sv-ink / --sv-seam-aura）只读【禁动】。
+placeholder_only ──(C: 三件套齐 + 检查报告过)──> ready ──(填 glbLod0Url)──> A 激活 S1→S4
+      │                                              ↑
+      └── 此时 A 锁 S0_COLD_IDLE，S2/S3 unreachable ──┘
+试点首模：SV_MP_OLIVE_OIL_250（几何最简、只挂 anchor_B）
+test.glb.html = R2 连通性测试件，非资产，上线前删
+全 12 SKU + MTO 族当前 glbLod0Url = null
 
-5. 脚手架与路径映射裁决（已定，不再争论）
+6. 📥 L3 施工单入库规范（Gemini 每交一单，照这走）
 
-施工单原文	本仓裁决	原因
-Next.js app/[locale]/(shop)/…	Workers + 静态 Assets (wrangler)；app/[market]/… → src/pages/<market>/… + src/components/**	契约 v1.3.0 已锁定技术栈，不用 Next.js
-默认 /en-us/ 硬编码	动态 /{market}/，从路由参数读取并透传	Hero 单段 0 多市场冻结表优先于示例默认值
-/?sv_season=off / ?sv_motion=off / ?sv_agent=off	三个熔断参数必须实现，非法值按默认（season=off、motion=on、agent=on）	段 1 F-10 / F-11 验收项
-6. 施工单索引
+6.1 定稿判定（四项全有才算定稿）
 
-FLOW_ID	FREEZE_ID	文件	主责 Agent	批次
-sv_flow_hero_bridge_v03	sv_home_herobridge_asset_v01	home-hero-bridge/HANDOFF_sv_flow_hero_bridge_v03.md	A（+B 供装配契约）	A 组 → B 组 → C 组
-sv_flow_bundle_v01	sv_bundle_mother_v01_0	bundle/HANDOFF_sv_flow_bundle_v01.md	B（规范）+ A（呈现）	A 组 → B 组（需放行）→ C 组
-—	—	bundle/ASSET_REGISTRY.md	B 唯一维护	持续
-—	—	agent-D/G0_agent_slot_contract.md	D 唯一维护	停在 G-0
-新 HANDOFF 入库规范（重要 · Gemini / 任何外部来源通用）
+FLOW_ID ✅ · FREEZE_ID ✅ · 段2 状态矩阵 ✅ · 段6 验收表 ✅ 缺任一项 → 丢 Drive/_draft/，文件名加 _draft，全员禁开工。
+
+6.2 入库五步（总闸执行，Agent 不得代做）
 
 text
-命名：  HANDOFF_sv_flow_<name>_vNN.md          （不改名，保留原文件名）
-目录：  handoffs/<flow-domain>/                 （hero-bridge / bundle / mto / scene / rental-agent …）
-必附：  段0 抬头(FLOW_ID/FREEZE_ID/批次) · 段2 状态矩阵 · 段2.5 冻结面 · 段3 文件落点 · 段6 验收表
-禁入：  src/ 、任何 .html 设计样机、任何含真实 MOCK 数据的文件
-索引：  入库同一次 commit 里，更新本文件第 6 节表格 + 填「主责 Agent」
-冲突：  与契约/脚手架裁决冲突 → 先在本文件第 5 节加一行裁决，再让 Agent 动工
-入库 Commit Message 模板：
+① Gemini 投 Drive/SpaceVanta-L3/INBOX/HANDOFF_sv_flow_<name>_vNN.md
+② 总闸核对：四项定稿标记 + FLOW_ID 唯一 + 无裸价/运费字面量 + 与契约无冲突
+③ 原样搬入 handoffs/<domain>/HANDOFF_sv_flow_<name>_vNN.md   ← 文件名禁改，改=丢谱系
+④ 同一次 commit 更新本文件 6.3 索引表（填 FLOW_ID/FREEZE_ID/主责Agent/批次/状态）
+⑤ Drive 原件移到 ARCHIVE/ 并改名加 _archived_vNN
+6.3 L3 索引表（唯一权威清单）
+
+FLOW_ID	FREEZE_ID	施工单路径	主责 Agent	批次	状态
+sv_flow_hero_bridge	sv_home_herobridge_asset_v01	handoffs/home-hero-bridge/HANDOFF_sv_flow_hero_bridge_v03.md	A（B 供锚点 / C 供资产）	A 组	🟢 已入库·待 A 交三样
+sv_flow_bundle	sv_bundle_mother_v01	handoffs/bundle/HANDOFF_sv_flow_bundle_v01.md	B（A 建空壳 / C 供资产）	母模型冻结	🟢 已入库·待 B 出 motherRig v1
+sv_flow_bundle_children_active	—	⏳ Gemini 待交	B → C	后续	⚪ 未提交
+sv_flow_bundle_children_cold	—	⏳ Gemini 待交	B → C	后续	⚪ 未提交
+sv_flow_mto_mother	sv_mto_mother_v01（锚点已冻结，单待补）	⏳ Gemini 待交	B	后续	🟡 锚点已冻·单未到
+sv_flow_mto_children	—	⏳ Gemini 待交	B → C	后续	⚪ 未提交
+sv_flow_agent_g0	—	handoffs/agent-D/G0_agent_slot_contract.md（本仓自建占位）	D	G-0	🟢 占位·只登记不实现
+新单入库 = 在表尾加一行；状态词只允许：⚪未提交 / 🟡部分 / 🟢已入库 / 🔵施工中 / ✅已验收 / ⏸暂停 / ❌作废。
+6.4 入库 Commit Message 模板（照抄填空）
 
 
-docs(handoff): <FLOW_ID> L3 vNN 施工单入库 → handoffs/<domain>/ ；主责 Agent=<X>；批次=A
-7. 状态机总闸（Promote 六态 · 全 Agent 共识）
+docs(handoff): <FLOW_ID> vNN 入库 — <一句话范围>
 
-text
-S0 COLD_IDLE    poster1600 + 虚线 silhouette，0 GLB 请求        常驻（无实模时永久停驻）
-S1 PROMOTE_ARM  卡片 scale(1.02) + 左缘 seam 强化               ≤80ms（无 JS → 开静态大图页）
-S2 CROSSFADE    poster 1→0 / 3D 0→1，同机位同暖底 ΔE≤2          240ms（motion=off → 0ms）
-S3 HOT_LIVE     <body> 顶层独立舞台 + 不可见 Mother 虚线锚点      首帧 ≤600ms 暖 / ≤1200ms 冷
-S4 DEMOTE       回 poster；Canvas 不卸载，降 LOD1 停 rAF         120ms（Esc/关闭/滚出）
-S5 COLD PARK    dispose 三件套（geometry/material/texture）       60s 闲置或内存告警 → 回 S0
-fallback_poster 原地停 poster + 保留已选配置 + [查看大图]         LOD失败/WebGL不可用/placeholder_only
-禁止出现的状态名：loading / error / success / processing / pending。 超时一律落 timeout_hidden（整块不渲染）或 fallback_poster，永不白屏、永不转圈、永不弹红框。
+- FREEZE_ID: <...>
+- 主责: Agent <X> ｜ 批次: <A组/B组/...>
+- Drive 原件: <ARCHIVE 链接> ｜ 定稿核验: FLOW✅ FREEZE✅ 段2✅ 段6✅
+- 冲突裁决: <若有，写“契约§x 胜”；无则写“无”>
+6.5 按类型分流（别再往 handoffs 里塞错东西）
 
-8. Agent 启动顺序（串行，别并行空转）
+Gemini / 别人给你的	去哪	谁碰
+L3 工程移交单 HANDOFF_*.md	handoffs/<domain>/	总闸搬，Agent 读
+L1/L2 视觉与架构图	docs/design/	只读参考，禁 import 进 src/
+模型说明 / 装配规格 Markdown	handoffs/<domain>/MODEL_<名>.md + registry 加一行	B 登记
+GLB / KTX2 / poster / blend	❌ 永不进 Git、永不进 Drive 当真源 → R2	仅 C
+资产检查报告	reports/asset-check/*.md	C 写，B/A 读
+契约类改动	根目录 *.md + 变更申请	仅总闸 merge
 
-text
-现在    ▶ Agent A：Hero-Bridge A 组（空壳 + 静态占位 + S0..S5 壳 + a11y + fallback_poster）
-          Agent B：同步出 ASSET_REGISTRY 正式版 + Bundle/MTO 母→槽装配矩阵（纯文档即可）
-验收过  ▶ Agent B：写 src/three/rig/*（Bundle 先 → 活跃/沉睡子模型细则 → MTO 随后）
-有首模  ▶ Agent C：试点 1 个 SKU（导出→压→派生图→传 R2→自检报告）→ B 标 ready → A 自动升维
-        ▶ Agent C：验收过再批量补其余 11 SKU
-要动脑  ▶ 先发出口令「开 G-1」→ Agent D 出《G-1 能力边界与审查单》→ 总闸批准 → 才接 worker/ai/*
-一句话：A 先跑通壳 → B 定谱系 → C 出首模 → D 等口令。新施工单 = 新 Agent；同一施工单的小修正 = Follow-up。
+7. 目录结构（当前应长这样）
 
-9. 快速自检（每次 commit 前跑）
 
-bash
-# 1) 裸交易值不得进 src
-grep -rnE "¥|＄|\$[0-9]|HK\$|[0-9]+% off|满[0-9]|order by [A-Z][a-z]+ [0-9]" src/ && exit 1
+.
+├── GROK_BUILD_CONTRACT.md      ← 宪法（Git only）
+├── AGENTS.md                   ← 路由与红线（Git only）
+├── wrangler.toml
+├── src/
+│   ├── index.ts                worker 入口 + Assets 兜底 + market 解析
+│   ├── client/{routes,assetPaths}.ts
+│   ├── components/
+│   │   ├── primitives/{Seam,RootModalPortal}.tsx
+│   │   ├── promote/{AssetManifestTypes,ColdModelCard,HotStageModal,PosterFallbackModal}.tsx
+│   │   ├── home-hero-bridge/*.tsx
+│   │   └── agent-slot/         （G-1 后才建）
+│   ├── three/rig/motherRig.ts  ← ⭐ B 独占，全仓唯一锚点真源
+│   ├── assets/placeholder/     本地占位 poster（≤90KB），换 R2 只改 assetPaths.ts
+│   └── styles/dna.tokens.css   仅令牌
+├── handoffs/
+│   ├── README.md               ← 本文件
+│   ├── bundle/
+│   │   ├── HANDOFF_sv_flow_bundle_v01.md
+│   │   └── ASSET_REGISTRY.md   ← B 独占维护（C 只改自己 SKU 行）
+│   ├── home-hero-bridge/
+│   │   └── HANDOFF_sv_flow_hero_bridge_v03.md
+│   └── agent-D/
+│       └── G0_agent_slot_contract.md
+├── reports/asset-check/        C 的检查报告
+├── docs/design/                L1/L2 图，禁 import
+├── d1/migrations/              🔒 历史冻结
+└── checkout*/                  🔒 禁碰
 
-# 2) 组件层不得出现裸 hex（PALETTE*.json 与 dna.css 豁免）
-grep -rnE "#[0-9A-Fa-f]{6}" src/ --exclude="PALETTE*.json" --exclude="dna.css" && exit 1
 
-# 3) MOCK 不得进 src（测试文件除外）
-grep -rn "const MOCK" src/ --exclude="*.test.ts" --exclude="*.spec.ts" && exit 1
+8. Agent 读单顺序卡（贴在每个人脑门上）
 
-# 4) 禁止硬编码市场前缀
-grep -rnE "/en-us/" src/ --exclude="*.test.ts" && exit 1
+Agent	读哪几段就够
+A	段0 DNA · 段1 意图 · 段2 状态矩阵 · 段2.5 冻结面（只取类型，不取锚点值）· 段3 路径 · 段4 内容 · 段6 验收
+B	段0 · 段2.5 冻结面（母模型/锚点/seam/零穿模）· 段6 验收
+C	段2.5 的 LOD/贴图/命名预算 · ASSET_REGISTRY.md 自己那几行 · B 的生产规格单
+D	段2.5 的「G-0 冻结插座」小节 · 本文件 §2/§3
+只读需要的段，别囫囵吞全文再自行发挥。
 
-# 5) placeholder_only 阶段不得有 GLB 请求写死
-grep -rnE "\.glb" src/ | grep -v "placeholder_only\|assetStatus\|test.glb.html" && echo "⚠️ 复核：是否所有 .glb 引用都受 assetStatus 门控？"
-最后更新：四 Agent 分工上线（A 网页 / B 模型装配与谱系 / C 3D 资产生产 / D Space Rental 智能体）；G-0 只登记不实现。
+
+9. 一句话
+
+Drive 收纸，Git 记账，R2 放肉；B 定钉，C 出肉，A 装场面，D 留插座；Agent 交 diff，总闸按合并键。
