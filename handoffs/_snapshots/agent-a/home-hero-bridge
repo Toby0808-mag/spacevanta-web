@@ -1,0 +1,42 @@
+# SNAPSHOT · Agent A · sv_flow_hero_bridge_v03
+- 生成时间：2026-11-25T14:32+08:00
+- 施工 Agent：A（网页/前端）
+- 批次：Hero-Bridge A 组
+
+## ① 源件指纹（必填，缺一即无效）
+- Drive 路径：SpaceVanta-L3/INBOX/HANDOFF_sv_flow_hero_bridge_v03.md
+- Drive 最后修改时间：2026-11-24 21:07 (+08:00)
+- FLOW_ID：sv_flow_hero_bridge_v03
+- FREEZE_ID：sv_freeze_hero_bridge_a_v01
+- 定稿四项自检：[x]FLOW_ID [x]FREEZE_ID [x]段2状态矩阵 [x]段6验收表
+- 我的 SHA-256 前缀（若 Cursor 能取到）：`a3f1…`（取不到写 `N/A · 已肉眼核对版本号`）
+
+## ② 契约加载确认（Git 侧，逐条勾）
+[x] GROK_BUILD_CONTRACT.md v1.0.0 已读
+[x] AGENTS.md §0 Checklist 已走
+[x] handoffs/README.md §2 命名表 / §5 状态机 / §6 入库规范 已读
+[x] 禁碰层已加载：worker/* · d1/migrations · checkout* · PALETTE lockedTokens · artifacts/design/*.html
+
+## ③ Key Info Summarize（我的理解，供总闸验错）
+1. 段3路径映射（原 → 本仓）：
+   - app/[locale]/(shop)/page.tsx(Hero区) → src/components/home-hero-bridge/HeroBridgeShell.tsx
+   - components/HeroBridge/*            → src/components/home-hero-bridge/*
+   - public/hero-poster.*               → src/assets/placeholder/*（经 src/client/assetPaths.ts）
+   - next/link                          → src/client/routes.ts 唯一出口
+2. 状态机：S0↔S1↔S5；**S2/S3 = unreachable**，守卫函数 `guardAssetReady()` 在 HotStageModal.tsx:L42
+3. 资产：assetStatus=placeholder_only × 12 SKU + MTO族 ⇒ **锁 S0，0 次 .glb**
+4. 锚点：**我无权定义**。全部 `anchor: null` + `console.warn("[A] awaiting Agent B motherRig")`
+5. 开关：sv_motion=off / sv_season=off / sv_agent=off / sv_mother_rig=on(no-op) + PRM
+6. 本轮不接的 Worker：fact / shopline / pricing / bundle / mto / shipping / season / config
+
+## ④ 我打算动的文件（新建/改，逐条）
+| 文件 | 建/改 | 一句话职责 | 依赖 |
+|---|---|---|---|
+| src/client/routes.ts | 建 | market 解析+出口URL唯一构造 | 无 |
+| … | | | |
+
+## ⑤ 自检预言（写完照跑，原始输出贴给总闸）
+grep 期望值：裸hex=0 / "/en-us/"=0 / const MOCK=0 / .glb=0 / anchor_A|slot_base|bay_=0
+
+## ⑥ 待总闸裁决的歧义（没有就写「无」）
+- 例：段3 未说 F-04 出口是 /{market}/pages/... 还是 /{market}/scene/...，我暂按前者，请裁。
