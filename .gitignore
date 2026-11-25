@@ -1,0 +1,9 @@
+.ref/
+*.glb
+*.blend
+*.avif
+*.ktx2
+node_modules/
+dist/
+.env
+*.log
