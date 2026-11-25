@@ -284,3 +284,87 @@ echo "────────────────────────�
 echo "FAIL=$FAIL  WARN=$WARN"
 if [ "$FAIL" -gt 0 ]; then red "⛔ 不得出包、不得上传 Drive。修完重跑。"; exit 1; fi
 grn "✅ 十五门全绿 → 允许 build → zip(根层直出) + MANIFEST.json + SUMMARY.md 双写"; exit 0
+
+# ── G16 三端隔离：Drive 侧设计件禁入仓（v1.2 扩表 9 类）──────────────
+g16_three_plane_isolation() {
+  local root="${1:-.}"
+  local fail=0
+
+  # 1) 文件名级拦截（9 类，含附录D 新增 5 类）
+  local FORBIDDEN='(^|/)(HANDOFF_|FLOWCONTRACT_|L3_MANIFEST_|L3D_|ASSET_MAP|AGENT_ASSET_REGISTRY|VERIFY_|L25_[^/]*\.html|MOCK)'
+  local hits
+  hits=$(cd "$root" && git ls-files | grep -Ei "$FORBIDDEN" || true)
+  if [ -n "$hits" ]; then
+    echo "  ✗ G16-a 设计件入仓（应只在 Drive）:"
+    echo "$hits" | sed 's/^/      /'
+    fail=1
+  else
+    echo "  ✓ G16-a 无 HANDOFF/FLOWCONTRACT/L3_MANIFEST/L3D/ASSET_MAP/AGENT_REGISTRY/VERIFY/L25/MOCK 入仓"
+  fi
+
+  # 2) 目录级：incoming/ 必须恒空（允许 README.md 与 .gitkeep）
+  local inc
+  inc=$(cd "$root" && git ls-files protocol/handoffs/incoming/ 2>/dev/null \
+        | grep -Ev '/(README\.md|\.gitkeep)$' || true)
+  if [ -n "$inc" ]; then
+    echo "  ✗ G16-b incoming/ 非空（图纸在 Drive，此处恒空）:"
+    echo "$inc" | sed 's/^/      /'
+    fail=1
+  else
+    echo "  ✓ G16-b incoming/ 恒空"
+  fi
+
+  # 3) outgoing/ 只准 SUMMARY + DEFERRED（+ 可选 A-xxx 子目录）
+  local out
+  out=$(cd "$root" && git ls-files protocol/handoffs/outgoing/ 2>/dev/null \
+        | grep -Ev '/(SUMMARY|DEFERRED)[^/]*\.md$|/(README\.md|\.gitkeep)$|/A-[0-9]+/' || true)
+  if [ -n "$out" ]; then
+    echo "  ✗ G16-c outgoing/ 混入了非总结件:"
+    echo "$out" | sed 's/^/      /'
+    fail=1
+  else
+    echo "  ✓ G16-c outgoing/ 仅 SUMMARY + DEFERRED"
+  fi
+
+  # 4) 生产代码里不许出现设计样机痕迹（fetch 假端点 / MOCK 键 / L25 引用）
+  local src
+  src=$(cd "$root" && grep -rnE "fetch\(['\"]https?://|L25_|MOCK\.(DUTY|LEADTIME|THRESHOLD)|sv_flow_(scene|bundle|mto|mixedcart|season)_v" \
+        src/ 2>/dev/null | grep -v '\.test\.' || true)
+  if [ -n "$src" ]; then
+    echo "  ✗ G16-d src/ 出现样机痕迹或硬编码端点（应经 SpaceVanta.api）:"
+    echo "$src" | sed 's/^/      /'
+    fail=1
+  else
+    echo "  ✓ G16-d src/ 无样机痕迹、无硬编码 Worker 地址"
+  fi
+
+  # 5) 裸 hex 巡检（PALETTE v1.2.1 补丁5）：白名单仅 PALETTE*.json 与 dna.css 生成物
+  local hex
+  hex=$(cd "$root" && grep -rnE "#[0-9A-Fa-f]{6}\b" src/ \
+        --exclude='PALETTE*.json' --exclude='*dna*.css' 2>/dev/null || true)
+  if [ -n "$hex" ]; then
+    echo "  ✗ G16-e 组件内出现裸 hex（只准 var(--sv-*)）:"
+    echo "$hex" | sed 's/^/      /' | head -8
+    fail=1
+  else
+    echo "  ✓ G16-e 令牌唯一（无裸 hex）"
+  fi
+
+  # 6) lockedTokens 防篡改
+  if cd "$root" && git diff --cached --name-only 2>/dev/null | grep -qE 'PALETTE.*\.json|dna.*\.css'; then
+    if cd "$root" && git diff --cached -U0 -- 'PALETTE*.json' '*dna*.css' 2>/dev/null \
+       | grep -qE '^[-+].*(--sv-paper|--sv-paper-subtle|--sv-seam-aura)'; then
+      echo "  ✗ G16-f 改动 lockedTokens（--sv-paper / --sv-paper-subtle / --sv-seam-aura 只读）"
+      fail=1
+    else
+      echo "  ✓ G16-f lockedTokens 未被触碰"
+    fi
+  else
+    echo "  ✓ G16-f lockedTokens 未被触碰（本次未改令牌文件）"
+  fi
+
+  return $fail
+}
+
+g16_three_plane_isolation "$REPO_ROOT" || GATE_FAIL=$((GATE_FAIL + 1))
+
