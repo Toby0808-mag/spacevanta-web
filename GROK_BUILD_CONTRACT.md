@@ -178,6 +178,7 @@ registry 标错 ready	B 把状态退回 placeholder_only + 填《变更申请》
 锚点改名	破坏性变更：七格申请 + 全 Agent 影响面 + 迁移版本；未批准前旧名继续用
 Gemini 单子改版	总闸重搬 + 新快照 _v2.md；Agent 见版本漂移自动停手
 R2 资产坏	C 重传同命名（禁 _final/_v3/_new），registry 不动 URL 只动 verifiedAt
+
 §12 版本
 
 版本	日期	变更
