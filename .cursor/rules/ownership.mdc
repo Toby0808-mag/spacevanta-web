@@ -1,0 +1,10 @@
+【开发指令 - 由我（用户）决定内容】
+1. 本次开发目标：[例如：开发 sv-bundle-hero 模板，参考 Drive 中 /SpaceVanta/设计/H-001.pdf]
+2. 协议已自动加载（.cursor/rules）。请严格遵循：
+   - 开发顺序由我定，你仅执行；遇不归你管项，标记 DEFERRED 台账（protocol/handoffs/outgoing/），不停工。
+   - 门禁过十五门（G13 路由冻结、G14 页面冻结、G15 Fallback 可达）；Fallback L0-L5 必须可用。
+   - “没做过”不是否决，“说不清回退”才是；新能力（KV 等）需逻辑成立+总闸（?sv_kv=off）。
+   - 数据经 SpaceVanta.api，禁拼 Worker 地址；路由禁新增。
+3. 数据调用：读取我提供的 Drive 文件（粘贴内容或路径），解析需求。
+4. 执行：按协议生成/修改 `sections/sv-bundle-hero/` 下文件 → 运行 `protocol/scripts/check_gates.sh` → 全绿后落 `handoffs/outgoing/` → 我审核后提交 GitHub。
+5. 当前：Workers Paid 环境，bundle 域名已填，scene 待部署（BLOCKED 已记）。
