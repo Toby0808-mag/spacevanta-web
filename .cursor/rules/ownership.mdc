@@ -1,10 +1,20 @@
-【开发指令 - 由我（用户）决定内容】
-1. 本次开发目标：[例如：开发 sv-bundle-hero 模板，参考 Drive 中 /SpaceVanta/设计/H-001.pdf]
-2. 协议已自动加载（.cursor/rules）。请严格遵循：
-   - 开发顺序由我定，你仅执行；遇不归你管项，标记 DEFERRED 台账（protocol/handoffs/outgoing/），不停工。
-   - 门禁过十五门（G13 路由冻结、G14 页面冻结、G15 Fallback 可达）；Fallback L0-L5 必须可用。
-   - “没做过”不是否决，“说不清回退”才是；新能力（KV 等）需逻辑成立+总闸（?sv_kv=off）。
-   - 数据经 SpaceVanta.api，禁拼 Worker 地址；路由禁新增。
-3. 数据调用：读取我提供的 Drive 文件（粘贴内容或路径），解析需求。
-4. 执行：按协议生成/修改 `sections/sv-bundle-hero/` 下文件 → 运行 `protocol/scripts/check_gates.sh` → 全绿后落 `handoffs/outgoing/` → 我审核后提交 GitHub。
-5. 当前：Workers Paid 环境，bundle 域名已填，scene 待部署（BLOCKED 已记）。
+---
+description: SpaceVanta 项目核心协议规则（Cursor 自动加载）
+globs: ["**/*"]
+---
+# SpaceVanta Ownership & Protocol Rules (v1.1.1)
+
+## 核心原则
+1. **开发目标与顺序 100% 由用户决定**。协议不排期、不指定具体模板（如 bundle-hero）。AI 仅执行用户指令。
+2. **遇不归管/未就绪项**：标记 `DEFERRED_TO_<AGENT>` 入台账（`protocol/handoffs/outgoing/<ID>/SUMMARY.md`），继续干手上的活，等用户统一处理。连续 2 rev 仍 DEFERRED 升级 BLOCKED。
+3. **门禁十五门**：含 G13（Worker 路由冻结，禁新增）、G14（页面路由冻结）、G15（Fallback 六级阶梯可达，L0-L5 每级可用终态，禁 loading）。机器扫 G15(a/b/d/e)，G15(c) 断网人工跑。
+4. **Fallback 六级**：L0 全功能 → L1 降维 → L2 静态 → L3 旧配置 → L4 海报 → L5 裸文本。每级必须可用，禁假死。
+5. **边缘能力（KV/Queues 等）**：鼓励首次使用，但“没做过”不是否决，“说不清回退”才是。KV 五禁（价格/库存/运费/幂等/订单），只放非交易配置（TTL 300s）。必须配总闸（如 `?sv_kv=off`）30s 回旧路径。Workers AI/Vectorize 在 G-1 口令前冻结。
+6. **数据调用**：仅经 `SpaceVanta.api`，禁拼 Worker 地址。路由冻结（`/pages/bundles` 等），禁新增。
+7. **提案与批准**：PROP-001（worker/scene 枢纽）、PROP-002（AE 打点+KV 非交易）已批。新提案需用户回“批准 PROP-NNN”才执行。用户“你决定”不算批准。
+8. **协议归属**：`protocol/` 子目录（含 PROTOCOL.md/STACK.md/agents/contracts/scripts/handoffs），`.cursor/rules/` 在根目录。主题包（layout/sections 等）不含协议文件。
+9. **handoffs**：`incoming` 仅通用格式，不放具体开发单（具体由用户在 Cursor 实时指令）；`outgoing` 存 DEFERRED/SUMMARY。
+10. **Git 忽略**：`.gitignore` 忽略 `handoffs/snapshots/`、日志；主题包出包仅含 Shopline 标准目录。
+
+## 初始调用
+用户指令 = 开发内容 + Drive 文件参考。AI 读此规则 → 关联 Drive → 落代码至本地主题目录 → 跑 `check_gates.sh` → 全绿后等用户审核 GitHub 提交。
