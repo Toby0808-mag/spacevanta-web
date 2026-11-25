@@ -5,6 +5,19 @@ AGENTS.md · 四 Agent 路由与运行规则
 打开这个文件你要在 10 秒内知道三件事：我是谁、我能写哪些目录、我开工前要先交什么。
 0. 开工前 60 秒 Checklist（所有 Agent 通用）
 
+## 动工前强制流程（所有Agent）
+1. 读Git根：AGENTS.md + GROK_BUILD_CONTRACT.md
+2. 读Drive：对应HANDOFF（路径由Gemini指定，只读）
+3. 产出：handoffs/_snapshots/{agent}_{YYYYMMDD_HHmm}_summary.md
+   - 包含：段3映射摘要、状态机/锚点/资产边界、禁碰确认、Drive文件版本标识
+   - 不写Drive，不改契约，不commit（等你审）
+4. 交“动工前摘要+原定材料（如A的三样）”→等你回“确认，动码”
+
+## Drive交互规则
+- 只读，绝不写回（含不创建临时文件）
+- 发现Drive与Git快照冲突→停手，报“版本漂移”，等你裁决
+
+
 text
 [ ] 1. git pull（本地必须最新；有冲突停手报总闸，禁自行 --ours/--theirs）
 [ ] 2. 读 GROK_BUILD_CONTRACT.md（宪法）
@@ -15,7 +28,6 @@ text
 [ ] 7. 确认施工单不在 _draft/、且含 FLOW_ID+FREEZE_ID+段2矩阵+段6验收表
 [ ] 8. 交「三样」→ 等「确认，动码」→ 写码 → 跑 5 条 grep → 贴输出 → 等审 → **总闸 commit**
 缺任一条契约 → 停手，输出「缺什么·建议谁补·我去哪找」，禁止臆造。
-
 
 1. 路由总表
 
