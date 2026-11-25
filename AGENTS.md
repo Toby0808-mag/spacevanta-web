@@ -3,3 +3,4 @@ CONTRACT_VERSION: 1.3.0
 🔒 唯一真源: ./GROK_BUILD_CONTRACT.md
 三把锁: 迁移号归MIGRATION_LEDGER / 共享层归Build / PLACEHOLDERS总表单一
 Cursor禁碰: worker/fact / worker/shopline / d1/migrations / PLACEHOLDERS.md / PALETTE.json
+📐 L3 施工单索引: ./handoffs/README.md（按 FLOW_ID 取单；与契约冲突时契约优先）
