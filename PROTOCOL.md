@@ -178,7 +178,7 @@ L5 静默不渲染     整块消失，页面**继续可购**
 
 ---
 
-## §5 十五门禁（全绿才出包；机器卡点，脚本 `scripts/check_gates.sh`）
+## §5 十6门禁（全绿才出包；机器卡点，脚本 `scripts/check_gates.sh`）
 
 ```text
 [1]  模块名禁点号           : sections|blocks|components 名含 "."（除扩展名）→ FAIL
@@ -210,6 +210,7 @@ L5 静默不渲染     整块消失，页面**继续可购**
          （(c) 属人工闸门，见 §10 第 4 项；其余 a/b/d/e 由脚本静态卡）
      (d) 新能力接入但缺 ?sv_<cap>=off 总闸 → FAIL
      (e) 价格|库存|运费|幂等键|订单状态 出现在 KV 读写路径 → FAIL（强一致红线）
+- **G16 三端隔离**：HANDOFF ∈ Drive，Cursor 只读执行，GitHub 仅 SUMMARY。incoming/ 恒空。
 ```
 **zip 根层直接 `layout/ sections/ …`，不许再套一层文件夹。**；门禁全清单细则见 `STACK.md §F`。
 
