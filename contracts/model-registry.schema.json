@@ -1,0 +1,81 @@
+{
+  "$comment": "model-registry.json 的形状契约（A2 拥有实例，所有人只读）。实例文件在交付时由 A2 产出并写进快照 assets-lock.json。形状改动 = MAJOR + 用户 APPROVED。",
+  "version": "1.1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["version", "lines", "models"],
+  "properties": {
+    "version": { "type": "string" },
+    "lines":   { "type": "object", "additionalProperties": false, "properties": {
+                   "bundle": {}, "scene": {}, "mto": {} },
+                 "$comment": "业务线代号固定三个：bundle / scene / mto。旧词 skin 不再是线名，仅作已定资产名残留（sv-skin-showcase / SKIN_MOTHER）。" },
+    "models":  { "type": "object", "additionalProperties": { "$ref": "#/definitions/model" } }
+  },
+  "definitions": {
+    "model": {
+      "type": "object",
+      "required": ["line","is_mother","kind","version","base","perm","master_page_url"],
+      "properties": {
+        "line":      { "enum": ["bundle","scene","mto"] },
+        "is_mother": { "type": "boolean" },
+        "is_flagship":{ "type": "boolean", "description": "仅 scene 线用；非主推商品无母模型" },
+        "kind":      { "enum": ["mother","active","dormant"] },
+        "derived_from":{ "type": ["string","null"], "description": "子模型必填母 id；母为 null" },
+        "version":   { "type": "string", "pattern": "^v\\d+$" },
+        "base":      { "type": "string", "pattern": "^https://assets\\.spacevanta\\.com/" },
+        "triangles": { "type": "integer", "description": "母模型必须为 0" },
+        "lod":       { "type": "object", "properties": { "lod0":{"maximum":120000}, "lod1":{"maximum":45000}, "lod2":{"maximum":12000} } },
+        "poster_kb": { "type": "number", "maximum": 90 },
+        "compression":{ "type": "object", "properties": { "draco":{"type":"boolean"}, "meshopt":{"type":"boolean"}, "ktx2":{"type":"boolean"} } },
+        "anchors":   { "$comment": "仅母模型有；order 冻结 A→B→C→A", "type": "object", "properties": {
+                         "order": { "const": ["anchor_A","anchor_B","anchor_C","anchor_A"] },
+                         "seam_rail": { "const": "A→B→C→A" } } },
+        "lid_zero_interpenetration": { "$comment": "仅 Bundle_MOTHER；四坐标逐字冻结，改 = MAJOR + 设计复核", "type": "object", "required": ["lid_plate_thickness","lid_top_local_y","plinth_bottom_local_y","plinth_height","sv_group_local_y","sv_min_y_normalized"],
+          "properties": {
+            "lid_plate_thickness":  { "const": 0.08 },
+            "lid_top_local_y":      { "const": 0.0400 },
+            "plinth_bottom_local_y":{ "const": 0.0405 },
+            "plinth_height":        { "const": 0.0035 },
+            "sv_group_local_y":     { "const": 0.0440 },
+            "sv_min_y_normalized":  { "const": true } } },
+        "perm":      { "$ref": "#/definitions/perm" },
+        "master_page_url": { "type": "string", "enum": ["/pages/bundles","/pages/made-to-order","/pages/scene"], "$comment": "必须等于 contracts/routes.json 中对应线 path；前端不得自拼" }
+      },
+      "allOf": [
+        { "if": { "properties": { "is_mother": { "const": true } } },
+          "then": { "properties": { "triangles": { "const": 0 }, "derived_from": { "type": "null" },
+                                    "perm": { "properties": { "recolor":{"const":true}, "reskin_season":{"const":true} } } } } },
+        { "if": { "properties": { "is_mother": { "const": false } } },
+          "then": { "properties": { "perm": { "properties": { "recolor":{"const":false}, "reskin_season":{"const":false} } } },
+                    "$comment": "子模型零独立换色权；母换肤→子同步展开（派生重算）" } },
+        { "if": { "properties": { "kind": { "const": "dormant" } } },
+          "then": { "properties": { "lod": {"type":"object"}, "poster_kb": {"maximum":90} },
+                    "$comment": "沉睡：S0 阶段 0 个 GLB 请求，仅 poster + lod2 silhouette" } }
+      ]
+    },
+    "perm": {
+      "type": "object", "additionalProperties": false,
+      "required": ["view","compose","recolor","reskin_season","configure","checkout","export"],
+      "properties": {
+        "view":          { "type": "boolean" },
+        "compose":       { "type": "boolean", "description": "拖入/换槽/增删" },
+        "recolor":       { "type": "boolean", "description": "母独占，子恒 false" },
+        "reskin_season": { "type": "boolean", "description": "母独占（季节皮肤），子恒 false" },
+        "configure":     { "type": "boolean" },
+        "checkout":      { "type": "boolean", "description": "任何子模型恒 false；购买一律经母页 cart 定型" },
+        "export":        { "type": "boolean" }
+      }
+    }
+  },
+  "invariants": [
+    "I-1 每业务线母模型恰好 1 个；scene 线仅 is_flagship 商品挂母",
+    "I-2 母 0 三角面、永不上材质/高光/接触阴影（仅 Mother Rig 调试可见）",
+    "I-3 子模型全部同级无大小；100% 派生母（含几何 pivot 与皮肤），零独立换色",
+    "I-4 挂载序 anchor_A→B→C→A 冻结；snap 容差 6°/3mm；seam_rail 闭环",
+    "I-5 顶盖 SV 零穿模四坐标逐字冻结（见 lid_zero_interpenetration）",
+    "I-6 M-Proto 每 SKU 恰好 1 份源几何；Hot 3D 与 Cold 轮廓同源（Law 1，禁为贴片另建几何）",
+    "I-7 版本路径不可变；回滚 = 指针回指，不重传、不覆写",
+    "I-8 全站 Hot Canvas ≤ 4；S5 后渲染内存回基线 ±2",
+    "I-9 master_page_url 只能来自 routes.json；活跃子与沉睡子(S3后)均强制挂回母页 CTA"
+  ]
+}

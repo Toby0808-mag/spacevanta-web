@@ -1,0 +1,353 @@
+{
+  "$comment": "Worker 端点登记表（唯一真源）。route_policy=frozen_until_deprecated：路由随代码源走，是常量，不进 handoff、不进 schema 设置项、不由任何人临时改。url 字段 = A3 从线上部署事实抄入的登记，不是待设计决策；null = 该功能静默关闭并向 A1 返回 BLOCKED_BY_CONTRACT。新增/删除/改址一律走 PROTOCOL.md §3.2 提案五要素 → 用户 APPROVED → ADD新→并存2rev→DEL旧；即使『确认不影响』也不许即时删。Cursor 永不猜 *.workers.dev 域名。",
+  "version": "1.1.1",
+  "updated": "2026-11-25",
+  "route_policy": "frozen_until_deprecated",
+  "change_protocol": "PROTOCOL.md §3 提案制 + agents/backend.md §2 废除制",
+  "account": {
+    "plan": "Workers Paid",
+    "zone": "huzetao.workers.dev",
+    "custom_domain_bound": true,
+    "services_available": [
+      "Workers",
+      "D1",
+      "R2",
+      "KV",
+      "Queues",
+      "Analytics Engine",
+      "Email Workers",
+      "VPC/mTLS",
+      "Workers for Platform"
+    ],
+    "note": "能力『可用』≠ 已接入。接入任一新能力必须先提案（§3.5 三要素）+ APPROVED，并指明 §3.6 六级 Fallback 落点。见 capabilities 段。"
+  },
+  "front_access": {
+    "only_via": "SpaceVanta.api.get(key, path, params, {timeout:3000, ttl})",
+    "forbidden": [
+      "在 sections|blocks|components|layout 中出现 https?:// 字面量",
+      "从 theme.config.json / section schema 设置项 / data-* 属性读取 worker 地址",
+      "自行拼接 /api/ 路径"
+    ],
+    "violation": "BLOCKED_BY_CONTRACT + 门禁[13] FAIL"
+  },
+  "defaults": {
+    "market": "hk",
+    "locale_source": "URL 路径前缀（绝不 accept-language）",
+    "timeout_ms": 3000,
+    "cache_edge": 3600
+  },
+  "capabilities": {
+    "$comment": "§3.5 边缘能力池。status: active=已接入 / approved_pending_impl=已批准待实现 / available=可用未提案 / frozen=冻结（G-1 前连提案都不接）。fallback_to 指向 §3.6 级别。",
+    "d1": {
+      "status": "active",
+      "role": "交易/幂等/审计（强一致真源）",
+      "fallback_to": null,
+      "strong_consistency_required_for": [
+        "price",
+        "stock",
+        "shipping_quote",
+        "idempotency_key",
+        "order_status"
+      ],
+      "kill_switch": null,
+      "must_not_store": [],
+      "note": "强一致真源，本身就是所有强一致数据的落点；无需熔断，异常即 L2 R2 快照",
+      "base_layer": true
+    },
+    "r2": {
+      "status": "active",
+      "role": "模型/商品卡/贴片，assets.spacevanta.com，版本路径不可变",
+      "fallback_to": null,
+      "kill_switch": null,
+      "must_not_store": [],
+      "note": "assets.spacevanta.com 模型/商品卡/贴片，版本路径不可变；本身就是 L2 兜底层",
+      "base_layer": true
+    },
+    "kv": {
+      "status": "approved_pending_impl",
+      "proposal": "PROP-002",
+      "namespace": "SV_CONFIG",
+      "ttl_s": 300,
+      "kill_switch": "?sv_kv=off",
+      "role": "地域/季节/促销文案等非交易读多写少配置",
+      "fallback_to": "L1 D1 现算 → L2 R2 快照 → L3 theme.config last_known_good",
+      "hard_ban": [
+        "price",
+        "stock",
+        "shipping",
+        "idempotency_key",
+        "order_status"
+      ],
+      "must_not_store": [
+        "price",
+        "inventory",
+        "shipping_quote",
+        "idempotency_key",
+        "order_status"
+      ],
+      "note": "只放季节/促销文案等可容忍 60s 陈旧项；TTL 300s；市场地域判定仍走 D1+edge 1h，不进 KV"
+    },
+    "analytics_engine": {
+      "status": "approved_pending_impl",
+      "proposal": "PROP-002",
+      "dataset": "SV_PROMOTE",
+      "metrics": [
+        "stage",
+        "t_ms",
+        "result",
+        "fallback_level"
+      ],
+      "kill_switch": "?sv_ae=off",
+      "role": "纯旁路观测，写入 throw 即吞，不参与响应判定",
+      "fallback_to": "旁路丢弃：写入 throw 即吞，不影响响应",
+      "must_not_store": [
+        "任何交易决策/计价输入"
+      ],
+      "note": "Promote S0→S3 分段耗时·Hot Canvas 峰值·降级命中率；指标命名 sv_<domain>_<metric>"
+    },
+    "queues": {
+      "status": "available",
+      "proposal": null,
+      "role": "候选：加购后埋点 / 退差价回算 / LOD 衍生 / 邮件触发",
+      "requirement": "消费者必须幂等（idempotency_key 去重），3 次失败进 D1 dead_letter",
+      "fallback_to": "L1 同步重试 → L3 D1 dead_letter 表待人工",
+      "kill_switch": null,
+      "must_not_store": [
+        "非幂等写操作"
+      ],
+      "note": "消费者必须用 bundle_commit_log.idempotency_key 去重；3 次失败进死信"
+    },
+    "email": {
+      "status": "available",
+      "proposal": null,
+      "requirement": "域验证 + 退订合规，提案单必写",
+      "fallback_to": "L3 D1 待发队列 + 人工补发",
+      "kill_switch": null,
+      "must_not_store": [
+        "营销滥发（须退订合规）"
+      ],
+      "note": "需域验证 + 退订链接"
+    },
+    "vpc_mtls": {
+      "status": "available",
+      "proposal": null,
+      "requirement": "涉密钥，由用户亲自配；Cursor 只出方案不落密钥",
+      "fallback_to": "L5 功能静默关闭 + 人工介入",
+      "kill_switch": null,
+      "must_not_store": [
+        "前端直连/任何浏览器可见凭证"
+      ],
+      "note": "涉密钥，必须用户亲自配置"
+    },
+    "workers_ai": {
+      "status": "frozen",
+      "proposal": null,
+      "note": "AI 闸门停 G-0；未收到「开 G-1」口令前连提案都不接",
+      "fallback_to": "不适用（G-1 前禁止提案）",
+      "kill_switch": null,
+      "must_not_store": [
+        "一切交易事实与价格/运费/时效/库存/订单输出"
+      ]
+    }
+  },
+  "endpoints": {
+    "market": {
+      "status": "active",
+      "owner": "worker/market-festival",
+      "url": "https://space-vanta-market-festival.huzetao.workers.dev",
+      "deployed": true,
+      "routes": [
+        "GET /market/active"
+      ],
+      "query": {
+        "market": "string?",
+        "country": "ISO-3166?"
+      },
+      "contract": "contracts/api/market@1.0.0.json",
+      "cache": "edge 1h → （PROP-002 落地后）KV 300s",
+      "fallback": "{key:'hk',country:'HK',source:'default'} → L3",
+      "since": "Base 0.1.0"
+    },
+    "shipping": {
+      "status": "active",
+      "owner": "worker/shipping-intelligence",
+      "url": "https://space-vanta-shipping-intelligence.huzetao.workers.dev",
+      "deployed": true,
+      "routes": [
+        "GET /shipping/quote",
+        "GET /shipping/trust"
+      ],
+      "contract": "contracts/api/shipping@1.0.0.json",
+      "cache": "edge 1h",
+      "fallback": "{ok:false,data:null} → Trust 50 整条隐藏、生态插槽静默不渲染 → L4/L5",
+      "since": "Base 0.1.0"
+    },
+    "bundle": {
+      "status": "active",
+      "owner": "worker/bundle",
+      "url": "https://space-vanta-bundle.huzetao.workers.dev",
+      "deployed": true,
+      "routes": [
+        "GET /api/bundle/pool",
+        "POST /api/bundle/quote",
+        "POST /api/bundle/cart-commit"
+      ],
+      "contract": "contracts/api/bundle@1.0.0.json",
+      "cache": "pool: edge 1h / quote+cart-commit: no-store",
+      "idempotency": "cart-commit 必带 Idempotency-Key（A1 在 cart 阶段定型，2s 可 Cancel），D1 bundle_commit_log 唯一索引兜底",
+      "fallback": "{ok:false,data:null} → 组合块不渲染退单品列表（L4 $fallback-list）；quote 超时 → 主 CTA 禁用 + Retry，已选零丢失 → L3",
+      "unblocks": "H-001-sv-bundle-hero 的 3× BLOCKED_BY_CONTRACT 解除",
+      "blocks_handoff": [
+        "H-001-sv-bundle-hero"
+      ]
+    },
+    "catalog": {
+      "status": "active",
+      "owner": "worker/catalog",
+      "url": "https://space-vanta-catalog.huzetao.workers.dev",
+      "deployed": true,
+      "routes": [
+        "GET /resolve",
+        "GET /catalog/products"
+      ],
+      "contract": "contracts/api/catalog@1.0.0.json",
+      "cache": "edge 1h → （PROP-002 后）KV 300s，?sv_kv=off 回 D1",
+      "fallback": "A2 resolve() 失败 → 读 assets-lock 里上一版 manifest → L2；仍失败 → L4 $fallback-poster + 回母页 CTA 保留",
+      "note": "Scene 枢纽与 Bundle 的母/子解析共用此 worker；scene 线的业务语义归 PROP-001 的 worker/scene",
+      "blocks_handoff": [
+        "H-001-sv-bundle-hero"
+      ]
+    },
+    "mto_status": {
+      "status": "active",
+      "owner": "worker/mto-status",
+      "url": "https://space-vanta-mto-status.huzetao.workers.dev",
+      "deployed": true,
+      "routes": [
+        "GET /api/mto/sla",
+        "GET /api/mto/status"
+      ],
+      "contract": "contracts/api/mto@1.0.0.json",
+      "cache": "sla: edge 1h / status: no-store",
+      "fallback": "回落默认英文基础引导（**不含数字承诺**），F2 轻提示仍可展开 → L4",
+      "note": "MTO 写路径（POST /api/mto/request）尚未部署 ⇒ 只读消费；要开写需新提案。本单对其内部逻辑只读，改其内部 = 需提案。",
+      "blocks_handoff": [
+        "H-001-sv-bundle-hero (F-08 只读 SLA)"
+      ]
+    },
+    "promotion": {
+      "status": "active",
+      "owner": "worker/promotion",
+      "url": "https://space-vanta-promotion.huzetao.workers.dev",
+      "deployed": true,
+      "routes": [
+        "GET /api/promotion/active"
+      ],
+      "contract": "contracts/api/promotion@1.0.0.json",
+      "cache": "edge 1h，到点失效",
+      "fallback": "礼遇条整条隐藏，**保留基础装盒**，绝不渲染假百分比 → L5",
+      "note": "只吐 {tier, label, threshold} 已本地化串；呈现层仍保留 {{SET_SAVING}} / {{TIERS_SUMMARY}} 语义"
+    },
+    "scene": {
+      "status": "approved_pending_deploy",
+      "owner": "worker/scene",
+      "url": null,
+      "deployed": false,
+      "proposal": "PROP-001（用户 2026-11-25 APPROVED）",
+      "routes": [
+        "GET /api/scene/flagship",
+        "GET /api/scene/resolve"
+      ],
+      "contract": "contracts/api/scene@1.0.0.json",
+      "cache": "flagship: KV 300s（?sv_kv=off 回 D1）/ resolve: edge 1h",
+      "fallback": "is_flagship 判定失败 → **按 false 处理（宁少不多）**，Scene 枢纽不挂母模型、卡片退常规商品卡 → L4/L5",
+      "note": "Scene 枢纽 /pages/scene 的母模型解析与旗舰判定唯一归属。A3 部署后从线上清单抄入 url 并升 MINOR；抄入前 A1 走兜底并标 BLOCKED_BY_CONTRACT。",
+      "blocks_handoff": []
+    },
+    "season": {
+      "status": "active_via_market_festival",
+      "owner": "worker/market-festival（复用，不另建 worker/season）",
+      "url": "https://space-vanta-market-festival.huzetao.workers.dev",
+      "deployed": true,
+      "routes": [
+        "GET /season/active"
+      ],
+      "contract": "contracts/api/season@1.0.0.json",
+      "cache": "edge 1h，到点失效",
+      "fallback": "{id:null,skin:null,on:false} → 季节标记不渲染，--sv-season-accent 回落 --sv-seam → L3",
+      "note": "原『待建 worker/season』需求由 market-festival 承载，避免同职责双 worker；日期判定在 worker，A2 只按 on 开关挂皮肤，A1 不判日期。总闸 ?sv_season=off 持久优先。若将来职责膨胀需拆分 → 走 §3.2 提案。",
+      "blocks_handoff": []
+    },
+    "mto_write": {
+      "status": "pending_proposal",
+      "owner": "worker/mto（待建）",
+      "url": null,
+      "deployed": false,
+      "proposal": null,
+      "routes": [
+        "POST /api/mto/request（写路径）"
+      ],
+      "note": "当前只有 mto_status 只读在线。要开 MTO 下单写路径 → A3 提 PROP-00N（含幂等 + D1 表 + 并存/回滚），用户 APPROVED 后部署登记。未登记即调用 = BLOCKED_BY_CONTRACT。",
+      "blocks_handoff": []
+    },
+    "privilege": {
+      "status": "active_local",
+      "owner": "worker/privilege",
+      "url": null,
+      "routes": [
+        "（本地/边缘判定，无独立公网路由）"
+      ],
+      "contract": "contracts/api/privilege@1.0.0.json",
+      "fallback": "判定失败 → 按非会员（宁少不多），不报错不显示会员价 → L4/L5",
+      "note": "判定必须发生在 cart 之前（能力前移，checkout.lock §3）"
+    },
+    "cart_dispatch": {
+      "status": "active_local",
+      "owner": "worker/cart/dispatchIntent",
+      "url": null,
+      "routes": [
+        "（Cart 页属性读写，非公网 API）"
+      ],
+      "contract": "contracts/api/cart-dispatch@1.0.0.json",
+      "note": "合发 Ship Together / 分发 Ship Separately 只在 Cart 页写 cart 属性；进 Checkout 时 cart 已是最终态，checkout 阶段零写入。B-2 批次。",
+      "checkout_touched": false
+    }
+  },
+  "deprecation_queue": [],
+  "proposal_log": [
+    {
+      "id": "PROP-001",
+      "what": "新增 worker/scene（Scene 枢纽独立页 /pages/scene 的母模型解析与旗舰 is_flagship 判定）",
+      "why": "routes.json 已冻结 scene 线（/pages/scene），但 endpoints 无对应 owner；Scene 线仅 is_flagship 商品有母模型，该判定必须有一个强一致归属（D1），不能散在前端。依据 PROTOCOL.md §2.0 与 §4。",
+      "impact": "新增 endpoints.scene 键；catalog.resolve 增加 scene 语义；sv-scene-showcase 主 section 依赖；routes.json 不变（已冻结）",
+      "fallback": "判定失败按 is_flagship=false（宁少不多）→ 不挂母模型、退常规商品卡 = §3.6 L4/L5；?sv_scene=off 可整体熔断（待实现）",
+      "rollback": "删 endpoints.scene 键并回退 MINOR；前端自动走兜底子块，无需改模板",
+      "status": "APPROVED",
+      "approved_by": "用户",
+      "approved_at": "2026-11-25",
+      "raised_by": "cursor(A4 编排登记)",
+      "next": "A3 建 worker/scene → 部署 → 抄入 url，status: active，协议 MINOR 升版",
+      "supersedes": "无（全新，并存期不适用）"
+    },
+    {
+      "id": "PROP-002",
+      "what": "首次接入两项未用过的能力：① Analytics Engine 数据集 SV_PROMOTE 打点；② Workers KV 命名空间 SV_CONFIG 缓存非交易配置（TTL 300s）",
+      "why": "① Promote S0→S1 要 ≤80ms、S2 ≤240ms，目前**零实测数据**，探针 P6 只能测浏览器段，边缘段耗时必须 AE 才看得见（纯旁路、零耦合）；② 地域/季节/促销文案是典型读多写少（日更级），现每请求打 D1，命中 KV 后 D1 QPS 可降一个数量级，且这三类内容可容忍 ≤60s 陈旧。依据 PROTOCOL.md §3.5。",
+      "logic_check": "AE：只写不读、不参与响应判定 ⇒ 逻辑成立。KV：所缓存三类的陈旧容忍度 > TTL(300s) < 60s 上限？—— 季节/促销 300s 可接受；**地域 market 判定涉运费展示，保守起见仍走 D1 + edge 1h，不进 KV**（已据此收窄范围）。",
+      "fallback": "AE 写入 throw 即吞（旁路）；KV miss/异常 → L1 D1 现算 → L2 R2 versioned JSON 快照 → L3 theme.config last_known_good；?sv_kv=off / ?sv_ae=off 一键回退，无需重部署",
+      "kill_switches": [
+        "?sv_kv=off",
+        "?sv_ae=off"
+      ],
+      "hard_ban_respected": "KV 不碰 price / stock / shipping / idempotency_key / order_status（§3.6 硬规 3）",
+      "rollback": "关两个总闸 + 停止 AE 写入；KV 命名空间保留 7 天观察期再清。主题零改动（只经 SpaceVanta.api）",
+      "status": "APPROVED",
+      "approved_by": "用户",
+      "approved_at": "2026-11-25",
+      "raised_by": "cursor(A3)",
+      "next": "A3 建 KV 命名空间 + AE dataset → 写 sv-core 取数走 L0→L1→L2→L3 → SUMMARY 附降级表 → 协议 MINOR 升版",
+      "note": "本提案是『首次用新能力』的样板流程，后续 Queues / Email / VPC 照此五要素复用。"
+    }
+  ],
+  "rule": "未登记域名禁访问；模板禁拼地址，仅 SpaceVanta.api 内部调用；废除需提案五要素 + 用户 APPROVED + 并存 2 rev。新增能力需 §3.5 三要素 + §3.6 Fallback 落点。"
+}

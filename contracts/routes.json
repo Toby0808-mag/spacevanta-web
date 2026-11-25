@@ -1,0 +1,54 @@
+{
+  "$comment": "主题独立页路由冻结表（唯一真源）。改路由 = 提案 → 用户 APPROVED → ADD新→并存2rev→DEL旧（PROTOCOL.md §3 / STACK.md §E）。前端禁拼 /pages/ 字面量（门禁[14]）；一律查此表或经 A2 resolve().master_page_url。",
+  "version": "1.1.0",
+  "updated": "2026-11-25",
+  "locale_prefix": "platform_injected",
+  "canonical_form": "no_locale_prefix",
+  "note_locale": "规范写法永远不带 /en-us/ 这类前缀，由 Shopline 按市场路径注入；模板内跳转用平台 url 过滤器（过滤器真名待 A1 探针 P0 实测后回填 filters.json，禁猜）。",
+  "routes": {
+    "bundle": {
+      "path": "/pages/bundles",
+      "template": "templates/pages/bundles.json",
+      "master_section": "sv-bundle-hero",
+      "mother": "Bundle_MOTHER",
+      "model_slot_master": "hero_master"
+    },
+    "mto": {
+      "path": "/pages/made-to-order",
+      "template": "templates/pages/made-to-order.json",
+      "master_section": "sv-mto-stage",
+      "mother": "MTO_MOTHER",
+      "model_slot_master": "hero_master"
+    },
+    "scene": {
+      "path": "/pages/scene",
+      "template": "templates/pages/scene.json",
+      "master_section": "sv-skin-showcase",
+      "mother": "SKIN_MOTHER",
+      "model_slot_master": "hero_master",
+      "flagship_only": true,
+      "note": "Scene 枢纽。业务线代号为 scene（旧词 skin 仅残留在 section 名 sv-skin-showcase 与 SKIN_MOTHER 等已定资产名中，属资产名不属路线图；新命名一律用 scene）。仅 is_flagship 商品挂母模型，非主推走商品卡 + poster，无母。"
+    }
+  },
+  "rename_policy": {
+    "section_or_template_rename": "破坏性变更：目录名+主文件名+templates JSON 的 sections 键+i18n 键前缀，四处同改，handoff 点名，SUMMARY §2 记录",
+    "route_change": "走提案五要素 + 用户 APPROVED + MAJOR 升版；旧路由保留重定向 2 个 rev"
+  },
+  "rules": {
+    "no_url_concat_in_frontend": true,
+    "resolve_only_via": "A2 model-registry.resolve().master_page_url",
+    "fallback_when_registry_miss": "按业务线取本表 path（A2 负责，A1 仍不得自拼）",
+    "cta_mandatory": {
+      "active_child": true,
+      "dormant_poster_after_promote": true,
+      "label_source": "i18n 键 sv.common.view_master_model，禁硬编码文案",
+      "target_source": "resolve().master_page_url 或本表，禁拼接"
+    },
+    "change_requires": [
+      "handoff 显式点名 或 cursor 提案 APPROVED",
+      "routes.json MAJOR/MINOR 升版",
+      "SUMMARY §2 记录",
+      "旧路由重定向保留 2 个 rev"
+    ]
+  }
+}
