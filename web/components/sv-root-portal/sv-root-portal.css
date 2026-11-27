@@ -1,0 +1,48 @@
+/* SpaceVanta RootModalPortal (direct child of <body>)
+ * Isolates overlays from clip-path / 3D transform ancestors.
+ * Token-only: zero bare hex values.
+ */
+.sv-root-portal {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.sv-root-portal[data-open="true"] {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.sv-root-portal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--sv-ink, var(--svd-ink));
+  opacity: 0;
+  transition: opacity var(--sv-dur, var(--svd-dur, 180ms)) ease;
+  cursor: pointer;
+}
+
+.sv-root-portal[data-open="true"] .sv-root-portal__backdrop {
+  opacity: 0.36;
+}
+
+.sv-root-portal__slot {
+  position: relative;
+  z-index: 1;
+}
+
+.sv-root-portal__slot[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-root-portal__backdrop {
+    transition-duration: 0ms;
+  }
+}
+
+[data-sv-motion="off"] .sv-root-portal__backdrop {
+  transition-duration: 0ms;
+}
