@@ -1,0 +1,508 @@
+{{!-- SpaceVanta Global Header Section (L5@v01 · sv_flow_global_header_v01)
+     Locked scheme: 1-D1 + 2-B + 3-A | Zero metal alpha=0% | Zero 3D Hot=0/4 | Zero AI entry
+     Token-only styling · Zero hardcoded prices/freight/leadtimes · Single SSR <nav> + JSON-LD
+--}}
+<a class="sv-hdr-skip" href="#main-content" data-i18n="header.a11y.skip_to_main">Skip to main content</a>
+
+<header
+  id="sv-global-header"
+  class="sv-hdr"
+  data-sv-section="global-header"
+  data-sv-state="header_idle_top"
+  data-sv-sticky="{{#if section.settings.sticky_enabled}}true{{else}}false{{/if}}"
+  data-sv-announcement-enabled="{{#if section.settings.announcement_enabled}}true{{else}}false{{/if}}"
+  data-sv-announcement-hide-checkout="{{#if section.settings.announcement_hide_on_checkout}}true{{else}}false{{/if}}"
+  data-sv-season-allow="{{#if section.settings.season_allow_override}}true{{else}}false{{/if}}"
+  data-sv-market-default="{{market.code | default: 'en-us'}}"
+  data-sv-currency-default="{{market.currency_symbol | default: '$'}}"
+>
+  {{!-- Slot 1: header-announcement-bar (Desktop <=32px, Mobile 375px <=30px, 0px null on 3s timeout/missing) --}}
+  <div
+    class="sv-hdr-announce"
+    data-sv-slot="announcement-bar"
+    role="region"
+    aria-label="Shipping and fulfillment notice"
+    data-i18n-aria="header.a11y.announcement_region"
+    hidden
+  >
+    <div class="sv-hdr-announce__inner">
+      <span class="sv-hdr-announce__season-icon" data-sv-season-icon-slot hidden aria-hidden="true">
+        <img src="/public/sv-header/sv-season-icon.svg" width="16" height="16" alt="" decoding="async">
+      </span>
+      <p class="sv-hdr-announce__track" data-sv-announce-track>
+        <span class="sv-hdr-announce__seg" data-sv-field="duty"></span>
+        <span class="sv-hdr-announce__sep sv-hdr-announce__leadtime-wrap" aria-hidden="true">·</span>
+        <span class="sv-hdr-announce__seg sv-hdr-announce__leadtime-wrap" data-sv-field="leadtime"></span>
+        <span class="sv-hdr-announce__sep" aria-hidden="true">·</span>
+        <span class="sv-hdr-announce__seg" data-sv-field="threshold"></span>
+        <span class="sv-hdr-announce__sep" data-sv-season-sep hidden aria-hidden="true">·</span>
+        <span class="sv-hdr-announce__seg sv-hdr-announce__order-by" data-sv-field="orderBy" hidden></span>
+      </p>
+    </div>
+    <span class="sv-seam-rail sv-hdr-announce__rail" data-sv-rail="R-01" aria-hidden="true"></span>
+  </div>
+
+  {{!-- Slot 2: header-main-bar (Desktop <=64px, Mobile 375px <=56px; solid warm paper sticky, 0 glassmorphism, 0 shadow) --}}
+  <div class="sv-hdr-main" data-sv-slot="main-bar">
+    <div class="sv-hdr-main__inner">
+      {{!-- Mobile/Tablet Left Cluster: [≡] (A2) · [🔍] (A3) --}}
+      <div class="sv-hdr-main__mobile-left">
+        <button
+          type="button"
+          class="sv-hdr-icon-btn"
+          data-sv-anchor="A2"
+          data-sv-trigger="menu"
+          aria-expanded="false"
+          aria-controls="sv-hdr-menu-drawer"
+          aria-label="Open navigation menu"
+          data-i18n-aria="header.a11y.open_menu"
+        >
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-menu"></use>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="sv-hdr-icon-btn"
+          data-sv-anchor="A3"
+          data-sv-trigger="search"
+          aria-expanded="false"
+          aria-controls="sv-hdr-search-overlay"
+          aria-label="Open search"
+          data-i18n-aria="header.a11y.open_search"
+        >
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-search"></use>
+          </svg>
+        </button>
+      </div>
+
+      {{!-- Brand Logo (Desktop left / Mobile center) --}}
+      <div class="sv-hdr-main__brand">
+        <a
+          class="sv-hdr-logo"
+          href="#tbd"
+          data-sv-route-key="ROUTE_HOME"
+          data-sv-deferred="true"
+          aria-label="SpaceVanta"
+        >
+          {{#if section.settings.logo_desktop}}
+            <img class="sv-hdr-logo__img sv-hdr-logo__img--desktop" src="{{section.settings.logo_desktop}}" alt="SpaceVanta" height="24" decoding="async">
+          {{else}}
+            <svg class="sv-hdr-logo__svg" viewBox="0 0 168 24" width="140" height="20" fill="none" role="img" aria-label="SpaceVanta">
+              <g fill="currentColor">
+                <path d="M4 5.5C4 4.12 5.12 3 6.5 3h8.5v2.4H6.8c-.33 0-.6.27-.6.6v3.1c0 .33.27.6.6.6h6.4c1.38 0 2.5 1.12 2.5 2.5v5.3c0 1.38-1.12 2.5-2.5 2.5H4v-2.4h9.1c.33 0 .6-.27.6-.6v-4.1c0-.33-.27-.6-.6-.6H6.5C5.12 12.3 4 11.18 4 9.8V5.5z"/>
+                <path d="M18.6 3h2.7l3.8 13.6L28.9 3h2.7l-5.3 17h-2.4L18.6 3z"/>
+              </g>
+              <line x1="16.8" y1="3" x2="16.8" y2="20" stroke="var(--sv-seam, var(--svd-seam))" stroke-width="1"/>
+              <text x="38" y="16.8" fill="currentColor" font-family="Poppins, system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="600" letter-spacing="1.6">SPACEVANTA</text>
+            </svg>
+          {{/if}}
+        </a>
+      </div>
+
+      {{!-- Desktop Center 4-Word Navigation (1-D1: Shop · Bundles · Made to Order · Menu) --}}
+      <nav class="sv-hdr-nav-desktop" aria-label="Primary navigation" data-i18n-aria="header.a11y.primary_nav">
+        <ul class="sv-hdr-nav-desktop__list">
+          <li>
+            <button
+              type="button"
+              class="sv-hdr-nav-link sv-hdr-nav-btn"
+              data-sv-anchor="A1"
+              data-sv-trigger="shop"
+              aria-expanded="false"
+              aria-controls="sv-hdr-shop-panel"
+              data-i18n="header.nav.shop"
+            >Shop</button>
+          </li>
+          <li>
+            <a
+              class="sv-hdr-nav-link"
+              href="#tbd"
+              data-sv-route-key="ROUTE_BUNDLE_MASTER"
+              data-sv-deferred="true"
+              data-i18n="header.nav.bundles"
+            >Bundles</a>
+          </li>
+          <li>
+            <a
+              class="sv-hdr-nav-link"
+              href="#tbd"
+              data-sv-route-key="ROUTE_MTO_ENTRY"
+              data-sv-deferred="true"
+              data-i18n="header.nav.mto"
+            >Made to Order</a>
+          </li>
+          <li>
+            <button
+              type="button"
+              class="sv-hdr-nav-link sv-hdr-nav-btn"
+              data-sv-anchor="A2"
+              data-sv-trigger="menu"
+              aria-expanded="false"
+              aria-controls="sv-hdr-menu-drawer"
+              data-i18n="header.nav.menu"
+            >Menu</button>
+          </li>
+        </ul>
+      </nav>
+
+      {{!-- Right Utility Cluster: Search (DT A3) · Market (A4, 3-A text only, 0 flag emoji) · Bag --}}
+      <div class="sv-hdr-main__right">
+        <button
+          type="button"
+          class="sv-hdr-icon-btn sv-hdr-desktop-only"
+          data-sv-anchor="A3"
+          data-sv-trigger="search"
+          aria-expanded="false"
+          aria-controls="sv-hdr-search-overlay"
+          aria-label="Open search"
+          data-i18n-aria="header.a11y.open_search"
+        >
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-search"></use>
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="sv-hdr-market-btn"
+          data-sv-anchor="A4"
+          data-sv-trigger="market"
+          aria-expanded="false"
+          aria-controls="sv-hdr-market-drawer"
+          aria-label="Change delivery market and language"
+          data-i18n-aria="header.a11y.open_market"
+        >
+          <span class="sv-hdr-market-btn__code" data-sv-market-code>{{market.code_short | default: 'US'}}</span>
+          <span class="sv-hdr-market-btn__dot" aria-hidden="true">·</span>
+          <span class="sv-hdr-market-btn__curr" data-sv-market-currency>{{market.currency_symbol | default: '$'}}</span>
+        </button>
+
+        <a
+          class="sv-hdr-icon-btn sv-hdr-bag-btn"
+          href="#tbd"
+          data-sv-route-key="ROUTE_CART"
+          data-sv-deferred="true"
+          aria-label="Shopping bag"
+          data-i18n-aria="header.a11y.open_cart"
+        >
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-bag"></use>
+          </svg>
+          <span class="sv-hdr-bag-count" data-sv-cart-count>{{cart.item_count | default: 0}}</span>
+        </a>
+      </div>
+    </div>
+    <span class="sv-seam-rail sv-hdr-main__rail" data-sv-rail="R-02" aria-hidden="true"></span>
+  </div>
+
+  {{!-- Non-blocking route handoff / idempotent toast (aria-live polite) --}}
+  <div class="sv-hdr-toast" data-sv-toast role="status" aria-live="polite" hidden></div>
+
+  {{!-- Overlays container: mounted into <body> RootModalPortal by JS; SSR-visible fallback when JS disabled (L5) --}}
+  <div class="sv-hdr-overlays-source" data-sv-overlays-source>
+    {{!-- Slot 3 (P1): header-shop-panel (Desktop 2-col: Categories + Cold Scene card) --}}
+    <div
+      id="sv-hdr-shop-panel"
+      class="sv-hdr-panel sv-hdr-shop-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sv-hdr-shop-title"
+      data-sv-overlay="shop"
+    >
+      <div class="sv-hdr-panel__head">
+        <h2 id="sv-hdr-shop-title" class="sv-hdr-panel__title" data-i18n="header.nav.shop">Shop</h2>
+        <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="sv-hdr-shop-panel__grid">
+        <div class="sv-hdr-shop-panel__col" data-sv-shop-categories>
+          <p class="sv-hdr-eyebrow" data-i18n="header.shop.categories_heading">Categories</p>
+          <ul class="sv-hdr-list" data-sv-cat-list>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_CAT_01" data-sv-deferred="true" data-i18n="header.shop.cat_01">Desk Architecture</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_CAT_02" data-sv-deferred="true" data-i18n="header.shop.cat_02">Modular Trays</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_CAT_03" data-sv-deferred="true" data-i18n="header.shop.cat_03">Precision Tools</a></li>
+            <li><a class="sv-hdr-link sv-hdr-link--strong" href="#tbd" data-sv-route-key="ROUTE_CAT_ALL" data-sv-deferred="true" data-i18n="header.nav.all_products">All Products</a></li>
+          </ul>
+        </div>
+        <div class="sv-hdr-shop-panel__col">
+          <p class="sv-hdr-eyebrow" data-i18n="header.shop.scene_heading">Featured Scene</p>
+          <a class="sv-hdr-scene-card" href="#tbd" data-sv-route-key="ROUTE_SCENE_SHOWCASE" data-sv-deferred="true" data-sv-role="COLD">
+            <div class="sv-hdr-scene-card__media" data-sv-scene-media>
+              <img
+                class="sv-hdr-scene-card__img"
+                src="/public/sv-header/sv-scene-card-thumb.webp"
+                width="640"
+                height="400"
+                alt="SpaceVanta modular desk scene"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="sv-hdr-scene-card__body">
+              <strong class="sv-hdr-scene-card__title" data-i18n="header.shop.scene_title">Explore by Desk Scene</strong>
+              <span class="sv-hdr-scene-card__sub" data-i18n="header.shop.scene_sub">See how modular pieces align on warm paper surfaces.</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {{!-- Slot 4 (P2): header-menu-drawer (Single SSR <nav> DOM shared by Desktop & Mobile for mobile-first SEO) --}}
+    <div
+      id="sv-hdr-menu-drawer"
+      class="sv-hdr-drawer sv-hdr-menu-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sv-hdr-menu-title"
+      data-sv-overlay="menu"
+    >
+      <div class="sv-hdr-panel__head">
+        <h2 id="sv-hdr-menu-title" class="sv-hdr-panel__title" data-i18n="header.nav.menu">Menu</h2>
+        <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+          </svg>
+        </button>
+      </div>
+      <nav class="sv-hdr-drawer__body" aria-label="Full site navigation">
+        <section class="sv-hdr-drawer__group" data-sv-nav-group="categories">
+          <p class="sv-hdr-eyebrow" data-i18n="header.shop.categories_heading">Categories</p>
+          <ul class="sv-hdr-list">
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_CAT_01" data-sv-deferred="true" data-i18n="header.shop.cat_01">Desk Architecture</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_CAT_02" data-sv-deferred="true" data-i18n="header.shop.cat_02">Modular Trays</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_CAT_03" data-sv-deferred="true" data-i18n="header.shop.cat_03">Precision Tools</a></li>
+            <li><a class="sv-hdr-link sv-hdr-link--strong" href="#tbd" data-sv-route-key="ROUTE_CAT_ALL" data-sv-deferred="true" data-i18n="header.nav.all_products">All Products</a></li>
+          </ul>
+        </section>
+
+        <section class="sv-hdr-drawer__group" data-sv-nav-group="ways">
+          <p class="sv-hdr-eyebrow" data-i18n="header.drawer.ways_heading">Ways to Buy</p>
+          <ul class="sv-hdr-list">
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_SCENE_SHOWCASE" data-sv-deferred="true" data-i18n="header.nav.scenes">Scenes</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_BUNDLE_MASTER" data-sv-deferred="true" data-i18n="header.nav.bundles">Bundles</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_MTO_ENTRY" data-sv-deferred="true" data-i18n="header.nav.mto">Made to Order</a></li>
+          </ul>
+        </section>
+
+        <section class="sv-hdr-drawer__group" data-sv-nav-group="guide">
+          <p class="sv-hdr-eyebrow" data-i18n="header.drawer.guide_heading">Guide &amp; Policies</p>
+          <ul class="sv-hdr-list">
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_POLICY_SHIPPING" data-sv-deferred="true" data-i18n="header.drawer.policy_shipping">Shipping &amp; Duties</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_HOW_IT_WORKS" data-sv-deferred="true" data-i18n="header.drawer.how_it_works">How It Works</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_ABOUT" data-sv-deferred="true" data-i18n="header.drawer.about">About SpaceVanta</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_PRIVILEGE" data-sv-deferred="true" data-i18n="header.drawer.privilege">Member Privilege</a></li>
+            <li><a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_CONTACT" data-sv-deferred="true" data-i18n="header.drawer.contact">Contact</a></li>
+          </ul>
+        </section>
+      </nav>
+      <div class="sv-hdr-drawer__foot">
+        <div class="sv-hdr-drawer__market-row">
+          <span class="sv-hdr-muted">
+            <span data-i18n="header.drawer.current_market">Market</span>:
+            <strong data-sv-market-summary>US · $</strong>
+          </span>
+          <button
+            type="button"
+            class="sv-hdr-inline-btn"
+            data-sv-switch-to-market="true"
+            data-i18n="header.drawer.change_market"
+          >Change →</button>
+        </div>
+        <a class="sv-hdr-link sv-hdr-drawer__account" href="#tbd" data-sv-route-key="ROUTE_ACCOUNT" data-sv-deferred="true" data-i18n="header.drawer.account">Account</a>
+      </div>
+    </div>
+
+    {{!-- Slot 5 (P3): header-search-overlay (Native <form> survives JS-off & suggest timeout) --}}
+    <div
+      id="sv-hdr-search-overlay"
+      class="sv-hdr-panel sv-hdr-search-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sv-hdr-search-title"
+      data-sv-overlay="search"
+    >
+      <div class="sv-hdr-panel__head">
+        <h2 id="sv-hdr-search-title" class="sv-hdr-panel__title" data-i18n="header.search.title">Search</h2>
+        <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+          </svg>
+        </button>
+      </div>
+      <form class="sv-hdr-search-form" action="#tbd" method="get" data-sv-search-form data-sv-route-key="ROUTE_SEARCH" novalidate>
+        <input
+          type="search"
+          name="q"
+          class="sv-hdr-search-input"
+          data-sv-search-input
+          autocomplete="off"
+          placeholder="Search modular pieces, bundles, or scenes"
+          data-i18n-placeholder="header.search.placeholder"
+        >
+        <button type="submit" class="sv-hdr-primary-btn" data-i18n="header.search.submit">Search</button>
+      </form>
+      <p class="sv-hdr-inline-hint" data-sv-search-hint hidden></p>
+      <div class="sv-hdr-search-quick">
+        <p class="sv-hdr-eyebrow" data-i18n="header.search.quick_heading">Quick Categories</p>
+        <div class="sv-hdr-pills">
+          <a class="sv-hdr-pill" href="#tbd" data-sv-route-key="ROUTE_CAT_01" data-sv-deferred="true" data-i18n="header.shop.cat_01">Desk Architecture</a>
+          <a class="sv-hdr-pill" href="#tbd" data-sv-route-key="ROUTE_CAT_02" data-sv-deferred="true" data-i18n="header.shop.cat_02">Modular Trays</a>
+          <a class="sv-hdr-pill" href="#tbd" data-sv-route-key="ROUTE_CAT_03" data-sv-deferred="true" data-i18n="header.shop.cat_03">Precision Tools</a>
+          <a class="sv-hdr-pill" href="#tbd" data-sv-route-key="ROUTE_BUNDLE_MASTER" data-sv-deferred="true" data-i18n="header.nav.bundles">Bundles</a>
+        </div>
+      </div>
+      <ul class="sv-hdr-suggest-list" data-sv-suggest-list hidden></ul>
+    </div>
+
+    {{!-- Slot 6 (P4): header-market-drawer (Zero flag emojis; solid ink CTA button) --}}
+    <div
+      id="sv-hdr-market-drawer"
+      class="sv-hdr-drawer sv-hdr-market-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sv-hdr-market-title"
+      data-sv-overlay="market"
+    >
+      <div class="sv-hdr-panel__head">
+        <h2 id="sv-hdr-market-title" class="sv-hdr-panel__title" data-i18n="header.market.title">Market &amp; Language</h2>
+        <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
+          <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="sv-hdr-drawer__body">
+        <form class="sv-hdr-market-form" data-sv-market-form>
+          <label class="sv-hdr-field">
+            <span class="sv-hdr-eyebrow" data-i18n="header.market.delivery_label">Delivery destination</span>
+            <select class="sv-hdr-select" name="market" data-sv-market-select>
+              <option value="en-us">United States (USD · $)</option>
+              <option value="en-gb">United Kingdom (GBP · £)</option>
+              <option value="en-au">Australia (AUD · A$)</option>
+              <option value="en-ca">Canada (CAD · C$)</option>
+              <option value="en-sg">Singapore (SGD · S$)</option>
+              <option value="en-hk">Hong Kong (HKD · HK$)</option>
+            </select>
+          </label>
+          <label class="sv-hdr-field">
+            <span class="sv-hdr-eyebrow" data-i18n="header.market.lang_label">Language</span>
+            <select class="sv-hdr-select" name="lang" data-sv-lang-select>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </label>
+          <p class="sv-hdr-muted" data-i18n="header.market.helper">Prices, duties, and shipping estimates update to match your selected destination.</p>
+          <button type="submit" class="sv-hdr-primary-btn sv-hdr-primary-btn--full" data-i18n="header.market.apply_cta">Apply</button>
+        </form>
+
+        <div class="sv-hdr-market-degraded" data-sv-market-degraded hidden>
+          <div class="sv-hdr-degraded-card">
+            <p class="sv-hdr-eyebrow" data-i18n="header.drawer.current_market">Market</p>
+            <p class="sv-hdr-degraded-card__val" data-sv-market-readonly>US · $</p>
+            <p class="sv-hdr-muted" data-i18n="header.market.degraded_msg">Live market directory is temporarily unavailable. Your active market remains selected.</p>
+            <a class="sv-hdr-link" href="#tbd" data-sv-route-key="ROUTE_POLICY_SHIPPING" data-sv-deferred="true" data-i18n="header.market.policy_link">View Shipping &amp; Duties Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{{!-- Single SSR JSON-LD shared across Desktop & Mobile --}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "SpaceVanta",
+      "url": "{{shop.url | default: '/'}}"
+    },
+    {
+      "@type": "WebSite",
+      "name": "SpaceVanta",
+      "url": "{{shop.url | default: '/'}}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{shop.url | default: ''}}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "name": ["Shop", "Bundles", "Made to Order", "Menu"]
+    }
+  ]
+}
+</script>
+
+{{#schema}}
+{
+  "name": "SpaceVanta Global Header",
+  "tag": "div",
+  "class": "sv-global-header-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_desktop",
+      "label": "Desktop Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_mobile",
+      "label": "Mobile Logo"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_enabled",
+      "label": "Enable Sticky Header",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_enabled",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_hide_on_checkout",
+      "label": "Hide Announcement Bar on Checkout",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "season_allow_override",
+      "label": "Allow Seasonal Seam Override",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "categories_menu_ref",
+      "label": "Categories Navigation Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu_ref",
+      "label": "Secondary & Guide Navigation Menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta Global Header",
+      "category": "Header",
+      "settings": {
+        "sticky_enabled": true,
+        "announcement_enabled": true,
+        "announcement_hide_on_checkout": false,
+        "season_allow_override": true
+      }
+    }
+  ]
+}
+{{/schema}}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 24" width="168" height="24" fill="none" role="img" aria-label="SpaceVanta">
+  <g fill="currentColor">
+    <path d="M4 5.5C4 4.12 5.12 3 6.5 3h8.5v2.4H6.8c-.33 0-.6.27-.6.6v3.1c0 .33.27.6.6.6h6.4c1.38 0 2.5 1.12 2.5 2.5v5.3c0 1.38-1.12 2.5-2.5 2.5H4v-2.4h9.1c.33 0 .6-.27.6-.6v-4.1c0-.33-.27-.6-.6-.6H6.5C5.12 12.3 4 11.18 4 9.8V5.5z"/>
+    <path d="M18.6 3h2.7l3.8 13.6L28.9 3h2.7l-5.3 17h-2.4L18.6 3z"/>
+  </g>
+  <line x1="16.8" y1="3" x2="16.8" y2="20" stroke="var(--sv-seam, var(--svd-seam))" stroke-width="1"/>
+  <text x="38" y="16.8" fill="currentColor" font-family="Poppins, system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="600" letter-spacing="1.6">SPACEVANTA</text>
+</svg>
