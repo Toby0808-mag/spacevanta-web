@@ -1,0 +1,66 @@
+/* SpaceVanta Bundle Mechanism Statement Styles (L5@v02)
+ * Zero bare hex values; pure --svd-* / --sv-* tokens.
+ */
+.sv-bms {
+  background-color: var(--svd-paper, var(--sv-paper));
+  color: var(--svd-ink, var(--sv-ink));
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--svd-s6) var(--svd-s5);
+  box-sizing: border-box;
+}
+
+.sv-bms__head {
+  margin-bottom: var(--svd-s5);
+}
+
+.sv-bms__eyebrow {
+  margin: 0 0 var(--svd-s1);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+.sv-bms__title {
+  margin: 0 0 var(--svd-s3);
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 600;
+}
+
+.sv-bms__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--svd-s4);
+  margin-bottom: var(--svd-s5);
+}
+
+.sv-bms__card {
+  padding: var(--svd-s4);
+  border-radius: var(--svd-r-md);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+}
+
+.sv-bms__card h2 {
+  margin: 0 0 var(--svd-s2);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.sv-bms__card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+@media (max-width: 767px) {
+  .sv-bms {
+    padding: var(--svd-s5) var(--svd-s4);
+  }
+  .sv-bms__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

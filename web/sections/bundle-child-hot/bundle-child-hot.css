@@ -1,0 +1,206 @@
+/* SpaceVanta Bundle Hot Child Styles (L5@v02 · sv_flow_child_promote_v01)
+ * Pure --svd-* / --sv-* tokens; ZERO bare hex values.
+ */
+.sv-bch {
+  background-color: var(--svd-paper, var(--sv-paper));
+  color: var(--svd-ink, var(--sv-ink));
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--svd-s5);
+  box-sizing: border-box;
+}
+
+.sv-bch [data-action] * {
+  pointer-events: none;
+}
+
+.sv-bch-trust {
+  margin-bottom: var(--svd-s4);
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+}
+
+.sv-bch-trust__track {
+  margin: 0;
+  padding: var(--svd-s2) var(--svd-s4);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--svd-s2);
+  font-size: 13px;
+}
+
+.sv-bch-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--svd-s5);
+  align-items: start;
+}
+
+.sv-bch-stage {
+  border: 1px solid var(--svd-line, var(--sv-line));
+  border-radius: var(--svd-r-lg);
+  overflow: hidden;
+  background-color: var(--svd-paper, var(--sv-paper));
+}
+
+.sv-bch-canvas-wrap {
+  min-height: 360px;
+  background-color: var(--svd-paper, var(--sv-paper));
+}
+
+.sv-bch-canvas {
+  display: block;
+  width: 100%;
+  min-height: 360px;
+}
+
+.sv-bch-l4 {
+  padding: var(--svd-s4);
+  text-align: center;
+}
+
+.sv-bch-l4 img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--svd-r-md);
+}
+
+.sv-bch-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--svd-s2);
+  padding: var(--svd-s3);
+  border-top: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+}
+
+.sv-bch-tool {
+  min-height: 44px;
+  padding: 0 var(--svd-s3);
+  border-radius: var(--svd-r-sm);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper, var(--sv-paper));
+  color: var(--svd-ink, var(--sv-ink));
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sv-bch-tool[aria-pressed="true"] {
+  background-color: var(--svd-ink, var(--sv-ink));
+  color: var(--svd-paper, var(--sv-paper));
+  border-color: var(--svd-seam, var(--sv-seam));
+}
+
+.sv-bch-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--svd-s3);
+  padding: var(--svd-s4);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  border-radius: var(--svd-r-lg);
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+}
+
+.sv-bch-eyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+.sv-bch-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.sv-bch-note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+.sv-bch-slots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--svd-s2);
+}
+
+.sv-bch-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--svd-s2);
+  padding: var(--svd-s2) var(--svd-s3);
+  border-radius: var(--svd-r-sm);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper, var(--sv-paper));
+}
+
+.sv-bch-slot__label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sv-bch-swap {
+  min-height: 44px;
+  padding: 0 var(--svd-s3);
+  border-radius: var(--svd-r-sm);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+  color: var(--svd-ink, var(--sv-ink));
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sv-bch-toast {
+  padding: var(--svd-s2) var(--svd-s3);
+  border-radius: var(--svd-r-sm);
+  border-left: 2px solid var(--svd-seam, var(--sv-seam));
+  background-color: var(--svd-paper, var(--sv-paper));
+  font-size: 13px;
+}
+
+.sv-bch-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--svd-s3);
+}
+
+.sv-bch-commit {
+  flex: 1;
+}
+
+.sv-bch-commit[disabled] {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.sv-bch-handoff {
+  padding-top: var(--svd-s2);
+  border-top: 1px solid var(--svd-line, var(--sv-line));
+}
+
+.sv-bch-handoff-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--svd-ink, var(--sv-ink));
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+@media (max-width: 960px) {
+  .sv-bch-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "SV_MP_SKU_01_v01",
+  "category": "M-Proto Product Model",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MP_SKU_01_v01.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "8e45205546f355170224cbc7b9025a8df1d30fc773a60f51323662db8d4c25ff"
+    },
+    "lod1": {
+      "file": "SV_MP_SKU_01_v01_lod1.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "8e45205546f355170224cbc7b9025a8df1d30fc773a60f51323662db8d4c25ff"
+    },
+    "lod2": {
+      "file": "SV_MP_SKU_01_v01_lod2.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "8e45205546f355170224cbc7b9025a8df1d30fc773a60f51323662db8d4c25ff"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 9620,
+    "maxBytes": 90000,
+    "sha256": "1401661e1471afe4461d799d63dda3396a90a861b2cc893d9a9d3084d175b327",
+    "alt": "SpaceVanta Cotton White Chocolate Coffret modular tray item"
+  },
+  "slotCompatibility": [
+    "bay_1",
+    "bay_2",
+    "bay_3",
+    "bay_4",
+    "bay_5",
+    "bay_6"
+  ],
+  "naturalMaterialSpec": "Cotton White Chocolate Coffret"
+}

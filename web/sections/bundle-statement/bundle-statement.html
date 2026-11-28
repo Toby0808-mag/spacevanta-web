@@ -1,0 +1,73 @@
+{{!-- SpaceVanta Bundle Mechanism Statement Target Section (L5@v02 · /{market}/pages/mechanism-bundles-statement)
+     Target landing for Mobile 375px Scheme D1 & rule clarity links.
+     0 WebGL, 0 hardcoded commercial numbers, pure --svd-*/--sv-* tokens, pure Shopline OS 3.0 Sline syntax.
+--}}
+<section class="sv-bms" data-sv-section="bundle-statement" data-sv-webgl="0">
+  <header class="sv-bms__head">
+    <p class="sv-bms__eyebrow">SpaceVanta Bundle Architecture</p>
+    <h1 class="sv-bms__title">
+      {{#if section.settings.heading}}{{ section.settings.heading }}{{else}}Bundle Mechanism &amp; Curation Statement{{/if}}
+    </h1>
+    <span class="sv-seam-rail sv-seam-rail--active" aria-hidden="true"></span>
+  </header>
+
+  <div class="sv-bms__grid">
+    <article class="sv-bms__card">
+      <h2>1. Curated &amp; Custom 6-Bay Arrangement</h2>
+      <p>
+        Every SpaceVanta modular tray houses six calibrated warm-paper compartments inside a brushed slate-and-gunmetal exterior.
+        Start from the curated six-piece arrangement or swap individual compartments inline while honoring tray variety rules.
+      </p>
+    </article>
+
+    <article class="sv-bms__card">
+      <h2>2. Direct Scene Pools &amp; Cross-Pool Allowances</h2>
+      <p>
+        Scene pages provide focused single-pool adjustments for that desk setup. Full cross-pool curation is centralized on the
+        dedicated Bundles page with automatic state handoff so your selected bays are never reset.
+      </p>
+    </article>
+
+    <article class="sv-bms__card">
+      <h2>3. Space Express &amp; Made-to-Order Dispatch</h2>
+      <p>
+        Ready-to-ship items consolidate cleanly. When a tray includes a Made-to-Order piece, your shopping bag lets you choose
+        between combined or split dispatch before proceeding.
+      </p>
+    </article>
+  </div>
+
+  <div class="sv-bms__foot">
+    <a class="svd-btn" href="/pages/bundles" data-sv-back-bundles>Return to 6-Bay Bundle Tray</a>
+  </div>
+</section>
+
+{{#schema}}
+{
+  "name": "SpaceVanta Bundle Statement",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-bundle-statement-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Statement Page Heading",
+      "default": "Bundle Mechanism & Curation Statement"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta Bundle Statement",
+      "category": "Bundles",
+      "settings": {}
+    }
+  ]
+}
+{{/schema}}

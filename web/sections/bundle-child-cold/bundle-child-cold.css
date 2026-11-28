@@ -1,0 +1,188 @@
+/* SpaceVanta Bundle Indirect Cold P2 Planar Grid Styles (L5@v02 · V-06 / V-P4)
+ * Low DNA profile (pdp_collection): metal <= 8%, 2px outer seam frame, 0 shadow, 0 WebGL,
+ * single card planar thumbnail <= 10% vw on desktop, all 3 touch targets >= 44x44px.
+ * Pure --svd-* / --sv-* tokens; ZERO bare hex values.
+ */
+.sv-bcc {
+  background-color: var(--svd-paper, var(--sv-paper));
+  color: var(--svd-ink, var(--sv-ink));
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--svd-s5);
+  box-sizing: border-box;
+}
+
+.sv-bcc [data-action] * {
+  pointer-events: none;
+}
+
+.sv-bcc-head {
+  margin-bottom: var(--svd-s4);
+}
+
+.sv-bcc-eyebrow {
+  margin: 0 0 var(--svd-s1);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+.sv-bcc-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.sv-bcc-toast {
+  margin-bottom: var(--svd-s3);
+  padding: var(--svd-s2) var(--svd-s3);
+  border-radius: var(--svd-r-sm);
+  border-left: 2px solid var(--svd-seam, var(--sv-seam));
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+  font-size: 13px;
+}
+
+.sv-bcc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--svd-s4);
+}
+
+.sv-bcc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--svd-s3);
+  padding: var(--svd-s4);
+  border-radius: var(--svd-r-md);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+  box-shadow: none;
+  transition: transform 80ms var(--svd-ease), border-color 80ms var(--svd-ease);
+}
+
+/* S1_PROMOTE_ARM (<=80ms: scale(1.02) + left 2px seam highlight) */
+.sv-bcc-card[data-sv-promote-state="S1_PROMOTE_ARM"],
+.sv-bcc-card[data-sv-promote-state="S2_CROSSFADE"],
+.sv-bcc-card[data-sv-promote-state="S3_HOT_LIVE_PREVIEW"] {
+  transform: scale(1.02);
+  border-left: 2px solid var(--svd-seam, var(--sv-seam));
+}
+
+[data-sv-motion="off"] .sv-bcc-card {
+  transition: none !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-bcc-card {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+.sv-bcc-planar-trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--svd-s2);
+  min-height: 44px;
+  padding: var(--svd-s3);
+  border-radius: var(--svd-r-sm);
+  border: 2px solid var(--svd-seam, var(--sv-seam));
+  background-color: var(--svd-paper, var(--sv-paper));
+  color: var(--svd-ink, var(--sv-ink));
+  cursor: pointer;
+  text-align: center;
+}
+
+.sv-bcc-planar-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--svd-focus);
+}
+
+.sv-bcc-planar-frame {
+  display: block;
+  width: 100%;
+  max-width: min(136px, 9.6vw);
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.sv-bcc-planar-frame--silhouette {
+  min-height: 96px;
+  border: 1.5px dashed var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+.sv-bcc-planar-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sv-bcc-promote-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 var(--svd-s3);
+  border-radius: var(--svd-r-pill);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper-2, var(--sv-paper-subtle));
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sv-bcc-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sv-bcc-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.sv-bcc-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--svd-s2);
+}
+
+.sv-bcc-add-btn {
+  width: 100%;
+  min-height: 44px;
+}
+
+.sv-bcc-mother-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--svd-s3);
+  border-radius: var(--svd-r-sm);
+  border: 1px solid var(--svd-line, var(--sv-line));
+  background-color: var(--svd-paper, var(--sv-paper));
+  color: var(--svd-ink, var(--sv-ink));
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.sv-bcc-mother-link:focus-visible {
+  outline: none;
+  box-shadow: var(--svd-focus);
+}
+
+@media (max-width: 900px) {
+  .sv-bcc-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sv-bcc-planar-frame {
+    max-width: 220px;
+  }
+}

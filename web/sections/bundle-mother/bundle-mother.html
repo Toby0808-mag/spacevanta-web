@@ -1,0 +1,575 @@
+{{!-- SpaceVanta Bundle Mother Section (L5@v02 · sv_flow_bundle_v01 · r2)
+     Strict D-09 Narrative Order: Trust -> Motivate -> Remember
+     Pure Shopline OS 3.0 Sline double-quote syntax · Zero Liquid default filters · Zero bare hex · Zero hardcoded prices
+--}}
+{{#var sv_driver_url = "sv-bundle/BundleDriver.js" | asset_url() /}}
+{{#var sv_poster_url = "bundle-mother/poster-tray-1600.png" | asset_url() /}}
+{{#var sv_cold_01_url = "bundle-child-cold/cold-p2-01.png" | asset_url() /}}
+{{#var sv_cold_02_url = "bundle-child-cold/cold-p2-02.png" | asset_url() /}}
+{{#var sv_cold_03_url = "bundle-child-cold/cold-p2-03.png" | asset_url() /}}
+{{#var sv_cold_04_url = "bundle-child-cold/cold-p2-04.png" | asset_url() /}}
+{{#var sv_cold_05_url = "bundle-child-cold/cold-p2-05.png" | asset_url() /}}
+{{#var sv_cold_06_url = "bundle-child-cold/cold-p2-06.png" | asset_url() /}}
+
+<section
+  id="sv-bundle-mother-page"
+  class="sv-bm"
+  data-sv-module="sv_flow_bundle_v01"
+  data-sv-role="mother"
+  data-sv-model-tier="r2"
+  data-sv-state="master_ready"
+  data-sv-driver-url="{{ sv_driver_url }}"
+  data-sv-poster-url="{{ sv_poster_url }}"
+  data-sv-cross-pool-enabled="{{#if section.settings.enable_cross_pool}}true{{else}}false{{/if}}"
+  data-sv-f2-enabled="{{#if section.settings.enable_f2_mto_hint}}true{{else}}false{{/if}}"
+  data-sv-season-allow="{{#if section.settings.allow_seasonal_accent}}true{{else}}false{{/if}}"
+>
+  {{!-- =====================================================================
+       1. D-09 TRUST FIRST: BundleHeroTrust (Single-line Trust 50; hidden if any field missing -> 0 "· ·")
+       ===================================================================== --}}
+  <div
+    class="sv-bm-trust"
+    data-sv-slot="bundle-hero-trust"
+    role="region"
+    aria-label="Bundle shipping and threshold clarity"
+    hidden
+  >
+    <div class="sv-bm-trust__inner">
+      <span class="sv-bm-trust__season-icon" data-sv-season-icon hidden aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 4v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <p class="sv-bm-trust__track">
+        <span class="sv-bm-trust__seg" data-sv-field="duty"></span>
+        <span class="sv-bm-trust__sep" aria-hidden="true">·</span>
+        <span class="sv-bm-trust__seg" data-sv-field="leadtime"></span>
+        <span class="sv-bm-trust__sep" aria-hidden="true">·</span>
+        <span class="sv-bm-trust__seg" data-sv-field="threshold"></span>
+        <span class="sv-bm-trust__sep" data-sv-season-sep hidden aria-hidden="true">·</span>
+        <span class="sv-bm-trust__seg sv-bm-trust__season" data-sv-field="order-by" hidden></span>
+      </p>
+    </div>
+    <span class="sv-seam-rail sv-seam-rail--active" aria-hidden="true"></span>
+  </div>
+
+  <header class="sv-bm-header">
+    <p class="sv-bm-eyebrow" data-i18n="bundle.mother.eyebrow">SpaceVanta Modular Bundle</p>
+    <h1 class="sv-bm-title" data-sv-pool-heading data-i18n="bundle.mother.title">
+      {{#if section.settings.heading_override}}{{ section.settings.heading_override }}{{else}}Precision 6-Bay Curated Tray{{/if}}
+    </h1>
+    <p class="sv-bm-subtitle" data-i18n="bundle.mother.subtitle">
+      Brushed slate-and-gunmetal tray with warm paper inner cavity and direct 6-bay slot arrangement.
+    </p>
+  </header>
+
+  {{!-- =====================================================================
+       2. D-09 MOTIVATE CORE: BundleHotZone (>=46vh, Single Persistent WebGL Canvas + Inline 6-Bay Workspace)
+       ===================================================================== --}}
+  <div class="sv-bm-hotzone" data-sv-hotzone>
+    {{!-- Left: BundleMasterHotStage (3/4 Camera · Child_Tray + Plinth-Free 78x72mm SV + 2 Hotspots + 4 C1 Clips) --}}
+    <div class="sv-bm-stage-col" data-sv-slot="bundle-master-hot-stage">
+      {{!-- Mobile M1 Capsule + S1 180-deg Flip Compare Trigger --}}
+      <div class="sv-bm-mobile-bar">
+        <span class="svd-chip" data-sv-mode-pill>Curated 6-Bay</span>
+        <button
+          type="button"
+          class="sv-bm-flip-btn"
+          data-action="mobile-flip-compare"
+          aria-pressed="false"
+        >
+          <span data-i18n="bundle.mother.flip_compare">Compare Curated / Custom</span>
+        </button>
+      </div>
+
+      <div class="sv-bm-stage-card" data-sv-stage-card>
+        {{!-- Mobile First-Entry Peek 12-deg Bubble (2.8s or tap to dismiss) --}}
+        <div class="sv-bm-peek-bubble" data-sv-peek-bubble hidden role="status">
+          <span data-i18n="bundle.mother.peek_bubble">Tray lid gently ajar — inspect all 6 compartments or customize slots on the right.</span>
+          <button type="button" class="sv-bm-peek-dismiss" data-action="dismiss-peek" aria-label="Dismiss tip">×</button>
+        </div>
+
+        <div class="sv-bm-canvas-shell" data-sv-canvas-shell>
+          <canvas
+            class="sv-bm-canvas"
+            data-sv-bundle-canvas
+            aria-label="Interactive 3D SpaceVanta 6-bay modular tray"
+          ></canvas>
+
+          {{!-- 2 Core r2 Hotspot Pins on 3D Stage (HS_BAY_GRID + HS_SV_CREST, >=44x44px touch targets) --}}
+          <div class="sv-bm-hotspots-layer" data-sv-hotspots-layer>
+            <button
+              type="button"
+              class="sv-bm-hotspot-pin"
+              data-action="focus-hotspot"
+              data-hotspot-id="HS_BAY_GRID"
+              aria-pressed="false"
+              aria-label="Inspect 6-bay slot grid (HS_BAY_GRID)"
+            >
+              <span class="sv-bm-hotspot-pin__dot"></span>
+              <span class="sv-bm-hotspot-pin__tag">6-Bay Grid</span>
+            </button>
+            <button
+              type="button"
+              class="sv-bm-hotspot-pin sv-bm-hotspot-pin--crest"
+              data-action="focus-hotspot"
+              data-hotspot-id="HS_SV_CREST"
+              aria-pressed="false"
+              aria-label="Inspect top-lid SV origami crest (HS_SV_CREST)"
+            >
+              <span class="sv-bm-hotspot-pin__dot"></span>
+              <span class="sv-bm-hotspot-pin__tag">SV Crest</span>
+            </button>
+          </div>
+
+          {{!-- L1 / V-P5 Local 2D Poster Fallback + View Full Poster (zero spinner, zero blank screen) --}}
+          <div class="sv-bm-vp5-fallback" data-sv-vp5-fallback hidden>
+            <img
+              class="sv-bm-vp5-fallback__img"
+              src="{{ sv_poster_url }}"
+              width="800"
+              height="500"
+              alt="SpaceVanta brushed slate and gunmetal 6-bay curated bundle tray"
+              decoding="async"
+            >
+            <a
+              class="svd-btn svd-btn--ghost"
+              href="{{ sv_poster_url }}"
+              target="_blank"
+              rel="noopener"
+              data-sv-view-full-poster
+              data-i18n="bundle.hotspot.view_full_poster"
+            >View Full Poster</a>
+          </div>
+
+          {{!-- L4 (?sv_3d=off / WebGL unavailable): Homologous Static Warm-Paper Planar SVG Tray (0 Active WebGL) --}}
+          <div class="sv-bm-l4-static" data-sv-l4-static hidden>
+            <svg class="sv-bm-l4-svg" viewBox="0 0 560 360" role="img" aria-label="SpaceVanta 6-bay warm-paper planar tray diagram">
+              <rect width="560" height="360" rx="14" fill="var(--svd-paper, var(--sv-paper))"/>
+              <rect x="28" y="24" width="504" height="312" rx="12" fill="var(--svd-slate, var(--sv-slate))" stroke="var(--svd-seam, var(--sv-seam))" stroke-width="2"/>
+              <rect x="40" y="36" width="480" height="288" rx="8" fill="var(--svd-paper-2, var(--sv-paper-subtle))" stroke="var(--svd-pewter, var(--sv-pewter))" stroke-width="1.5"/>
+              <line x1="200" y1="42" x2="200" y2="318" stroke="var(--svd-pewter, var(--sv-pewter))" stroke-width="2"/>
+              <line x1="360" y1="42" x2="360" y2="318" stroke="var(--svd-pewter, var(--sv-pewter))" stroke-width="2"/>
+              <line x1="46" y1="180" x2="514" y2="180" stroke="var(--svd-pewter, var(--sv-pewter))" stroke-width="2"/>
+              <rect x="54" y="50" width="132" height="116" rx="6" fill="var(--svd-paper, var(--sv-paper))" stroke="var(--svd-line, var(--sv-line))"/>
+              <rect x="214" y="50" width="132" height="116" rx="6" fill="var(--svd-paper, var(--sv-paper))" stroke="var(--svd-line, var(--sv-line))"/>
+              <rect x="374" y="50" width="132" height="116" rx="6" fill="var(--svd-paper, var(--sv-paper))" stroke="var(--svd-line, var(--sv-line))"/>
+              <rect x="54" y="194" width="132" height="116" rx="6" fill="var(--svd-paper, var(--sv-paper))" stroke="var(--svd-line, var(--sv-line))"/>
+              <rect x="214" y="194" width="132" height="116" rx="6" fill="var(--svd-paper, var(--sv-paper))" stroke="var(--svd-line, var(--sv-line))"/>
+              <rect x="374" y="194" width="132" height="116" rx="6" fill="var(--svd-paper, var(--sv-paper))" stroke="var(--svd-line, var(--sv-line))"/>
+            </svg>
+            <p class="sv-bm-l4-note" data-i18n="bundle.hotspot.l4_static_note">Static warm-paper planar tray active (3D stage disabled or unavailable).</p>
+          </div>
+        </div>
+
+        {{!-- Stage Camera & C1 Lid Toolbar --}}
+        <div class="sv-bm-stage-toolbar" role="toolbar" aria-label="3D camera and lid controls">
+          <button type="button" class="sv-bm-tool-btn" data-action="camera-preset" data-preset="tray_view" aria-pressed="true" data-i18n="bundle.hotspot.view_tray">3/4 Tray View</button>
+          <button type="button" class="sv-bm-tool-btn" data-action="focus-hotspot" data-hotspot-id="HS_BAY_GRID" aria-pressed="false">6-Bay Grid</button>
+          <button type="button" class="sv-bm-tool-btn" data-action="focus-hotspot" data-hotspot-id="HS_SV_CREST" aria-pressed="false">SV Crest Close-Up</button>
+          <button type="button" class="sv-bm-tool-btn" data-action="lid-toggle" data-i18n="bundle.hotspot.toggle_lid">Open / Close Lid</button>
+        </div>
+      </div>
+
+      {{!-- L5 JS-Disabled Fallback (<noscript>): Bare HTML Curated List + True <a> Links --}}
+      <noscript>
+        <div class="sv-bm-noscript">
+          <h2>SpaceVanta 6-Bay Curated Bundle</h2>
+          <ul>
+            <li>Bay 1 — Cotton White Chocolate Coffret</li>
+            <li>Bay 2 — Matte Matcha Nut Crisps Pouch</li>
+            <li>Bay 3 — Roasted Cocoa Gift Tin</li>
+            <li>Bay 4 — Warm Cream Ceramic Pour-Over Cup</li>
+            <li>Bay 5 — Oat Linen Tea Caddy</li>
+            <li>Bay 6 — Toasted Hazelnut Praline Box</li>
+          </ul>
+          <p>
+            <a class="svd-btn" href="/cart">View Shopping Bag</a>
+            <a class="svd-btn svd-btn--ghost" href="/pages/mechanism-bundles-statement">Bundle Rules Statement</a>
+          </p>
+        </div>
+      </noscript>
+    </div>
+
+    {{!-- Right: BundleRightWorkspace (6-Bay Inline Arrangement + Bidirectional Drag & Drop + Keyboard Hotspot List + Single Primary CTA) --}}
+    <div class="sv-bm-workspace" data-sv-slot="bundle-right-workspace">
+      <div class="sv-bm-workspace__head">
+        <h2 class="sv-bm-workspace__title" data-i18n="bundle.mother.workspace_heading">6-Bay Tray Arrangement</h2>
+        <button type="button" class="sv-bm-link-btn" data-action="reset-curated" data-i18n="bundle.mother.reset_curated">Reset Curated</button>
+      </div>
+
+      {{!-- Tier Progress Strip (hidden unless bundle.tiers arrives) --}}
+      <div class="sv-bm-tier-bar" data-sv-tier-bar hidden>
+        <span class="sv-bm-tier-bar__text" data-sv-field="tiers-summary"></span>
+        <strong class="sv-bm-tier-bar__saving" data-sv-field="set-saving"></strong>
+      </div>
+
+      {{!-- Boundary Nudge Overlay State (Single-line warm guidance; 3.5s auto-dismiss; zero red border / modal) --}}
+      <div class="sv-bm-nudge" data-sv-boundary-nudge role="status" aria-live="polite" hidden></div>
+
+      {{!-- 6-Bay Slot Cards (Synchronous SSR DOM Skeleton -> textContent updates only -> 100% click reliability) --}}
+      <ol class="sv-bm-bays" data-sv-bay-list aria-label="6 tray compartments">
+        <li class="sv-bm-bay-card" data-sv-bay-card data-bay-index="0" draggable="true">
+          <div class="sv-bm-bay-card__info">
+            <span class="sv-bm-bay-card__num">Bay 1</span>
+            <strong class="sv-bm-bay-card__name" data-sv-bay-title>Cotton White Chocolate Coffret</strong>
+            <span class="sv-bm-bay-card__badge" data-sv-bay-badge hidden>MTO</span>
+          </div>
+          <div class="sv-bm-bay-card__actions">
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-swap" data-bay-index="0" aria-label="Swap Bay 1 item">⇄ Swap</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-remove" data-bay-index="0" aria-label="Remove Bay 1 item">× Clear</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-add" data-bay-index="0" hidden aria-label="Add item to Bay 1">+ Add</button>
+          </div>
+        </li>
+        <li class="sv-bm-bay-card" data-sv-bay-card data-bay-index="1" draggable="true">
+          <div class="sv-bm-bay-card__info">
+            <span class="sv-bm-bay-card__num">Bay 2</span>
+            <strong class="sv-bm-bay-card__name" data-sv-bay-title>Matte Matcha Nut Crisps Pouch</strong>
+            <span class="sv-bm-bay-card__badge" data-sv-bay-badge hidden>MTO</span>
+          </div>
+          <div class="sv-bm-bay-card__actions">
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-swap" data-bay-index="1" aria-label="Swap Bay 2 item">⇄ Swap</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-remove" data-bay-index="1" aria-label="Remove Bay 2 item">× Clear</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-add" data-bay-index="1" hidden aria-label="Add item to Bay 2">+ Add</button>
+          </div>
+        </li>
+        <li class="sv-bm-bay-card" data-sv-bay-card data-bay-index="2" draggable="true">
+          <div class="sv-bm-bay-card__info">
+            <span class="sv-bm-bay-card__num">Bay 3</span>
+            <strong class="sv-bm-bay-card__name" data-sv-bay-title>Roasted Cocoa Gift Tin</strong>
+            <span class="sv-bm-bay-card__badge" data-sv-bay-badge hidden>MTO</span>
+          </div>
+          <div class="sv-bm-bay-card__actions">
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-swap" data-bay-index="2" aria-label="Swap Bay 3 item">⇄ Swap</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-remove" data-bay-index="2" aria-label="Remove Bay 3 item">× Clear</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-add" data-bay-index="2" hidden aria-label="Add item to Bay 3">+ Add</button>
+          </div>
+        </li>
+        <li class="sv-bm-bay-card" data-sv-bay-card data-bay-index="3" draggable="true">
+          <div class="sv-bm-bay-card__info">
+            <span class="sv-bm-bay-card__num">Bay 4</span>
+            <strong class="sv-bm-bay-card__name" data-sv-bay-title>Warm Cream Ceramic Cup</strong>
+            <span class="sv-bm-bay-card__badge" data-sv-bay-badge hidden>MTO</span>
+          </div>
+          <div class="sv-bm-bay-card__actions">
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-swap" data-bay-index="3" aria-label="Swap Bay 4 item">⇄ Swap</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-remove" data-bay-index="3" aria-label="Remove Bay 4 item">× Clear</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-add" data-bay-index="3" hidden aria-label="Add item to Bay 4">+ Add</button>
+          </div>
+        </li>
+        <li class="sv-bm-bay-card" data-sv-bay-card data-bay-index="4" draggable="true">
+          <div class="sv-bm-bay-card__info">
+            <span class="sv-bm-bay-card__num">Bay 5</span>
+            <strong class="sv-bm-bay-card__name" data-sv-bay-title>Oat Linen Tea Caddy</strong>
+            <span class="sv-bm-bay-card__badge" data-sv-bay-badge hidden>MTO</span>
+          </div>
+          <div class="sv-bm-bay-card__actions">
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-swap" data-bay-index="4" aria-label="Swap Bay 5 item">⇄ Swap</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-remove" data-bay-index="4" aria-label="Remove Bay 5 item">× Clear</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-add" data-bay-index="4" hidden aria-label="Add item to Bay 5">+ Add</button>
+          </div>
+        </li>
+        <li class="sv-bm-bay-card" data-sv-bay-card data-bay-index="5" draggable="true">
+          <div class="sv-bm-bay-card__info">
+            <span class="sv-bm-bay-card__num">Bay 6</span>
+            <strong class="sv-bm-bay-card__name" data-sv-bay-title>Toasted Hazelnut Praline Box</strong>
+            <span class="sv-bm-bay-card__badge" data-sv-bay-badge hidden>MTO</span>
+          </div>
+          <div class="sv-bm-bay-card__actions">
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-swap" data-bay-index="5" aria-label="Swap Bay 6 item">⇄ Swap</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-remove" data-bay-index="5" aria-label="Remove Bay 6 item">× Clear</button>
+            <button type="button" class="sv-bm-slot-btn" data-action="slot-add" data-bay-index="5" hidden aria-label="Add item to Bay 6">+ Add</button>
+          </div>
+        </li>
+      </ol>
+
+      {{!-- HTML5 Drag-Out Removal Drop Zone --}}
+      <div class="sv-bm-drop-remove" data-sv-drop-remove aria-label="Drop slot item here to remove">
+        <span data-i18n="bundle.mother.drop_remove_zone">Drag a bay card here to clear slot</span>
+      </div>
+
+      {{!-- Keyboard Accessible Alternative Hotspot List (L3 r2 · V-07 + D-08a Crawlable Part Text) --}}
+      <div class="sv-bm-hotspot-list" aria-label="3D model hotspot list">
+        <p class="sv-bm-hotspot-list__heading" data-i18n="bundle.hotspot.inspector_heading">3D Stage &amp; Hotspot Inspector</p>
+        <div class="sv-bm-hotspot-list__items">
+          <div class="sv-bm-hotspot-item">
+            <button type="button" class="sv-bm-hotspot-btn" data-action="focus-hotspot" data-hotspot-id="HS_BAY_GRID">
+              <span data-i18n="bundle.hotspot.bay_grid_title">6-Bay Slot Grid (HS_BAY_GRID)</span>
+            </button>
+            <p class="sv-bm-hotspot-item__desc" data-i18n="bundle.hotspot.bay_grid_desc">Opens hinged lid and inspects compartments Bay 1 through Bay 6.</p>
+            <div class="sv-bm-subbays" role="group" aria-label="Individual bay focus buttons">
+              <button type="button" class="sv-bm-subbay-btn" data-action="focus-subbay" data-bay-index="0">Bay 1</button>
+              <button type="button" class="sv-bm-subbay-btn" data-action="focus-subbay" data-bay-index="1">Bay 2</button>
+              <button type="button" class="sv-bm-subbay-btn" data-action="focus-subbay" data-bay-index="2">Bay 3</button>
+              <button type="button" class="sv-bm-subbay-btn" data-action="focus-subbay" data-bay-index="3">Bay 4</button>
+              <button type="button" class="sv-bm-subbay-btn" data-action="focus-subbay" data-bay-index="4">Bay 5</button>
+              <button type="button" class="sv-bm-subbay-btn" data-action="focus-subbay" data-bay-index="5">Bay 6</button>
+            </div>
+          </div>
+          <div class="sv-bm-hotspot-item">
+            <button type="button" class="sv-bm-hotspot-btn" data-action="focus-hotspot" data-hotspot-id="HS_SV_CREST">
+              <span data-i18n="bundle.hotspot.sv_crest_title">SV Origami Crest (HS_SV_CREST)</span>
+            </button>
+            <p class="sv-bm-hotspot-item__desc" data-i18n="bundle.hotspot.sv_crest_desc">Closes lid for oblique close-up of brushed specular facets and fracture seam.</p>
+          </div>
+        </div>
+      </div>
+
+      {{!-- EcosystemSlot (Space Express single-box note; hidden if shipping./parcel_note absent or timed out) --}}
+      <div class="sv-bm-ecoslot" data-sv-ecoslot hidden>
+        <span class="sv-bm-ecoslot__dot" aria-hidden="true"></span>
+        <span class="sv-bm-ecoslot__text" data-sv-field="one-parcel-note"></span>
+      </div>
+
+      {{!-- MixedMtoHintF2 (Conditional: appears when >=1 MTO item is selected; guides to Cart page; 0 checkout touch) --}}
+      <div class="sv-bm-mto-f2" data-sv-mto-f2 role="status" aria-live="polite" hidden>
+        <p class="sv-bm-mto-f2__text" data-sv-field="mto-cart-hint">
+          Includes a Made-to-Order piece. Choose combined or split dispatch on the Cart page.
+        </p>
+        <span class="sv-bm-mto-f2__sla" data-sv-field="mto-reply-sla" hidden></span>
+      </div>
+
+      {{!-- Non-Blocking Toast / Confirmation Bar (added_to_cart / timeout_fallback / duplicate lock) --}}
+      <div class="sv-bm-toast" data-sv-toast role="status" aria-live="polite" hidden></div>
+
+      {{!-- Single Primary Action Bar (Mobile sticky bottom with safe-area-inset-bottom; deep metal submitting_cart stacks <Seam aura="true"/>) --}}
+      <div class="sv-bm-cta-bar" data-sv-cta-bar>
+        <span class="sv-seam-aura-bar sv-bm-cta-bar__aura" data-sv-seam-aura="true" hidden aria-hidden="true"></span>
+        <div class="sv-bm-cta-bar__price" data-sv-price-box hidden>
+          <span class="sv-bm-cta-bar__price-val" data-sv-field="locale-price"></span>
+          <span class="sv-bm-cta-bar__price-aux" data-sv-field="aux-locale-price" hidden></span>
+        </div>
+        <div class="sv-bm-cta-bar__btns">
+          <button
+            type="button"
+            class="sv-bm-primary-cta"
+            data-action="primary-commit"
+            data-sv-primary-cta
+            disabled
+          >
+            <span data-sv-cta-label data-i18n="bundle.mother.cta_take_curated">Take This Set</span>
+          </button>
+          <button
+            type="button"
+            class="sv-bm-cancel-btn"
+            data-action="cancel-commit"
+            data-sv-cancel-btn
+            hidden
+            data-i18n="bundle.mother.cta_cancel"
+          >Cancel</button>
+          <a
+            class="svd-btn sv-bm-cart-link"
+            href="/cart"
+            data-sv-cart-link
+            hidden
+            data-i18n="bundle.mother.cta_go_cart"
+          >Go to Cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- =====================================================================
+       3. BUDGET BOUNDARY LINE: 1px Dashed Divider Isolating Hot Zone & Cold Zone
+       ===================================================================== --}}
+  <hr class="sv-bm-budget-line" aria-hidden="true">
+
+  {{!-- =====================================================================
+       4. D-09 REMEMBER & CROSS-POOL COLD: BundleCrossPoolColdGrid + BundleVitalInfoSeo + AgentSlotG0
+       ===================================================================== --}}
+  <section
+    class="sv-bm-crosspool"
+    data-sv-slot="bundle-crosspool-cold-grid"
+    data-sv-webgl="0"
+    aria-labelledby="sv-bm-crosspool-heading"
+  >
+    <div class="sv-bm-crosspool__head">
+      <div>
+        <h2 id="sv-bm-crosspool-heading" class="sv-bm-crosspool__title" data-i18n="bundle.mother.cross_pool_heading">Cross-Bundle Pool Picks</h2>
+        <p class="sv-bm-crosspool__sub" data-i18n="bundle.mother.cross_pool_sub">Planar reference cards — zero active 3D overhead until promoted.</p>
+      </div>
+      <div class="svd-chip" data-sv-cross-badge hidden>
+        <span data-i18n="bundle.mother.cross_pool_left_label">Cross-pool slots remaining</span>:
+        <strong data-sv-field="cross-left"></strong>/<span data-sv-field="cross-limit"></span>
+      </div>
+    </div>
+
+    <div class="sv-bm-cold-grid" data-sv-cross-grid>
+      <article class="sv-bm-cold-card" data-sv-cross-card data-sku-id="SV_MP_SKU_07_v01" data-is-mto="true" draggable="true">
+        <div class="sv-bm-cold-card__media">
+          <img src="{{ sv_cold_01_url }}" width="160" height="120" alt="Bespoke Porcelain Tasting Vessel planar view" loading="lazy" decoding="async">
+        </div>
+        <div class="sv-bm-cold-card__body">
+          <h3 class="sv-bm-cold-card__name">Bespoke Porcelain Vessel (MTO)</h3>
+          <button type="button" class="sv-bm-cold-card__btn" data-action="cross-add" data-sku-id="SV_MP_SKU_07_v01" data-title="Bespoke Porcelain Vessel" data-mto="true">+ Add to Tray</button>
+        </div>
+      </article>
+      <article class="sv-bm-cold-card" data-sv-cross-card data-sku-id="SV_MP_SKU_08_v01" data-is-mto="false" draggable="true">
+        <div class="sv-bm-cold-card__media">
+          <img src="{{ sv_cold_02_url }}" width="160" height="120" alt="Single-Origin Drip Coffee Folio planar view" loading="lazy" decoding="async">
+        </div>
+        <div class="sv-bm-cold-card__body">
+          <h3 class="sv-bm-cold-card__name">Single-Origin Drip Folio</h3>
+          <button type="button" class="sv-bm-cold-card__btn" data-action="cross-add" data-sku-id="SV_MP_SKU_08_v01" data-title="Single-Origin Drip Folio" data-mto="false">+ Add to Tray</button>
+        </div>
+      </article>
+      <article class="sv-bm-cold-card" data-sv-cross-card data-sku-id="SV_MP_SKU_09_v01" data-is-mto="true" draggable="true">
+        <div class="sv-bm-cold-card__media">
+          <img src="{{ sv_cold_03_url }}" width="160" height="120" alt="Champagne Brass Scoop and Clip planar view" loading="lazy" decoding="async">
+        </div>
+        <div class="sv-bm-cold-card__body">
+          <h3 class="sv-bm-cold-card__name">Brass Scoop &amp; Clip (MTO)</h3>
+          <button type="button" class="sv-bm-cold-card__btn" data-action="cross-add" data-sku-id="SV_MP_SKU_09_v01" data-title="Brass Scoop & Clip" data-mto="true">+ Add to Tray</button>
+        </div>
+      </article>
+      <article class="sv-bm-cold-card" data-sv-cross-card data-sku-id="SV_MP_SKU_01_v01" data-is-mto="false" draggable="true">
+        <div class="sv-bm-cold-card__media">
+          <img src="{{ sv_cold_04_url }}" width="160" height="120" alt="Cotton White Chocolate Coffret planar view" loading="lazy" decoding="async">
+        </div>
+        <div class="sv-bm-cold-card__body">
+          <h3 class="sv-bm-cold-card__name">Cotton White Coffret</h3>
+          <button type="button" class="sv-bm-cold-card__btn" data-action="cross-add" data-sku-id="SV_MP_SKU_01_v01" data-title="Cotton White Chocolate Coffret" data-mto="false">+ Add to Tray</button>
+        </div>
+      </article>
+      <article class="sv-bm-cold-card" data-sv-cross-card data-sku-id="SV_MP_SKU_02_v01" data-is-mto="false" draggable="true">
+        <div class="sv-bm-cold-card__media">
+          <img src="{{ sv_cold_05_url }}" width="160" height="120" alt="Matte Matcha Nut Crisps Pouch planar view" loading="lazy" decoding="async">
+        </div>
+        <div class="sv-bm-cold-card__body">
+          <h3 class="sv-bm-cold-card__name">Matte Matcha Crisps</h3>
+          <button type="button" class="sv-bm-cold-card__btn" data-action="cross-add" data-sku-id="SV_MP_SKU_02_v01" data-title="Matte Matcha Nut Crisps Pouch" data-mto="false">+ Add to Tray</button>
+        </div>
+      </article>
+      <article class="sv-bm-cold-card" data-sv-cross-card data-sku-id="SV_MP_SKU_04_v01" data-is-mto="false" draggable="true">
+        <div class="sv-bm-cold-card__media">
+          <img src="{{ sv_cold_06_url }}" width="160" height="120" alt="Warm Cream Ceramic Cup planar view" loading="lazy" decoding="async">
+        </div>
+        <div class="sv-bm-cold-card__body">
+          <h3 class="sv-bm-cold-card__name">Warm Cream Ceramic Cup</h3>
+          <button type="button" class="sv-bm-cold-card__btn" data-action="cross-add" data-sku-id="SV_MP_SKU_04_v01" data-title="Warm Cream Ceramic Cup" data-mto="false">+ Add to Tray</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {{!-- D-09 Remember Closing: BundleVitalInfoSeo (Desktop 3-Section H2/H3 SEO; Mobile 375px Scheme D1 Target Button + JSON-LD) --}}
+  <section class="sv-bm-vital" data-sv-slot="bundle-vital-info-seo" aria-labelledby="sv-bm-vital-heading">
+    <h2 id="sv-bm-vital-heading" class="sv-bm-vital__heading" data-i18n="bundle.mother.vital_heading">Tray Architecture &amp; Bundle Mechanism</h2>
+
+    <div class="sv-bm-vital__desktop-seo">
+      <article class="sv-bm-vital__col">
+        <h3 class="sv-bm-vital__sub" data-i18n="bundle.mother.vital_sec1_title">Brushed Metal Shell &amp; Warm Paper Cavity</h3>
+        <p class="sv-bm-vital__body" data-i18n="bundle.mother.vital_sec1_body">
+          Engineered with a five-step brushed slate-and-gunmetal exterior, warm tactile paper dividers, and a plinth-free origami SV crest.
+        </p>
+      </article>
+      <article class="sv-bm-vital__col">
+        <h3 class="sv-bm-vital__sub" data-i18n="bundle.mother.vital_sec2_title">Flexible 6-Bay Curation &amp; Tier Clarity</h3>
+        <p class="sv-bm-vital__body" data-i18n="bundle.mother.vital_sec2_body">
+          Start from a balanced 6-bay curation or swap individual compartments inline with automatic lid clearance.
+        </p>
+      </article>
+      <article class="sv-bm-vital__col">
+        <h3 class="sv-bm-vital__sub" data-i18n="bundle.mother.vital_sec3_title">Single-Parcel Space Express &amp; MTO Coordination</h3>
+        <p class="sv-bm-vital__body" data-i18n="bundle.mother.vital_sec3_body">
+          Standard pieces ship together; mixed Made-to-Order selections offer clear dispatch options in your shopping bag.
+        </p>
+      </article>
+    </div>
+
+    {{!-- Mobile 375px Scheme D1 Target Button + Desktop Mechanism Link (dynamic /{market}/pages/mechanism-bundles-statement) --}}
+    <div class="sv-bm-vital__target">
+      <a
+        class="svd-btn svd-btn--ghost sv-bm-statement-btn"
+        href="/pages/mechanism-bundles-statement"
+        data-sv-statement-link
+        data-i18n="bundle.mother.statement_cta"
+      >Read Full Bundle Mechanism Statement</a>
+    </div>
+  </section>
+
+  {{!-- Bottom-Right Safe Zone G-0 Agent Slot (90px hollow dashed ring, 375px right safe padding, ?sv_agent=off collapse) --}}
+  <aside
+    class="sv-agent-slot-g0"
+    data-sv-agent-slot="g0"
+    data-sv-asset-id="AGENT_SLOT_BUNDLE_G0"
+    aria-label="Agent slot G-0 placeholder"
+  >
+    <span class="sv-agent-slot-g0__ring" aria-hidden="true"></span>
+    <span class="sv-agent-slot-g0__caption">AGENT SLOT · G-0 · NOT IMPLEMENTED · ?sv_agent=off</span>
+  </aside>
+
+  {{!-- Screen-Reader Polite Announcer --}}
+  <div class="svd-visually-hidden" role="status" aria-live="polite" data-sv-sr-live></div>
+</section>
+
+{{!-- Placeholder-Safe Structured Data JSON-LD (Zero hardcoded prices; injected/maintained in document & <head>) --}}
+<script type="application/ld+json" data-sv-bundle-jsonld>
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "SpaceVanta Precision 6-Bay Modular Bundle",
+  "description": "Curated 6-bay modular tray in brushed slate and gunmetal with warm paper inner dividers and inline slot customization.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "SpaceVanta"
+  },
+  "hasPart": [
+    { "@type": "Thing", "name": "6-Bay Slot Grid (HS_BAY_GRID)" },
+    { "@type": "Thing", "name": "Plinth-Free Origami SV Crest (HS_SV_CREST)" }
+  ]
+}
+</script>
+
+{{#schema}}
+{
+  "name": "SpaceVanta Bundle Mother",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-bundle-mother-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_override",
+      "label": "Custom Bundle Heading",
+      "default": "Precision 6-Bay Curated Tray"
+    },
+    {
+      "type": "switch",
+      "id": "enable_cross_pool",
+      "label": "Enable Cross-Bundle Pool Cold Grid",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "enable_f2_mto_hint",
+      "label": "Enable F2 Mixed-MTO Cart Guidance",
+      "default": true
+    },
+    {
+      "type": "switch",
+      "id": "allow_seasonal_accent",
+      "label": "Allow Seasonal Seam & Icon Override",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta Bundle Mother",
+      "category": "Bundles",
+      "settings": {
+        "enable_cross_pool": true,
+        "enable_f2_mto_hint": true,
+        "allow_seasonal_accent": true
+      }
+    }
+  ]
+}
+{{/schema}}

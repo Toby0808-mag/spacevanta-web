@@ -1,0 +1,68 @@
+{
+  "id": "Bundle_MOTHER",
+  "category": "Ecosystem Invisible Assembly Root",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "budget": {
+    "triangles": 0,
+    "maxTriangles": 0,
+    "materials": 0,
+    "maxMaterials": 0,
+    "shadows": 0
+  },
+  "glb": {
+    "file": "Bundle_MOTHER.glb",
+    "triangles": 0,
+    "materialsCount": 0,
+    "bytes": 428,
+    "sha256": "e69ccea493b838dd5c5a1f607a706237606fe96f80c15c7f9a1f5dda8ea85cc7",
+    "anchors": [
+      "Bundle_MOTHER_1"
+    ]
+  },
+  "anchors": {
+    "order": [
+      "anchor_A",
+      "anchor_B",
+      "anchor_C",
+      "anchor_A"
+    ],
+    "allowedSlots": {
+      "anchor_A": [
+        "lid",
+        "base"
+      ],
+      "anchor_B": [
+        "ring"
+      ],
+      "anchor_C": [
+        "lid",
+        "base",
+        "ring"
+      ]
+    },
+    "anchorBRotor": false
+  },
+  "poster": {
+    "file": "poster_mother_1600.png",
+    "bytes": 9378,
+    "maxBytes": 90000,
+    "sha256": "3b7f7e9991bdcc34a8a342a271518135d6a36b2241b3c6ddfa762bb98b7fb539"
+  },
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster_mother_1600.png"
+  ]
+}

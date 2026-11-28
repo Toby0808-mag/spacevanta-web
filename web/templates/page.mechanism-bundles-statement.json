@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "bundle-statement": {
+      "type": "bundle-statement",
+      "settings": {
+        "heading": "Bundle Mechanism & Curation Statement",
+        "color_scheme": "scheme-1"
+      },
+      "disabled": false,
+      "blocks": {},
+      "custom_css": []
+    }
+  },
+  "order": [
+    "bundle-statement"
+  ]
+}

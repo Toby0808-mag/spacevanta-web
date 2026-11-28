@@ -1,0 +1,59 @@
+{
+  "id": "SV_MP_SKU_05_v01",
+  "category": "M-Proto Product Model",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MP_SKU_05_v01.glb",
+      "triangles": 236,
+      "bytes": 12968,
+      "sha256": "1791121fdd34b3a691672b3b44a1aec88f0ab21b989ecfc32c3a6bb00cb9721f"
+    },
+    "lod1": {
+      "file": "SV_MP_SKU_05_v01_lod1.glb",
+      "triangles": 140,
+      "bytes": 8932,
+      "sha256": "1edd3304494c5f9b6836161f2a360dd1e03ddbd73f0ec89ead468c7b9362dea6"
+    },
+    "lod2": {
+      "file": "SV_MP_SKU_05_v01_lod2.glb",
+      "triangles": 92,
+      "bytes": 6948,
+      "sha256": "97196645e214585825675f754f7fe0ea51cba270589739a64ee70f6a4ccad40e"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 11402,
+    "maxBytes": 90000,
+    "sha256": "f50dba41d14a05e8e01898406db7a80c27d8464839ed93d00ab1eae98c72daa7",
+    "alt": "SpaceVanta Oat Linen Tea Caddy modular tray item"
+  },
+  "slotCompatibility": [
+    "bay_1",
+    "bay_2",
+    "bay_3",
+    "bay_4",
+    "bay_5",
+    "bay_6"
+  ],
+  "naturalMaterialSpec": "Oat Linen Tea Caddy"
+}

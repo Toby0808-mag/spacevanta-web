@@ -1,0 +1,67 @@
+{
+  "header": {
+    "a11y": {
+      "skip_to_main": "跳至正文内容",
+      "primary_nav": "主导航",
+      "announcement_region": "履约与配送提示",
+      "open_shop": "展开商品分类",
+      "open_menu": "打开导航菜单",
+      "open_search": "打开搜索",
+      "open_market": "切换配送市场与语言",
+      "open_cart": "购物袋",
+      "close_overlay": "关闭面板",
+      "cart_items_label": "件商品"
+    },
+    "nav": {
+      "shop": "选购",
+      "bundles": "组合套装",
+      "mto": "按需定制",
+      "menu": "菜单",
+      "all_products": "全部商品",
+      "scenes": "场景探索"
+    },
+    "shop": {
+      "categories_heading": "商品类目",
+      "cat_01": "桌面结构件",
+      "cat_02": "模块化托盘",
+      "cat_03": "精密工具",
+      "scene_heading": "场景引导",
+      "scene_title": "按桌面场景选型",
+      "scene_sub": "查看模块件在暖纸桌面的真实尺度与拼接关系。",
+      "scene_cta": "查看场景"
+    },
+    "drawer": {
+      "ways_heading": "购买方式",
+      "guide_heading": "指南与政策",
+      "policy_shipping": "配送与关税政策",
+      "how_it_works": "运作方式",
+      "about": "关于 SpaceVanta",
+      "privilege": "会员权益",
+      "contact": "联系我们",
+      "account": "账户",
+      "current_market": "当前市场",
+      "change_market": "切换"
+    },
+    "market": {
+      "title": "市场与语言",
+      "delivery_label": "配送目的地",
+      "lang_label": "语言",
+      "apply_cta": "应用",
+      "helper": "价格、关税与履约时效将随所选目的地同步更新。",
+      "degraded_msg": "市场目录暂时不可用，当前已激活市场保持不变。",
+      "policy_link": "查看配送与关税政策"
+    },
+    "search": {
+      "title": "搜索",
+      "placeholder": "搜索模块件、组合套装或场景",
+      "submit": "搜索",
+      "quick_heading": "快捷类目",
+      "empty_hint": "请输入关键词或点选下方类目。",
+      "degraded_hint": "实时联想暂不可用，按回车可直接提交搜索。"
+    },
+    "handoff": {
+      "deferred_notice": "目标路由已登记，待对应页面模板上线后绑定。",
+      "idempotent_notice": "已响应本次点击，2.5 秒内不重复触发。"
+    }
+  }
+}
