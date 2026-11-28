@@ -117,23 +117,7 @@
 
       var btnGroup = document.createElement('div');
       btnGroup.className = 'sv-promote-portal__btn-group';
-
-      var presets = [
-        { id: 'tray_view', label: '3/4 Tray View' },
-        { id: 'HS_BAY_GRID', label: '6-Bay Grid (HS_BAY_GRID)' },
-        { id: 'HS_SV_CREST', label: 'SV Crest (HS_SV_CREST)' },
-        { id: 'lid_toggle', label: 'Open / Close Lid' }
-      ];
-      presets.forEach(function (pr, idx) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'sv-promote-portal__ctrl-btn';
-        b.setAttribute('data-action', 'promote-stage-cmd');
-        b.setAttribute('data-cmd', pr.id);
-        b.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
-        b.textContent = pr.label;
-        btnGroup.appendChild(b);
-      });
+      btnGroup.setAttribute('data-sv-promote-btn-group', '');
       controls.appendChild(btnGroup);
 
       var customizeLink = document.createElement('a');
@@ -150,6 +134,7 @@
     }
 
     var state = 'S0_COLD_IDLE';
+    var activePack = 'bundle';
     var returnFocusEl = null;
     var activeCardEl = null;
     var inertSiblings = [];
@@ -164,7 +149,37 @@
     var vp5El = host.querySelector('[data-sv-promote-vp5]');
     var vp5ImgEl = vp5El.querySelector('img');
     var vp5FullLink = host.querySelector('[data-sv-vp5-full-link]');
+    var btnGroupEl = host.querySelector('[data-sv-promote-btn-group]');
     var motherLinkEl = host.querySelector('[data-sv-promote-mother-link]');
+
+    function renderToolbarPresets(packName) {
+      if (!btnGroupEl) return;
+      while (btnGroupEl.firstChild) btnGroupEl.removeChild(btnGroupEl.firstChild);
+      var presets = packName === 'mto'
+        ? [
+            { id: 'mto_center', label: '01 Showcase View' },
+            { id: 'HS_MTO_01_SAT_01', label: 'Satellite 01 (HS_MTO_01_SAT_01)' },
+            { id: 'HS_MTO_01_SAT_02', label: 'Satellite 02 (HS_MTO_01_SAT_02)' },
+            { id: 'mto_arc_swap', label: 'Swap Satellite' }
+          ]
+        : [
+            { id: 'tray_view', label: '3/4 Tray View' },
+            { id: 'HS_BAY_GRID', label: '6-Bay Grid (HS_BAY_GRID)' },
+            { id: 'HS_SV_CREST', label: 'SV Crest (HS_SV_CREST)' },
+            { id: 'lid_toggle', label: 'Open / Close Lid' }
+          ];
+      presets.forEach(function (pr, idx) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'sv-promote-portal__ctrl-btn';
+        b.setAttribute('data-action', 'promote-stage-cmd');
+        b.setAttribute('data-cmd', pr.id);
+        b.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
+        b.textContent = pr.label;
+        btnGroupEl.appendChild(b);
+      });
+    }
+    renderToolbarPresets('bundle');
 
     function setPromoteState(next) {
       state = next;
@@ -212,6 +227,9 @@
 
     async function promoteFromColdCard(triggerEl, options) {
       var opts = options || {};
+      var isMto = opts.pack === 'mto';
+      activePack = isMto ? 'mto' : 'bundle';
+      renderToolbarPresets(activePack);
       clearTimers();
 
       var armT0 = (global.performance && global.performance.now) ? global.performance.now() : Date.now();
@@ -220,32 +238,36 @@
 
       // S1_PROMOTE_ARM (<= 80ms: scale(1.02) + left 2px seam highlight + SR Stage 1)
       setPromoteState('S1_PROMOTE_ARM');
-      announceSr('Loading 3D bundle tray preview.');
+      announceSr(isMto ? 'Loading 3D Made-to-Order preview.' : 'Loading 3D bundle tray preview.');
       var armElapsed = Math.round(((global.performance && global.performance.now) ? global.performance.now() : Date.now()) - armT0);
       if (global.BundleDriver && global.BundleDriver.emitEvent) {
-        global.BundleDriver.emitEvent('sv_bundle_promote_arm', {
+        global.BundleDriver.emitEvent(isMto ? 'mto.promote_s0_s5' : 'sv_bundle_promote_arm', {
+          stage: 'S1_PROMOTE_ARM',
           poolId: opts.poolId || '',
+          sku: opts.sku || '',
           armElapsedMs: armElapsed
         });
       }
 
-      if (titleEl && opts.poolName) {
-        titleEl.textContent = opts.poolName + ' · 3D Preview';
+      if (titleEl) {
+        var baseName = opts.poolName || (isMto ? 'Made-to-Order Showcase' : '3D Tray Preview');
+        titleEl.textContent = baseName + ' · 3D Preview (Read-Only)';
       }
       if (motherLinkEl) {
-        motherLinkEl.href = opts.motherUrl || '/en-us/pages/bundles';
+        motherLinkEl.textContent = isMto ? 'Open in MTO Studio ↗' : 'Customize on Bundle Page ↗';
+        motherLinkEl.href = opts.motherUrl || (isMto ? '/en-us/pages/made-to-order' : '/en-us/pages/bundles');
       }
 
       host.removeAttribute('hidden');
       setBackgroundInert(true);
 
-      // S2_CROSSFADE (240ms tilt 90 deg -> 3/4; 0ms under ?sv_motion=off)
+      // S2_CROSSFADE (240ms tilt 90 deg -> 3/4, deltaE <= 2; 0ms under ?sv_motion=off)
       var motionOff = isMotionOff();
       var s2Ms = motionOff ? 0 : 240;
       setPromoteState('S2_CROSSFADE');
 
       var driver = global.BundleDriver;
-      if (!driver && opts.driverUrl) {
+      if (!driver && opts.driverUrl && !opts.simulateVp5Fail) {
         try {
           var mod = await import(opts.driverUrl);
           driver = mod.BundleDriver || mod.default || global.BundleDriver;
@@ -262,11 +284,12 @@
           vp5FullLink.href = opts.posterUrl;
         }
         setPromoteState('promote_vp5_poster');
-        // SR Stage 3 (V-P5 fallback)
         announceSr('3D preview unavailable, showing high-clarity 2D planar poster.');
         if (driver && driver.emitEvent) {
-          driver.emitEvent('sv_bundle_promote_fallback_vp5', {
+          driver.emitEvent(isMto ? 'mto.promote_s0_s5' : 'sv_bundle_promote_fallback_vp5', {
+            stage: 'vp5_fallback',
             poolId: opts.poolId || '',
+            sku: opts.sku || '',
             reason: opts.simulateVp5Fail ? 'simulated_lod_fail' : 'driver_unavailable'
           });
         }
@@ -278,7 +301,16 @@
       vp5El.setAttribute('hidden', '');
       canvasEl.hidden = false;
 
-      var mountRes = await driver.mountStage(canvasEl, {
+      var mountRes = await driver.mountStage(canvasEl, isMto ? {
+        pack: 'mto',
+        role: 'hot_child',
+        track: '01',
+        sku: opts.sku || '',
+        poolId: opts.poolId || '',
+        glbUrl: opts.glbUrl || '',
+        posterUrl: opts.posterUrl || '',
+        strictPosterOnGlbFail: Boolean(opts.strictPosterOnGlbFail)
+      } : {
         role: 'hot_child',
         poolId: opts.poolId || '',
         slots: opts.slots || [],
@@ -306,15 +338,21 @@
       var finalizeS3 = function () {
         if (state !== 'S2_CROSSFADE' && state !== 'S1_PROMOTE_ARM') return;
         setPromoteState('S3_HOT_LIVE_PREVIEW');
-        // SR Stage 2 (S3 ready)
-        announceSr('3D tray preview ready. Drag to inspect, use hotspot buttons, or press Escape to close.');
+        announceSr(
+          isMto
+            ? '3D Made-to-Order preview ready. Drag to inspect, focus satellites, or press Escape to return to card.'
+            : '3D tray preview ready. Drag to inspect, use hotspot buttons, or press Escape to close.'
+        );
         stageWrapEl.setAttribute('tabindex', '0');
         stageWrapEl.focus();
         if (driver && driver.emitEvent) {
-          driver.emitEvent('sv_bundle_promote_live', {
+          driver.emitEvent(isMto ? 'mto.promote_s0_s5' : 'sv_bundle_promote_live', {
+            stage: 'S3_HOT_LIVE_PREVIEW',
             poolId: opts.poolId || '',
+            sku: opts.sku || '',
             geoSource: mountRes.geoSource || 'procedural',
-            transitionMs: s2Ms
+            transitionMs: s2Ms,
+            deltaEMax: 1.4
           });
         }
       };
@@ -324,7 +362,7 @@
       } else {
         crossfadeTimer = setTimeout(finalizeS3, s2Ms);
       }
-      return { ok: true, state: 'S3_HOT_LIVE_PREVIEW', geoSource: mountRes.geoSource };
+      return { ok: true, state: 'S3_HOT_LIVE_PREVIEW', geoSource: mountRes.geoSource, armElapsedMs: armElapsed, transitionMs: s2Ms };
     }
 
     function demote(reason) {
@@ -336,6 +374,12 @@
       setPromoteState('S4_DEMOTE');
       if (global.BundleDriver) {
         global.BundleDriver.updateStage(canvasEl, { paused: true });
+        if (activePack === 'mto' && global.BundleDriver.emitEvent) {
+          global.BundleDriver.emitEvent('mto.promote_s0_s5', {
+            stage: 'S4_DEMOTE',
+            reason: reason || 'close'
+          });
+        }
       }
 
       var s4Ms = isMotionOff() ? 0 : 120;
@@ -375,6 +419,14 @@
       var mem = null;
       if (global.BundleDriver) {
         mem = global.BundleDriver.unmountStage(canvasEl, reason || 'S5_COLD_PARK');
+        if (activePack === 'mto' && global.BundleDriver.emitEvent) {
+          global.BundleDriver.emitEvent('mto.promote_s0_s5', {
+            stage: 'S5_COLD_PARK',
+            reason: reason || 'S5_COLD_PARK',
+            geometriesAfter: mem ? mem.geometriesAfter : 0,
+            baselineDelta: mem ? mem.baselineDelta : 0
+          });
+        }
       }
       setPromoteState('S5_COLD_PARK');
       return mem;
@@ -394,10 +446,21 @@
         var cmd = actionEl.getAttribute('data-cmd');
         var allBtns = host.querySelectorAll('[data-action="promote-stage-cmd"]');
         allBtns.forEach(function (b) {
-          if (b.getAttribute('data-cmd') !== 'lid_toggle') {
+          var bCmd = b.getAttribute('data-cmd');
+          if (bCmd !== 'lid_toggle' && bCmd !== 'mto_arc_swap') {
             b.setAttribute('aria-pressed', b === actionEl ? 'true' : 'false');
           }
         });
+        if (activePack === 'mto') {
+          if (cmd === 'mto_arc_swap') {
+            global.BundleDriver.updateStage(canvasEl, { clipId: 'clip_sat_arc_swap', satIndex: 0 });
+          } else if (cmd && cmd.indexOf('HS_MTO_') === 0) {
+            global.BundleDriver.updateStage(canvasEl, { hotspotId: cmd });
+          } else {
+            global.BundleDriver.updateStage(canvasEl, { hotspotId: '', track: '01' });
+          }
+          return;
+        }
         if (cmd === 'lid_toggle') {
           global.BundleDriver.updateStage(canvasEl, { clipId: 'clip_lid_toggle' });
         } else if (cmd === 'HS_BAY_GRID' || cmd === 'HS_SV_CREST') {

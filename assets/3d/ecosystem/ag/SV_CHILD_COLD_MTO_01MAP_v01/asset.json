@@ -1,0 +1,97 @@
+{
+  "id": "SV_CHILD_COLD_MTO_01MAP_v01",
+  "category": "Cold Sleeping Child Model (01-Style 2D Planar Square Mapping x5)",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v01",
+  "r_target": "Poster / Cold",
+  "s0WebGL": 0,
+  "s0GlbRequests": 0,
+  "singleCardMaxViewportWidthPct": 10.0,
+  "dnaProfile": {
+    "name": "pdp_collection",
+    "metalAreaPct": 7.0,
+    "seamBeta": 0.18,
+    "seamAuraPct": 0.5,
+    "delta": 0,
+    "warmCoolRatio": 6.19
+  },
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "agentEvents": [
+    "sv:mto:cold:promotePreview"
+  ],
+  "cards": [
+    {
+      "id": "SV_CHILD_COLD_MTO_01MAP_01_v01",
+      "sku": "SV_MTO_SKU_01",
+      "poolId": "mto_pool_ceramic_01",
+      "title": "Ceramic Pour-Over Vessel",
+      "thumb640": "SV_CHILD_COLD_MTO_01MAP_01_v01.png",
+      "thumbBytes": 5923,
+      "thumbSha256": "d60f1528d3e421c4b64aeb07ae0fbf517cc795032ab839a0aa26797f13773cdd",
+      "silhouette": "SV_CHILD_COLD_MTO_01MAP_01_silhouette.png",
+      "silhouetteBytes": 2130,
+      "silhouetteSha256": "8e6755de13db48610352776f4d288a42fb466efcd417e70a8e3cf46d5266c11b",
+      "alt": "2D planar 01-style square showcase map of SpaceVanta Ceramic Pour-Over Vessel with 4 surrounding modular satellites"
+    },
+    {
+      "id": "SV_CHILD_COLD_MTO_01MAP_02_v01",
+      "sku": "SV_MTO_SKU_02",
+      "poolId": "mto_pool_linen_02",
+      "title": "Woven Linen Desk Folio",
+      "thumb640": "SV_CHILD_COLD_MTO_01MAP_02_v01.png",
+      "thumbBytes": 5175,
+      "thumbSha256": "1cd2be35c65623599f51bb392db2d5381aab7aa6af345d4a8741832ef296094e",
+      "silhouette": "SV_CHILD_COLD_MTO_01MAP_02_silhouette.png",
+      "silhouetteBytes": 1130,
+      "silhouetteSha256": "9d2ce1670b505fe2560d75965fe52afcc5b125d397e482da749e3c199ec8ecc9",
+      "alt": "2D planar 01-style square showcase map of SpaceVanta Woven Linen Desk Folio with 4 surrounding modular satellites"
+    },
+    {
+      "id": "SV_CHILD_COLD_MTO_01MAP_03_v01",
+      "sku": "SV_MTO_SKU_03",
+      "poolId": "mto_pool_thermal_03",
+      "title": "Brushed Thermal Carafe",
+      "thumb640": "SV_CHILD_COLD_MTO_01MAP_03_v01.png",
+      "thumbBytes": 5119,
+      "thumbSha256": "29fe5fa7d935b5541257861ecac1c95a2bb7036b9d5719bd61042f5e151ee2fa",
+      "silhouette": "SV_CHILD_COLD_MTO_01MAP_03_silhouette.png",
+      "silhouetteBytes": 1207,
+      "silhouetteSha256": "6229d1ef6bcb8428316c1897f49113707f7a575d9d5070a5f1169440b06f63fe",
+      "alt": "2D planar 01-style square showcase map of SpaceVanta Brushed Thermal Carafe with 4 surrounding modular satellites"
+    },
+    {
+      "id": "SV_CHILD_COLD_MTO_01MAP_04_v01",
+      "sku": "SV_MTO_SKU_04",
+      "poolId": "mto_pool_travel_04",
+      "title": "Modular Travel Organizer",
+      "thumb640": "SV_CHILD_COLD_MTO_01MAP_04_v01.png",
+      "thumbBytes": 5125,
+      "thumbSha256": "fad61579e4c9611606ba33f520d95f488b9ffed63e380478cd8d10a11fb42af4",
+      "silhouette": "SV_CHILD_COLD_MTO_01MAP_04_silhouette.png",
+      "silhouetteBytes": 1132,
+      "silhouetteSha256": "ac4329e09dac89fe0d8d9a2769c21755af7e098037d8679b76d14ce199949416",
+      "alt": "2D planar 01-style square showcase map of SpaceVanta Modular Travel Organizer with 4 surrounding modular satellites"
+    },
+    {
+      "id": "SV_CHILD_COLD_MTO_01MAP_05_v01",
+      "sku": "SV_MTO_SKU_05",
+      "poolId": "mto_pool_travertine_05",
+      "title": "Honed Travertine Valet Tray",
+      "thumb640": "SV_CHILD_COLD_MTO_01MAP_05_v01.png",
+      "thumbBytes": 5147,
+      "thumbSha256": "2fd766c90a7b77743cb412bab5e91d41f8cca81db0e0ba9dc87dbde2dbf013ad",
+      "silhouette": "SV_CHILD_COLD_MTO_01MAP_05_silhouette.png",
+      "silhouetteBytes": 1093,
+      "silhouetteSha256": "dee78a45c301b61d1b1a9fc544303d0883eeb81fb936af147f143ec5357e1f7c",
+      "alt": "2D planar 01-style square showcase map of SpaceVanta Honed Travertine Valet Tray with 4 surrounding modular satellites"
+    }
+  ]
+}

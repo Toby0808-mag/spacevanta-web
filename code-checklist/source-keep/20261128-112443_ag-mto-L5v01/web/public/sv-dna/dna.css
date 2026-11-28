@@ -1,0 +1,218 @@
+/* Space Vanta · DNA kit v1.2.1 (PALETTE v1.2.1 + SpaceVanta-Base dual-layer tokens)
+   Global tokens (--svd-* & --sv-*) + shared primitives.
+   Rule: token definitions live ONLY in PALETTE.json and this file; all sections/components/3D
+   consume var(--svd-*) / var(--sv-*) exclusively, never hard-coded hex values. */
+:root {
+  /* E0 Locked Core Tokens (paper / paper-subtle / ink / seam-aura) */
+  --svd-paper: #FBF7F0;
+  --svd-paper-2: #F3EFE8;
+  --svd-ink: #252321;
+  --svd-ink-soft: #6B655C;
+  --svd-line: #E4DDD0;
+  --svd-white: #FFFFFF;
+  --svd-seam-aura: #E5FFFF;
+
+  /* E1 5-Step Brushed Metal Ramp (hueBand 216-225 deg + terminal 18% metalRampGuard) */
+  --svd-metal-recess: #1F222A;
+  --svd-deep-metal: #232833;
+  --svd-gunmetal: #313540;
+  --svd-slate: #5A606E;
+  --svd-steel: #8B929E;
+  --svd-pewter: #B7BCC4;
+  --svd-silver: #DBD9DA;
+  --svd-specular: #F2F1F0;
+
+  /* Seam Ramp (hueBand 216-221 deg; aura locked H180) */
+  --svd-seam-deep: #154BB8;
+  --svd-seam: #1D6BFF;
+  --svd-seam-mid: #7DADDE;
+
+  /* PALETTE v1.2.1 Design-Layer Aliases (--sv-*) */
+  --sv-paper: var(--svd-paper);
+  --sv-paper-subtle: var(--svd-paper-2);
+  --sv-ink: var(--svd-ink);
+  --sv-ink-soft: var(--svd-ink-soft);
+  --sv-line: var(--svd-line);
+  --sv-paper-line: var(--svd-line);
+  --sv-metal-recess: var(--svd-metal-recess);
+  --sv-deep-metal: var(--svd-deep-metal);
+  --sv-gunmetal: var(--svd-gunmetal);
+  --sv-slate: var(--svd-slate);
+  --sv-steel: var(--svd-steel);
+  --sv-pewter: var(--svd-pewter);
+  --sv-silver: var(--svd-silver);
+  --sv-specular: var(--svd-specular);
+  --sv-seam-deep: var(--svd-seam-deep);
+  --sv-seam: var(--svd-seam);
+  --sv-seam-mid: var(--svd-seam-mid);
+  --sv-seam-aura: var(--svd-seam-aura);
+
+  /* E2 Seasonal Skin Tokens (graphics/lines only, contrast >= 3.0 on paper; never body text) */
+  --sv-season-accent: var(--svd-seam);
+  --sv-accent: var(--sv-season-accent);
+  --sv-season-icon: none;
+
+  /* Spacing / Shape / Motion / Focus */
+  --svd-s1: 4px;
+  --svd-s2: 8px;
+  --svd-s3: 12px;
+  --svd-s4: 16px;
+  --svd-s5: 24px;
+  --svd-s6: 40px;
+  --svd-s7: 64px;
+  --svd-r-sm: 6px;
+  --svd-r-md: 10px;
+  --svd-r-lg: 16px;
+  --svd-r-pill: 999px;
+  --svd-dur: 240ms;
+  --sv-dur: var(--svd-dur);
+  --svd-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --svd-focus: 0 0 0 2px var(--svd-paper), 0 0 0 4px var(--svd-seam);
+}
+
+/* E2 Season Kill Switch (?sv_season=off): lock seam & accent to base DNA */
+[data-sv-season="off"] {
+  --sv-season-accent: var(--svd-seam);
+  --sv-accent: var(--svd-seam);
+  --sv-seam: var(--svd-seam);
+  --sv-season-icon: none;
+}
+
+/* Motion Kill Switch (?sv_motion=off) & OS Reduced Motion */
+[data-sv-motion="off"] {
+  --svd-dur: 0ms;
+  --sv-dur: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --svd-dur: 0ms;
+    --sv-dur: 0ms;
+  }
+}
+
+/* Universal HTML hidden safeguard: never let display:flex/inline-flex override [hidden] */
+[hidden] {
+  display: none !important;
+}
+
+/* Click Reliability Guard (L5@v02 §8 V-08 / V-13): prevent child elements from swallowing clicks */
+[data-action] * {
+  pointer-events: none;
+}
+
+/* Signature Brand Seam Primitives */
+@keyframes svd-seam-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.svd-seam {
+  display: block;
+  height: 2px;
+  background: var(--svd-seam);
+  transform-origin: left center;
+}
+
+.svd-seam-in {
+  animation: svd-seam-in var(--svd-dur) var(--svd-ease) both;
+}
+
+/* Shared Primitives (AAA ink/paper contrast; zero small-text seam blue) */
+.svd-card {
+  background: var(--svd-paper-2);
+  border: 1px solid var(--svd-line);
+  border-radius: var(--svd-r-md);
+  padding: var(--svd-s5);
+  color: var(--svd-ink);
+}
+
+.svd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--svd-s2);
+  padding: var(--svd-s1) var(--svd-s3);
+  border-radius: var(--svd-r-pill);
+  border: 1px solid var(--svd-line);
+  background: var(--svd-paper-2);
+  color: var(--svd-ink);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.svd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--svd-s2);
+  min-height: 44px;
+  padding: 0 var(--svd-s5);
+  border-radius: var(--svd-r-sm);
+  border: 1px solid var(--svd-ink);
+  background: var(--svd-ink);
+  color: var(--svd-paper);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--svd-dur) var(--svd-ease), border-color var(--svd-dur) var(--svd-ease), box-shadow var(--svd-dur) var(--svd-ease);
+}
+
+.svd-btn:hover {
+  background: var(--svd-gunmetal);
+  border-color: var(--svd-seam);
+  box-shadow: inset 0 0 0 1px var(--svd-seam-aura);
+  color: var(--svd-paper);
+}
+
+.svd-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--svd-focus);
+}
+
+.svd-btn--ghost {
+  background: transparent;
+  color: var(--svd-ink);
+  border-color: var(--svd-line);
+}
+
+.svd-btn--ghost:hover {
+  background: var(--svd-paper-2);
+  border-color: var(--svd-ink);
+  box-shadow: none;
+  color: var(--svd-ink);
+}
+
+.svd-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* SV Data Slot fallback-first rules */
+.svd-slot {
+  position: relative;
+}
+
+.svd-slot[data-sv-state="slot_degraded"] [data-sv-live] {
+  display: none !important;
+}
+
+.svd-slot:not([data-sv-state="slot_ready"]) [data-sv-live] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svd-seam-in { animation: none; }
+  .svd-btn { transition: none; }
+}
+
+[data-sv-motion="off"] .svd-seam-in {
+  animation: none;
+}
+
+[data-sv-motion="off"] .svd-btn {
+  transition: none;
+}

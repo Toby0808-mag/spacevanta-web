@@ -132,5 +132,82 @@
     "agent": {
       "g0_caption": "AGENT SLOT · G-0 · NOT IMPLEMENTED · ?sv_agent=off"
     }
+  },
+  "mto": {
+    "trust": {
+      "region_label": "按需定制配送与履约说明",
+      "details_track": "说明与追踪 ↗",
+      "mobile_glance": "免费探索 · 确认全部细节前零扣款。"
+    },
+    "mother": {
+      "eyebrow": "SpaceVanta 按需定制工坊",
+      "title": "按需定制，随你塑形。",
+      "subtitle": "探索即点即做单品、微调结构与表面工艺，或发起跨目录寻源请求，确认报价前零预付款。",
+      "track_01": "01 即选排产",
+      "track_02": "02 自由定制",
+      "track_03": "03 跨界寻源",
+      "auto_cycle": "自动轮播",
+      "view_full_poster": "查看高清平面图",
+      "whisper_default": "三轨自由探索——在您核准全部细节前不会产生任何扣款。",
+      "cta_add_curated": "加入购物袋",
+      "cta_customize_this": "基于此款定制 (02) →",
+      "cta_use_ref": "作为寻源参考 (03) →",
+      "cta_send_02": "提交定制请求 — 暂不扣款",
+      "cta_send_03": "提交免费寻源请求 — 暂不扣款",
+      "cta_submitting": "正在提交请求",
+      "cta_open_folio": "展开寻源折页",
+      "cta_fold_back": "收合折页",
+      "cta_view_tracker": "查看实时追踪",
+      "cta_new_request": "发起新请求",
+      "cta_retry": "重试",
+      "ack_heading": "请求已受理 — 未产生任何扣款",
+      "ack_fallback_02": "确认全部细节后再付款 · 含核准前免费微调。",
+      "ack_fallback_03": "免费寻源评估 · 报价前先行核验目的国进口合规。",
+      "duplicate_notice": "请求已提交，已忽略重复点击。",
+      "timeout_notice": "连接超时，您已选择的定制规格与备注已完整保留。",
+      "import_fallback": "寻源确认前将先行完成目的国进口合规预检。"
+    },
+    "remember": {
+      "heading": "当前选配与请求追踪",
+      "track_link": "打开实时追踪页 (/pages/mto-status) ↗",
+      "seo_heading": "按需定制履约机制与保障",
+      "seo_1_title": "两段式按需排产与承运接力",
+      "seo_1_body": "每件即选排产单品先完成工坊备制交接，再进入承运商运输时效窗口，全程节点透明可查。",
+      "seo_2_title": "核准前零扣款与免费微调保障",
+      "seo_2_body": "提交结构、表面工艺与包装规格请求无需预付费用，可在核准正式报价前完成细节修订。",
+      "seo_3_title": "目标市场进口合规前置预检",
+      "seo_3_body": "跨界寻源请求在出具报价前自动核验 SpaceVanta 各配送市场的进口合规指引。"
+    },
+    "status": {
+      "eyebrow": "SpaceVanta 定制实时追踪",
+      "title": "查询与管理您的按需定制请求",
+      "lookup_label": "请求单号",
+      "lookup_btn": "查询状态",
+      "revise_btn": "申请规格修订",
+      "approve_btn": "核准报价并加入购物袋",
+      "resubmit_btn": "保留原规格重新提审",
+      "revision_cap_msg": "当前请求的免费修订次数已用尽。",
+      "expired_msg": "报价有效期已届满，付款入口已关闭——您可保留原规格一键重新提审。"
+    },
+    "child_hot": {
+      "eyebrow": "按需定制精选展位",
+      "title": "按需定制交互展台",
+      "mode_a1": "01 即选排产",
+      "mode_a2": "原地预览与预填定制 (02) →",
+      "back_a1": "← 返回 01 展台",
+      "add_curated": "加购此定制款",
+      "continue_mother": "带参前往定制工坊提交 →",
+      "handoff_hint": "正在携带所选单品与预填规格直达定制工坊 Track 02。"
+    },
+    "child_cold": {
+      "eyebrow": "按需定制 · 2D 平面方块映射",
+      "title": "探索按需定制单品",
+      "promote_btn": "升维 3D 预览",
+      "add_btn": "加购此定制款",
+      "studio_link": "在定制工坊打开 ↗"
+    },
+    "agent": {
+      "g0_caption": "AGENT SLOT · G-0 · NOT IMPLEMENTED · ?sv_agent=off"
+    }
   }
 }

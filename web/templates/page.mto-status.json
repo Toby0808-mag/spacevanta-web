@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "mto-status": {
+      "type": "mto-status",
+      "settings": {
+        "heading": "Track & Manage Your Made-to-Order Request",
+        "color_scheme": "scheme-1"
+      },
+      "disabled": false,
+      "blocks": {},
+      "custom_css": []
+    }
+  },
+  "order": [
+    "mto-status"
+  ]
+}

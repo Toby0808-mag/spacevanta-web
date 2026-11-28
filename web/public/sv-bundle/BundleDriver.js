@@ -8,10 +8,16 @@
 import { createBundleScene, isReducedMotion, webglAvailable } from "./BundleScene3D.js";
 import { loadGlbBounded, pickHotGlbUrl, resolveGlbUrl } from "./glbMount.js";
 import { BUNDLE_MOTHER_RIG, LID_SV_LOCK } from "./motherRig.js";
+import { createMtoScene } from "./MtoScene3D.js";
+import { MTO_HANDOFF_FROZEN_KEYS, MTO_MOTHER_RIG, MTO_SKUS, findMtoSku } from "./mtoRig.js";
 import { DEFAULT_PROMOTE_TIMING, reducePromote, s2DurationMs, s4DurationMs } from "./PromoteController.js";
 
 var DRAFT_KEY = "sv_bundle_driver_v02";
 var HANDOFF_KEY = "sv_bundle_handoff_v02";
+var MTO_DRAFT_KEY = "sv_mto_draft_v01";
+var MTO_HANDOFF_KEY = "sv_mto_handoff_v01";
+var MTO_REMEMBER_KEY = "sv_mto_remember_v01";
+var MTO_HANDOFF_TTL_MS = 30 * 60 * 1000;
 
 /* ---- Telemetry Emitter (L5@v02 §7.8 Observable Non-PII Events) ---- */
 function emitBundleEvent(eventName, detail) {
@@ -153,6 +159,7 @@ function validateSlotBindings(slots) {
 
 async function mountStage(canvas, options, signal) {
   var opts = options || {};
+  var isMtoPack = opts.pack === "mto" || opts.family === "mto";
   var threeDOff = Boolean(opts.threeDOff) || (
     typeof window !== "undefined" &&
     window.SpaceVanta &&
@@ -160,9 +167,17 @@ async function mountStage(canvas, options, signal) {
     window.SpaceVanta.flags.is3DOff()
   );
 
-  // Cold P2 S0 strictly forbids WebGL creation (V-06 / V-P4)
-  if (opts.role === "cold_p2" || opts.role === "cold_preview") {
-    return { ok: false, level: "L4", reason: "cold_p2_zero_webgl", activeWebGL: getActiveStageCount() };
+  // Cold S0 strictly forbids WebGL creation (V-06 / V-09 / V-P4)
+  if (opts.role === "cold_p2" || opts.role === "cold_preview" || opts.role === "cold_01map") {
+    return { ok: false, level: "L4", reason: "cold_zero_webgl", activeWebGL: getActiveStageCount() };
+  }
+  if (opts.tier === "poster") {
+    unmountStage(canvas, "poster_tier_downgrade");
+    if (canvas && canvas.dataset) {
+      canvas.dataset.sv3d = "poster";
+      canvas.dataset.svModelTier = "poster";
+    }
+    return { ok: false, level: "L4", reason: "poster_tier", activeWebGL: getActiveStageCount() };
   }
   if (threeDOff) {
     unmountStage(canvas);
@@ -194,8 +209,15 @@ async function mountStage(canvas, options, signal) {
   var glbUrl = opts.glbUrl || null;
 
   if (!glbUrl && pack && pack.base) {
-    var rel = pickHotGlbUrl(pack.child, pack.manifest && pack.manifest.packages && pack.manifest.packages.child);
-    glbUrl = resolveGlbUrl(pack.base, rel);
+    if (isMtoPack && pack.mother && pack.mother.variants) {
+      var vKey = opts.track === "02" ? "prism" : (opts.track === "03" ? "folio" : "block");
+      var vEntry = pack.mother.variants[vKey];
+      var mtoRel = vEntry && vEntry.hotGlb && vEntry.hotGlb.lod0 ? vEntry.hotGlb.lod0 : null;
+      glbUrl = resolveGlbUrl(pack.base, mtoRel);
+    } else {
+      var rel = pickHotGlbUrl(pack.child, pack.manifest && pack.manifest.packages && pack.manifest.packages.child);
+      glbUrl = resolveGlbUrl(pack.base, rel);
+    }
   }
 
   if (glbUrl && !opts.forceProcedural) {
@@ -206,8 +228,11 @@ async function mountStage(canvas, options, signal) {
     } else {
       glbStatus = "vp5_fallback:" + loaded.reason;
       if (opts.strictPosterOnGlbFail) {
-        emitBundleEvent("sv_bundle_promote_fallback_vp5", {
+        var evtName = isMtoPack ? "mto.promote_s0_s5" : "sv_bundle_promote_fallback_vp5";
+        emitBundleEvent(evtName, {
+          stage: "vp5_fallback",
           poolId: opts.poolId || "",
+          sku: opts.sku || "",
           reason: loaded.reason
         });
         return {
@@ -219,8 +244,10 @@ async function mountStage(canvas, options, signal) {
       }
     }
   } else if (opts.strictPosterOnGlbFail && opts.simulateVp5Fail) {
-    emitBundleEvent("sv_bundle_promote_fallback_vp5", {
+    emitBundleEvent(isMtoPack ? "mto.promote_s0_s5" : "sv_bundle_promote_fallback_vp5", {
+      stage: "vp5_fallback",
       poolId: opts.poolId || "",
+      sku: opts.sku || "",
       reason: "simulated_lod_fail"
     });
     return {
@@ -229,6 +256,53 @@ async function mountStage(canvas, options, signal) {
       reason: "simulated_lod_fail",
       poster: opts.posterUrl || ""
     };
+  }
+
+  if (isMtoPack) {
+    try {
+      var mtoTrack = String(opts.track || "01");
+      var mtoTier = opts.tier === "r1" ? "r1" : "r2";
+      var mtoHandle = createMtoScene(
+        canvas,
+        {
+          track: mtoTrack,
+          tier: mtoTier,
+          sku: opts.sku || MTO_SKUS[0].sku
+        },
+        {
+          glbRoot: glbRoot,
+          glbMap: opts.glbMap || null,
+          onTelemetry: emitBundleEvent
+        }
+      );
+
+      stageMounts.set(canvas, mtoHandle);
+
+      canvas.dataset.sv3d = "webgl";
+      canvas.dataset.svPack = "mto";
+      canvas.dataset.svModel = mtoTrack === "02"
+        ? "SV_MP_MTO_PRISM_v01"
+        : (mtoTrack === "03" ? "SV_MP_MTO_FOLIO_v01" : "SV_MP_MTO_BLOCK_v01");
+      canvas.dataset.svModelTier = mtoTier;
+      canvas.dataset.svGeoSource = mtoHandle.geoSource;
+      canvas.dataset.svGlb = glbStatus;
+      canvas.dataset.svMotherMeshes = String(mtoHandle.motherMeshCount);
+      canvas.dataset.svGeo = String(mtoHandle.memoryGeometries());
+
+      return {
+        ok: true,
+        level: "L0",
+        handle: mtoHandle,
+        geoSource: mtoHandle.geoSource,
+        glbStatus: glbStatus
+      };
+    } catch (mtoErr) {
+      return {
+        ok: false,
+        level: "L4",
+        reason: mtoErr instanceof Error ? mtoErr.message : "mto_stage_mount_failed"
+      };
+    }
   }
 
   var binding = validateSlotBindings(opts.slots);
@@ -298,8 +372,20 @@ function updateStage(canvas, patch) {
   var handle = stageMounts.get(canvas);
   if (!handle || !patch) return null;
   if (patch.refreshTokens) handle.refreshTokens();
+  if (patch.tier && typeof handle.setTier === "function") handle.setTier(patch.tier);
+  if (patch.track && typeof handle.setTrack === "function") {
+    handle.setTrack(patch.track, patch);
+    if (canvas && canvas.dataset) {
+      canvas.dataset.svModel = patch.track === "02"
+        ? "SV_MP_MTO_PRISM_v01"
+        : (patch.track === "03" ? "SV_MP_MTO_FOLIO_v01" : "SV_MP_MTO_BLOCK_v01");
+    }
+  }
+  if (patch.sku && typeof handle.setCenterSkuSubject === "function") {
+    handle.setCenterSkuSubject(patch.sku);
+  }
   if (patch.cameraPreset) handle.setCameraPreset(patch.cameraPreset, patch.easeMs);
-  if (patch.hotspotId !== undefined) handle.focusHotspot(patch.hotspotId, patch.bayIndex);
+  if (patch.hotspotId !== undefined) handle.focusHotspot(patch.hotspotId, patch);
   if (patch.clipId) handle.playClip(patch.clipId, patch);
   else if (patch.lidOpenDeg != null) handle.setLidOpenDeg(patch.lidOpenDeg, Boolean(patch.animateLid));
   if (patch.slots) handle.setSlots(patch.slots, patch.activeSlotIndex != null ? patch.activeSlotIndex : -1, patch.clipHint);
@@ -837,7 +923,395 @@ function idempotencyKey(market, poolId, mode, slots) {
   return "bdl_" + Math.abs(h).toString(16) + "_" + bucket;
 }
 
+/* ---- MTO Ecosystem Reducer, Handoff & Auto-Downgrade (L5@v01 §4 / §5 / §7) ---- */
+function detectMtoAutoTier() {
+  if (typeof window === "undefined") return "r2";
+  try {
+    if (window.SpaceVanta && window.SpaceVanta.flags) {
+      if (window.SpaceVanta.flags.is3DOff()) return "poster";
+      var f = window.SpaceVanta.flags.get ? window.SpaceVanta.flags.get() : {};
+      var explicitTier = String(f.sv_tier || "").toLowerCase();
+      if (explicitTier === "poster" || explicitTier === "r1" || explicitTier === "r2") {
+        return explicitTier;
+      }
+      var simNet = String(f.sv_net || "").toLowerCase();
+      if (simNet === "slow-2g" || simNet === "2g" || simNet === "save-data") return "poster";
+      if (simNet === "3g" || simNet === "low-mem") return "r1";
+    }
+    var nav = window.navigator || {};
+    var conn = nav.connection || nav.mozConnection || nav.webkitConnection || null;
+    var isCompact = (window.innerWidth || 1280) <= 767;
+    if (conn) {
+      if (conn.saveData) return "poster";
+      var eff = String(conn.effectiveType || "").toLowerCase();
+      if (eff === "slow-2g" || eff === "2g") return "poster";
+      if (isCompact && (eff === "3g" || (typeof conn.downlink === "number" && conn.downlink > 0 && conn.downlink < 1.5))) {
+        return "r1";
+      }
+    }
+    if (isCompact && typeof nav.deviceMemory === "number" && nav.deviceMemory <= 2) {
+      return "r1";
+    }
+  } catch (_e) {}
+  return "r2";
+}
+
+function mtoIdempotencyKey(market, track, sku, form, finish, spec, noteSig) {
+  var dayBucket = Math.floor(Date.now() / (24 * 60 * 60 * 1000));
+  var raw = [
+    market || "en-us",
+    track || "02",
+    sku || "SV_MTO_SKU_01",
+    form || "",
+    finish || "",
+    spec || "",
+    String(noteSig || "").slice(0, 64),
+    dayBucket
+  ].join("|");
+  var h = 0;
+  for (var i = 0; i < raw.length; i++) {
+    h = ((h * 31) + raw.charCodeAt(i)) | 0;
+  }
+  return "mto_idem_" + Math.abs(h).toString(16) + "_" + dayBucket;
+}
+
+function createMtoInitialState(role) {
+  var first = MTO_SKUS[0];
+  return {
+    family: "mto",
+    role: role || "mto_mother",
+    flow: role === "hot_child" ? "hot_child_ready_01" : "track1_square_showcase",
+    track: "01",
+    tier: detectMtoAutoTier(),
+    market: "en-us",
+    poolId: first.poolId,
+    sku: first.sku,
+    form: first.defaultForm,
+    finish: first.defaultFinish,
+    spec: first.defaultSpec,
+    note: "",
+    scenarioId: "desk_fit",
+    targetMarket: "en-us",
+    budgetBand: "tier_studio",
+    qtyBand: "qty_single",
+    folioOpen: false,
+    autoCycle: true,
+    activeHotspot: null,
+    reqId: "",
+    reqTrack: "",
+    revisionCount: 0,
+    maxRevisions: null,
+    slaCustom: "",
+    slaNew: "",
+    slaHandover: "",
+    importRuleNote: "",
+    importRuleLevel: "pass",
+    quoteApproved: false,
+    quoteExpired: false,
+    localePrice: "",
+    quoteTtl: "",
+    commitLockedUntil: 0,
+    lastIdempotencyKey: "",
+    commitCount: 0,
+    duplicateBlockedCount: 0,
+    toast: null
+  };
+}
+
+function reduceMto(state, intent) {
+  var type = intent && intent.type;
+  switch (type) {
+    case "MTO_SET_MARKET": {
+      var m = String(intent.market || "en-us").toLowerCase();
+      return Object.assign({}, state, { market: m, targetMarket: m });
+    }
+    case "MTO_SET_TIER": {
+      var t = String(intent.tier || "r2").toLowerCase();
+      if (t !== "r2" && t !== "r1" && t !== "poster") t = "r2";
+      return Object.assign({}, state, {
+        tier: t,
+        autoCycle: t === "r2" ? state.autoCycle : false
+      });
+    }
+    case "MTO_SWITCH_TRACK": {
+      var tr = String(intent.track || "01");
+      if (tr !== "01" && tr !== "02" && tr !== "03") tr = "01";
+      var nextSku = intent.sku ? findMtoSku(intent.sku).sku : state.sku;
+      var nextFlow = tr === "01"
+        ? (state.role === "hot_child" ? "hot_child_ready_01" : "track1_square_showcase")
+        : (tr === "02"
+          ? (state.role === "hot_child" ? "hot_child_prefill_02" : "track2_customize_stage")
+          : (state.folioOpen ? "track3_folio_open" : "track3_folio_closed"));
+      return Object.assign({}, state, {
+        track: tr,
+        sku: nextSku,
+        flow: nextFlow,
+        toast: null
+      });
+    }
+    case "MTO_SELECT_SKU": {
+      // L5@v01 §4.1 #4 & V-03: Switching SKU preserves Form / Finish / Spec!
+      var found = findMtoSku(intent.sku);
+      return Object.assign({}, state, {
+        sku: found.sku,
+        poolId: intent.poolId || found.poolId,
+        toast: null
+      });
+    }
+    case "MTO_UPDATE_SPEC": {
+      return Object.assign({}, state, {
+        form: intent.form !== undefined ? String(intent.form) : state.form,
+        finish: intent.finish !== undefined ? String(intent.finish) : state.finish,
+        spec: intent.spec !== undefined ? String(intent.spec) : state.spec,
+        note: intent.note !== undefined ? String(intent.note) : state.note,
+        scenarioId: intent.scenarioId !== undefined ? String(intent.scenarioId) : state.scenarioId,
+        targetMarket: intent.targetMarket !== undefined ? String(intent.targetMarket) : state.targetMarket,
+        budgetBand: intent.budgetBand !== undefined ? String(intent.budgetBand) : state.budgetBand,
+        qtyBand: intent.qtyBand !== undefined ? String(intent.qtyBand) : state.qtyBand
+      });
+    }
+    case "MTO_HYDRATE_HANDOFF": {
+      // Zero-Reset deep-link / sessionStorage hydration
+      var hSku = intent.sku ? findMtoSku(intent.sku) : findMtoSku(state.sku);
+      var hTrack = String(intent.track || "02");
+      if (hTrack !== "01" && hTrack !== "02" && hTrack !== "03") hTrack = "02";
+      return Object.assign({}, state, {
+        track: hTrack,
+        sku: hSku.sku,
+        poolId: intent.pool || hSku.poolId,
+        form: intent.form || state.form,
+        finish: intent.finish || state.finish,
+        spec: intent.spec || state.spec,
+        note: intent.note !== undefined ? String(intent.note) : state.note,
+        flow: hTrack === "02" ? "track2_customize_stage" : (hTrack === "03" ? "track3_folio_open" : "track1_square_showcase"),
+        folioOpen: hTrack === "03" ? true : state.folioOpen
+      });
+    }
+    case "MTO_TOGGLE_FOLIO": {
+      var open = intent.open !== undefined ? Boolean(intent.open) : !state.folioOpen;
+      return Object.assign({}, state, {
+        track: "03",
+        folioOpen: open,
+        scenarioId: intent.scenarioId || state.scenarioId,
+        flow: open ? "track3_folio_open" : "track3_folio_closed"
+      });
+    }
+    case "MTO_ATTEMPT_SUBMIT": {
+      var now = Date.now();
+      var idem = intent.idempotencyKey || mtoIdempotencyKey(
+        state.market,
+        state.track,
+        state.sku,
+        state.form,
+        state.finish,
+        state.spec,
+        state.note
+      );
+      if (
+        now < state.commitLockedUntil ||
+        state.flow === "submitting_request" ||
+        (state.lastIdempotencyKey === idem && state.commitCount > 0 && !intent.allowFreshKey)
+      ) {
+        return Object.assign({}, state, {
+          duplicateBlockedCount: state.duplicateBlockedCount + 1,
+          toast: intent.duplicateMessage || "Request already submitted — duplicate click ignored."
+        });
+      }
+      return Object.assign({}, state, {
+        flow: "submitting_request",
+        lastIdempotencyKey: idem,
+        commitCount: state.commitCount + 1,
+        commitLockedUntil: now + (intent.lockMs || 2500),
+        toast: null
+      });
+    }
+    case "MTO_SUBMIT_IN_PLACE_ACK": {
+      // L5@v01 §4.1 #7: Stay in place, zero jump, zero scroll, zero collapse!
+      var ackReqId = String(intent.reqId || state.reqId || "");
+      emitBundleEvent("mto.requested", {
+        reqId: ackReqId,
+        track: state.track,
+        sku: state.sku,
+        market: state.market
+      });
+      return Object.assign({}, state, {
+        flow: "submit_in_place_ack",
+        reqId: ackReqId,
+        reqTrack: state.track,
+        commitLockedUntil: Date.now() + 1200,
+        toast: null
+      });
+    }
+    case "MTO_NEW_REQUEST": {
+      return Object.assign({}, state, {
+        flow: state.track === "03" ? "track3_folio_open" : "track2_customize_stage",
+        commitLockedUntil: 0,
+        lastIdempotencyKey: "",
+        toast: null
+      });
+    }
+    case "MTO_TIMEOUT_FALLBACK": {
+      return Object.assign({}, state, {
+        flow: "timeout_fallback",
+        commitLockedUntil: 0,
+        toast: intent.message || "Request timed out. Your custom selections and notes are safely preserved."
+      });
+    }
+    case "MTO_RETRY_FROM_TIMEOUT": {
+      var backFlow = state.track === "03"
+        ? (state.folioOpen ? "track3_folio_open" : "track3_folio_closed")
+        : (state.track === "02" ? "track2_customize_stage" : "track1_square_showcase");
+      return Object.assign({}, state, {
+        flow: backFlow,
+        toast: null
+      });
+    }
+    default:
+      return state;
+  }
+}
+
+function persistMtoDraft(state) {
+  if (!state || state.family !== "mto") return;
+  try {
+    if (typeof sessionStorage === "undefined") return;
+    sessionStorage.setItem(
+      MTO_DRAFT_KEY,
+      JSON.stringify({
+        track: state.track,
+        sku: state.sku,
+        pool: state.poolId,
+        form: state.form,
+        finish: state.finish,
+        spec: state.spec,
+        note: state.note,
+        scenarioId: state.scenarioId,
+        budgetBand: state.budgetBand,
+        qtyBand: state.qtyBand,
+        ts: Date.now()
+      })
+    );
+  } catch (_e) {}
+}
+
+function saveMtoRemember(entry) {
+  if (!entry) return;
+  try {
+    if (typeof localStorage === "undefined") return;
+    // Strictly zero PII (never store email or localePrice!)
+    var safe = {
+      reqId: String(entry.reqId || ""),
+      track: String(entry.track || "02"),
+      sku: String(entry.sku || ""),
+      form: String(entry.form || ""),
+      finish: String(entry.finish || ""),
+      spec: String(entry.spec || ""),
+      market: String(entry.market || "en-us"),
+      revisionCount: Number(entry.revisionCount || 0),
+      ts: Date.now()
+    };
+    localStorage.setItem(MTO_REMEMBER_KEY, JSON.stringify(safe));
+  } catch (_e) {}
+}
+
+function loadMtoRemember() {
+  try {
+    if (typeof localStorage === "undefined") return null;
+    var raw = localStorage.getItem(MTO_REMEMBER_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (_e) {
+    return null;
+  }
+}
+
+function saveMtoHandoff(payload) {
+  var pl = payload || {};
+  var normalized = {
+    track: String(pl.track || "02"),
+    sku: String(pl.sku || MTO_SKUS[0].sku),
+    pool: String(pl.pool || ""),
+    form: String(pl.form || ""),
+    finish: String(pl.finish || ""),
+    spec: String(pl.spec || ""),
+    note: String(pl.note || ""),
+    ts: Date.now()
+  };
+  try {
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.setItem(MTO_HANDOFF_KEY, JSON.stringify(normalized));
+    }
+  } catch (_e) {}
+  return normalized;
+}
+
+function consumeMtoHandoff() {
+  var fromQuery = Object.create(null);
+  var hasQuery = false;
+  try {
+    if (typeof window !== "undefined" && window.location && window.location.search) {
+      var sp = new URLSearchParams(window.location.search);
+      MTO_HANDOFF_FROZEN_KEYS.forEach(function (k) {
+        var v = sp.get(k);
+        if (v !== null && v !== "") {
+          fromQuery[k] = v;
+          hasQuery = true;
+        }
+      });
+    }
+  } catch (_e) {}
+
+  var fromSession = null;
+  try {
+    if (typeof sessionStorage !== "undefined") {
+      var raw = sessionStorage.getItem(MTO_HANDOFF_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (parsed && parsed.ts && (Date.now() - parsed.ts) <= MTO_HANDOFF_TTL_MS) {
+          fromSession = parsed;
+        } else {
+          sessionStorage.removeItem(MTO_HANDOFF_KEY);
+        }
+      }
+    }
+  } catch (_e) {}
+
+  if (!hasQuery && !fromSession) return null;
+  var merged = Object.assign({}, fromSession || {}, fromQuery);
+  return merged;
+}
+
+function buildMtoMotherUrl(payload, overrideBaseUrl) {
+  var saved = saveMtoHandoff(payload);
+  var basePath = overrideBaseUrl || "";
+  if (!basePath) {
+    if (typeof window !== "undefined" && window.SpaceVanta && window.SpaceVanta.market && window.SpaceVanta.market.buildPath) {
+      basePath = window.SpaceVanta.market.buildPath("pages/made-to-order");
+    } else {
+      var m = (typeof location !== "undefined" && /^\/(en-(?:us|gb|au|ca|sg|hk))(?=\/|$)/i.exec(location.pathname));
+      var prefix = m ? ("/" + m[1].toLowerCase()) : "/en-us";
+      basePath = prefix + "/pages/made-to-order";
+    }
+  }
+  var q = [];
+  MTO_HANDOFF_FROZEN_KEYS.forEach(function (k) {
+    var val = saved[k];
+    if (val !== undefined && val !== null && String(val) !== "") {
+      var str = k === "note" ? String(val).slice(0, 180) : String(val);
+      q.push(encodeURIComponent(k) + "=" + encodeURIComponent(str));
+    }
+  });
+  var sep = basePath.indexOf("?") === -1 ? "?" : "&";
+  return q.length ? (basePath + sep + q.join("&")) : basePath;
+}
+
 function dispatch(state, intent, mode) {
+  if (state && state.family === "mto") {
+    var nextMto = reduceMto(state, intent);
+    if (mode !== "ephemeral") {
+      persistMtoDraft(nextMto);
+    }
+    return nextMto;
+  }
   var next = reduceBundle(state, intent);
   if (mode !== "ephemeral") {
     persistDraft(next);
@@ -846,13 +1320,17 @@ function dispatch(state, intent, mode) {
 }
 
 var BundleDriver = {
-  version: "L5@v02",
+  version: "L5@v02+mto-L5@v01",
   AssetAdapter: AssetAdapter,
   rig: BUNDLE_MOTHER_RIG,
+  mtoRig: MTO_MOTHER_RIG,
+  findMtoSku: findMtoSku,
   promoteTiming: DEFAULT_PROMOTE_TIMING,
   createInitialState: createInitialState,
+  createMtoInitialState: createMtoInitialState,
   dispatch: dispatch,
   reduceBundle: reduceBundle,
+  reduceMto: reduceMto,
   reducePromote: reducePromote,
   s2DurationMs: s2DurationMs,
   s4DurationMs: s4DurationMs,
@@ -863,11 +1341,18 @@ var BundleDriver = {
   resizeAllStages: resizeAllStages,
   getActiveStageCount: getActiveStageCount,
   idempotencyKey: idempotencyKey,
+  mtoIdempotencyKey: mtoIdempotencyKey,
+  detectMtoAutoTier: detectMtoAutoTier,
   persistDraft: persistDraft,
   loadDraftSlots: loadDraftSlots,
   saveMotherHandoff: saveMotherHandoff,
   consumeMotherHandoff: consumeMotherHandoff,
   buildMotherHandoffUrl: buildMotherHandoffUrl,
+  saveMtoHandoff: saveMtoHandoff,
+  consumeMtoHandoff: consumeMtoHandoff,
+  buildMtoMotherUrl: buildMtoMotherUrl,
+  saveMtoRemember: saveMtoRemember,
+  loadMtoRemember: loadMtoRemember,
   isReducedMotion: isReducedMotion,
   emitEvent: emitBundleEvent
 };
@@ -883,20 +1368,29 @@ export {
   AssetAdapter,
   BundleDriver,
   buildMotherHandoffUrl,
+  buildMtoMotherUrl,
   consumeMotherHandoff,
+  consumeMtoHandoff,
   createInitialState,
+  createMtoInitialState,
+  detectMtoAutoTier,
   dispatch,
   emitBundleEvent,
   getActiveStageCount,
   getStageHandle,
   idempotencyKey,
   loadDraftSlots,
+  loadMtoRemember,
   mountStage,
+  mtoIdempotencyKey,
   persistDraft,
   reduceBundle,
+  reduceMto,
   reducePromote,
   resizeAllStages,
   saveMotherHandoff,
+  saveMtoHandoff,
+  saveMtoRemember,
   unmountStage,
   updateStage,
   validateSlotBindings

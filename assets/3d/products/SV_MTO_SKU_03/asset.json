@@ -1,0 +1,50 @@
+{
+  "id": "SV_MTO_SKU_03_v01",
+  "category": "MTO Cross-Category Product Model (4000K Warm Studio)",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v01",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MTO_SKU_03_v01.glb",
+      "triangles": 288,
+      "bytes": 11392,
+      "sha256": "b2ac86686ad75b50405a18570789cd172baabc62c910ec0f4a5fa90b943b0f85"
+    },
+    "lod1": {
+      "file": "SV_MTO_SKU_03_v01_lod1.glb",
+      "triangles": 168,
+      "bytes": 7868,
+      "sha256": "ac03db331bce83d3dc5562f838783dc64bb72bf05584160c6e0c47ce1c9adfc1"
+    },
+    "lod2": {
+      "file": "SV_MTO_SKU_03_v01_lod2.glb",
+      "triangles": 96,
+      "bytes": 5616,
+      "sha256": "2fbccae50524c803760e55b273f2eddeb0217e9c5fd7bc3f493fcc59f6fa6874"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 8167,
+    "maxBytes": 90000,
+    "sha256": "78a5dc85247fb05d92cef07b49cd741544c010940d96f48696367c90b28e9c91",
+    "alt": "SpaceVanta 4000K brushed satin slate thermal carafe with warm cork base"
+  },
+  "naturalMaterialSpec": "Brushed Thermal Carafe"
+}

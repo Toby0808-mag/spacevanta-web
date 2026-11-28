@@ -1,0 +1,50 @@
+{
+  "id": "SV_MTO_SKU_01_v01",
+  "category": "MTO Cross-Category Product Model (4000K Warm Studio)",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v01",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MTO_SKU_01_v01.glb",
+      "triangles": 288,
+      "bytes": 11380,
+      "sha256": "1d6e943461ae74f2e76e89f98677f4904fd0c86e745bf0ed272d28f40c920248"
+    },
+    "lod1": {
+      "file": "SV_MTO_SKU_01_v01_lod1.glb",
+      "triangles": 168,
+      "bytes": 7848,
+      "sha256": "a401149ac1e566faf073f0fd2436e576a0a3bd38153c96a06c1827281b253bf9"
+    },
+    "lod2": {
+      "file": "SV_MTO_SKU_01_v01_lod2.glb",
+      "triangles": 96,
+      "bytes": 5600,
+      "sha256": "a0d12e1f39d6f5ac9c3dbc9ab045f33190a37de1a01079c2f46dba9cfa31adc0"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 11565,
+    "maxBytes": 90000,
+    "sha256": "d974119f92cbcf0adf6c8228797dc9b78b0cdeda616833b3c4a8340530e75a52",
+    "alt": "SpaceVanta 4000K warm cream stoneware pour-over vessel with brushed slate collar"
+  },
+  "naturalMaterialSpec": "Ceramic Pour-Over Vessel"
+}

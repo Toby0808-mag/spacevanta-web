@@ -1,0 +1,333 @@
+{{#var sv_driver_url = "sv-bundle/BundleDriver.js" | asset_url() /}}
+{{#var sv_map_01 = "mto-child-cold/cold-01map-01.png" | asset_url() /}}
+{{#var sv_map_02 = "mto-child-cold/cold-01map-02.png" | asset_url() /}}
+{{#var sv_map_03 = "mto-child-cold/cold-01map-03.png" | asset_url() /}}
+{{#var sv_map_04 = "mto-child-cold/cold-01map-04.png" | asset_url() /}}
+{{#var sv_map_05 = "mto-child-cold/cold-01map-05.png" | asset_url() /}}
+{{#var sv_glb_01 = "mto-mother/mto-sku-01.glb" | asset_url() /}}
+{{#var sv_glb_02 = "mto-mother/mto-sku-02.glb" | asset_url() /}}
+{{#var sv_glb_03 = "mto-mother/mto-sku-03.glb" | asset_url() /}}
+{{#var sv_glb_04 = "mto-mother/mto-sku-04.glb" | asset_url() /}}
+{{#var sv_glb_05 = "mto-mother/mto-sku-05.glb" | asset_url() /}}
+
+<section
+  class="sv-mcc"
+  data-sv-module="sv_flow_mto_ecosystem_v02"
+  data-sv-l5="L5@v01"
+  data-sv-asset-id="SV_CHILD_COLD_MTO_01MAP_v01"
+  data-sv-role="cold_01map"
+  data-sv-webgl="0"
+  data-sv-driver-url="{{ sv_driver_url }}"
+  aria-labelledby="sv-mcc-heading"
+>
+  <header class="sv-mcc-head">
+    <p class="sv-mcc-eyebrow">{{ "mto.child_cold.eyebrow" | t() }}</p>
+    <h2 id="sv-mcc-heading" class="sv-mcc-title">
+      {{#if section.settings.heading}}{{ section.settings.heading }}{{else}}{{ "mto.child_cold.title" | t() }}{{/if}}
+    </h2>
+  </header>
+
+  <div class="sv-mcc-toast" data-sv-mto-cold-toast role="status" aria-live="polite" hidden></div>
+
+  <div class="sv-mcc-grid" data-sv-slot="mto-cold-square-map-grid">
+    <article
+      class="sv-mcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-sku="SV_MTO_SKU_01"
+      data-pool-id="mto_pool_ceramic_01"
+      data-pool-name="Ceramic Pour-Over Vessel"
+      data-poster-url="{{ sv_map_01 }}"
+      data-glb-url="{{ sv_glb_01 }}"
+    >
+      <button
+        type="button"
+        class="sv-mcc-planar-trigger"
+        data-action="mto-cold-promote"
+        aria-label="Inspect Ceramic Pour-Over Vessel in 3D preview"
+      >
+        <span class="sv-mcc-planar-frame">
+          <img
+            class="sv-mcc-planar-img"
+            src="{{ sv_map_01 }}"
+            width="640"
+            height="640"
+            alt="2D planar 01-style square showcase map of SpaceVanta Ceramic Pour-Over Vessel with 4 surrounding modular satellites"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-mcc-promote-pill">{{ "mto.child_cold.promote_btn" | t() }}</span>
+      </button>
+
+      <div class="sv-mcc-card__meta">
+        <span class="sv-mcc-card__cat">Ceramic</span>
+        <h3 class="sv-mcc-card__title">Ceramic Pour-Over Vessel</h3>
+      </div>
+
+      <div class="sv-mcc-card__actions">
+        <button
+          type="button"
+          class="svd-btn sv-mcc-add-btn"
+          data-action="mto-cold-add"
+          data-sku="SV_MTO_SKU_01"
+          data-pool-id="mto_pool_ceramic_01"
+        >{{ "mto.child_cold.add_btn" | t() }}</button>
+
+        <a
+          class="sv-mcc-studio-link"
+          href="/en-us/pages/made-to-order?track=02&amp;sku=SV_MTO_SKU_01&amp;pool=mto_pool_ceramic_01"
+          data-sv-mto-mother-link
+          data-sku="SV_MTO_SKU_01"
+          data-pool-id="mto_pool_ceramic_01"
+        >{{ "mto.child_cold.studio_link" | t() }}</a>
+      </div>
+    </article>
+
+    <article
+      class="sv-mcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-sku="SV_MTO_SKU_02"
+      data-pool-id="mto_pool_linen_02"
+      data-pool-name="Woven Linen Desk Folio"
+      data-poster-url="{{ sv_map_02 }}"
+      data-glb-url="{{ sv_glb_02 }}"
+    >
+      <button
+        type="button"
+        class="sv-mcc-planar-trigger"
+        data-action="mto-cold-promote"
+        aria-label="Inspect Woven Linen Desk Folio in 3D preview"
+      >
+        <span class="sv-mcc-planar-frame">
+          <img
+            class="sv-mcc-planar-img"
+            src="{{ sv_map_02 }}"
+            width="640"
+            height="640"
+            alt="2D planar 01-style square showcase map of SpaceVanta Woven Linen Desk Folio with 4 surrounding modular satellites"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-mcc-promote-pill">{{ "mto.child_cold.promote_btn" | t() }}</span>
+      </button>
+
+      <div class="sv-mcc-card__meta">
+        <span class="sv-mcc-card__cat">Linen</span>
+        <h3 class="sv-mcc-card__title">Woven Linen Desk Folio</h3>
+      </div>
+
+      <div class="sv-mcc-card__actions">
+        <button
+          type="button"
+          class="svd-btn sv-mcc-add-btn"
+          data-action="mto-cold-add"
+          data-sku="SV_MTO_SKU_02"
+          data-pool-id="mto_pool_linen_02"
+        >{{ "mto.child_cold.add_btn" | t() }}</button>
+
+        <a
+          class="sv-mcc-studio-link"
+          href="/en-us/pages/made-to-order?track=02&amp;sku=SV_MTO_SKU_02&amp;pool=mto_pool_linen_02"
+          data-sv-mto-mother-link
+          data-sku="SV_MTO_SKU_02"
+          data-pool-id="mto_pool_linen_02"
+        >{{ "mto.child_cold.studio_link" | t() }}</a>
+      </div>
+    </article>
+
+    <article
+      class="sv-mcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-sku="SV_MTO_SKU_03"
+      data-pool-id="mto_pool_thermal_03"
+      data-pool-name="Brushed Thermal Carafe"
+      data-poster-url="{{ sv_map_03 }}"
+      data-glb-url="{{ sv_glb_03 }}"
+    >
+      <button
+        type="button"
+        class="sv-mcc-planar-trigger"
+        data-action="mto-cold-promote"
+        aria-label="Inspect Brushed Thermal Carafe in 3D preview"
+      >
+        <span class="sv-mcc-planar-frame">
+          <img
+            class="sv-mcc-planar-img"
+            src="{{ sv_map_03 }}"
+            width="640"
+            height="640"
+            alt="2D planar 01-style square showcase map of SpaceVanta Brushed Thermal Carafe with 4 surrounding modular satellites"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-mcc-promote-pill">{{ "mto.child_cold.promote_btn" | t() }}</span>
+      </button>
+
+      <div class="sv-mcc-card__meta">
+        <span class="sv-mcc-card__cat">Thermal</span>
+        <h3 class="sv-mcc-card__title">Brushed Thermal Carafe</h3>
+      </div>
+
+      <div class="sv-mcc-card__actions">
+        <button
+          type="button"
+          class="svd-btn sv-mcc-add-btn"
+          data-action="mto-cold-add"
+          data-sku="SV_MTO_SKU_03"
+          data-pool-id="mto_pool_thermal_03"
+        >{{ "mto.child_cold.add_btn" | t() }}</button>
+
+        <a
+          class="sv-mcc-studio-link"
+          href="/en-us/pages/made-to-order?track=02&amp;sku=SV_MTO_SKU_03&amp;pool=mto_pool_thermal_03"
+          data-sv-mto-mother-link
+          data-sku="SV_MTO_SKU_03"
+          data-pool-id="mto_pool_thermal_03"
+        >{{ "mto.child_cold.studio_link" | t() }}</a>
+      </div>
+    </article>
+
+    <article
+      class="sv-mcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-sku="SV_MTO_SKU_04"
+      data-pool-id="mto_pool_travel_04"
+      data-pool-name="Modular Travel Organizer"
+      data-poster-url="{{ sv_map_04 }}"
+      data-glb-url="{{ sv_glb_04 }}"
+    >
+      <button
+        type="button"
+        class="sv-mcc-planar-trigger"
+        data-action="mto-cold-promote"
+        aria-label="Inspect Modular Travel Organizer in 3D preview"
+      >
+        <span class="sv-mcc-planar-frame">
+          <img
+            class="sv-mcc-planar-img"
+            src="{{ sv_map_04 }}"
+            width="640"
+            height="640"
+            alt="2D planar 01-style square showcase map of SpaceVanta Modular Travel Organizer with 4 surrounding modular satellites"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-mcc-promote-pill">{{ "mto.child_cold.promote_btn" | t() }}</span>
+      </button>
+
+      <div class="sv-mcc-card__meta">
+        <span class="sv-mcc-card__cat">Travel</span>
+        <h3 class="sv-mcc-card__title">Modular Travel Organizer</h3>
+      </div>
+
+      <div class="sv-mcc-card__actions">
+        <button
+          type="button"
+          class="svd-btn sv-mcc-add-btn"
+          data-action="mto-cold-add"
+          data-sku="SV_MTO_SKU_04"
+          data-pool-id="mto_pool_travel_04"
+        >{{ "mto.child_cold.add_btn" | t() }}</button>
+
+        <a
+          class="sv-mcc-studio-link"
+          href="/en-us/pages/made-to-order?track=02&amp;sku=SV_MTO_SKU_04&amp;pool=mto_pool_travel_04"
+          data-sv-mto-mother-link
+          data-sku="SV_MTO_SKU_04"
+          data-pool-id="mto_pool_travel_04"
+        >{{ "mto.child_cold.studio_link" | t() }}</a>
+      </div>
+    </article>
+
+    <article
+      class="sv-mcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-sku="SV_MTO_SKU_05"
+      data-pool-id="mto_pool_travertine_05"
+      data-pool-name="Honed Travertine Valet Tray"
+      data-poster-url="{{ sv_map_05 }}"
+      data-glb-url="{{ sv_glb_05 }}"
+    >
+      <button
+        type="button"
+        class="sv-mcc-planar-trigger"
+        data-action="mto-cold-promote"
+        aria-label="Inspect Honed Travertine Valet Tray in 3D preview"
+      >
+        <span class="sv-mcc-planar-frame">
+          <img
+            class="sv-mcc-planar-img"
+            src="{{ sv_map_05 }}"
+            width="640"
+            height="640"
+            alt="2D planar 01-style square showcase map of SpaceVanta Honed Travertine Valet Tray with 4 surrounding modular satellites"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-mcc-promote-pill">{{ "mto.child_cold.promote_btn" | t() }}</span>
+      </button>
+
+      <div class="sv-mcc-card__meta">
+        <span class="sv-mcc-card__cat">Travertine</span>
+        <h3 class="sv-mcc-card__title">Honed Travertine Valet Tray</h3>
+      </div>
+
+      <div class="sv-mcc-card__actions">
+        <button
+          type="button"
+          class="svd-btn sv-mcc-add-btn"
+          data-action="mto-cold-add"
+          data-sku="SV_MTO_SKU_05"
+          data-pool-id="mto_pool_travertine_05"
+        >{{ "mto.child_cold.add_btn" | t() }}</button>
+
+        <a
+          class="sv-mcc-studio-link"
+          href="/en-us/pages/made-to-order?track=02&amp;sku=SV_MTO_SKU_05&amp;pool=mto_pool_travertine_05"
+          data-sv-mto-mother-link
+          data-sku="SV_MTO_SKU_05"
+          data-pool-id="mto_pool_travertine_05"
+        >{{ "mto.child_cold.studio_link" | t() }}</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+{{#schema}}
+{
+  "name": "SpaceVanta MTO Cold 01 Planar Grid",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-mto-child-cold-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Grid Heading",
+      "default": "Explore Made-to-Order Pieces"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta MTO Cold 01 Planar Grid",
+      "category": "Made to Order",
+      "settings": {}
+    }
+  ]
+}
+{{/schema}}

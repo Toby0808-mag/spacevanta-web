@@ -1,0 +1,50 @@
+{
+  "id": "SV_MTO_SKU_05_v01",
+  "category": "MTO Cross-Category Product Model (4000K Warm Studio)",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v01",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MTO_SKU_05_v01.glb",
+      "triangles": 36,
+      "bytes": 4272,
+      "sha256": "b0ba350556aca57e9e128a075c70a266f5928647686041697fce42e3a25109df"
+    },
+    "lod1": {
+      "file": "SV_MTO_SKU_05_v01_lod1.glb",
+      "triangles": 36,
+      "bytes": 4272,
+      "sha256": "b0ba350556aca57e9e128a075c70a266f5928647686041697fce42e3a25109df"
+    },
+    "lod2": {
+      "file": "SV_MTO_SKU_05_v01_lod2.glb",
+      "triangles": 36,
+      "bytes": 4272,
+      "sha256": "b0ba350556aca57e9e128a075c70a266f5928647686041697fce42e3a25109df"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 8069,
+    "maxBytes": 90000,
+    "sha256": "dfdcd0777018c137eb5b6d764a174de54bd4c62e595a670a973e5f6a60ce34b4",
+    "alt": "SpaceVanta 4000K honed warm travertine valet tray with recessed metal rail"
+  },
+  "naturalMaterialSpec": "Honed Travertine Valet Tray"
+}
