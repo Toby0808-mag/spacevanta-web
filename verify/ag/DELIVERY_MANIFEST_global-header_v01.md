@@ -54,3 +54,22 @@
   - **新增 (ADD)：**
     - Drive `theme/global-header/antigravity/build/global-header-L5v01-V11.zip` + `.sha256`（SHA-256 前 12 位 `acb6f593e711`）
   - **删除 (DELETE)：** 无（0 删除）
+
+---
+
+## 四、r2 修正交付清单（2026-11-28 · 其余已上传文件无需重传）
+
+针对 Shopline 校验报错（`InvalidSyntaxInSline` + `public/` 不支持 `.svg`/`.webp`），**仅需按以下增/替/删操作补齐即可**（其余已上传的 `.css`、`.js`、`components/`、`i18n/` 均无需重传）：
+
+| 操作 | 路径 | 说明 |
+|---|---|---|
+| **替换 (REPLACE)** | `web/sections/global-header/global-header.html` | 清除全部 `| default:` 改用 `{{#if}}...{{else}}...{{/if}}`；内联 UI/Logo/季节 SVG；Cold 图指向 `.png` |
+| **新增 (ADD)** | `web/public/global-header/sv-scene-card-thumb.png` | 640×400 优化 PNG（5.5 KB ≤ 90 KB，替代原 `.webp`） |
+| **删除 (DELETE)** | `web/public/sv-header/sv-logo-wordmark.svg` | Shopline `public/` 不支持 `.svg`（已内联进 `global-header.html`） |
+| **删除 (DELETE)** | `web/public/sv-header/sv-ui-icons.svg` | Shopline `public/` 不支持 `.svg`（已内联进 `global-header.html`） |
+| **删除 (DELETE)** | `web/public/sv-header/sv-season-icon.svg` | Shopline `public/` 不支持 `.svg`（已内联进 `global-header.html`） |
+| **删除 (DELETE)** | `web/public/sv-header/sv-scene-card-thumb.webp` | Shopline `public/` 不支持 `.webp`（已由上方 `.png` 替代） |
+
+- **Drive 归档包（`theme/global-header/antigravity/build/`）：**
+  - `global-header-L5v01-V11-r2-delta.zip`（**增量补丁包**，仅含上面 2 个需上传的文件：`global-header.html` + `sv-scene-card-thumb.png`）
+  - `global-header-L5v01-V11-r2.zip`（**完整模块包**，9 个模块文件，0 `.svg`/`.webp` 在 `public/`）

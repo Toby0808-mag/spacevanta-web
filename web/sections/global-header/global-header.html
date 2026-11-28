@@ -1,7 +1,35 @@
-{{!-- SpaceVanta Global Header Section (L5@v01 · sv_flow_global_header_v01)
+{{!-- SpaceVanta Global Header Section (L5@v01 · sv_flow_global_header_v01 · Sline-safe)
      Locked scheme: 1-D1 + 2-B + 3-A | Zero metal alpha=0% | Zero 3D Hot=0/4 | Zero AI entry
      Token-only styling · Zero hardcoded prices/freight/leadtimes · Single SSR <nav> + JSON-LD
+     Shopline public/ compliance: 0 .svg / 0 .webp in public/ (SVG icons inlined, Cold thumb .png)
 --}}
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="sv-ico-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <line x1="4" y1="7" x2="20" y2="7"/>
+    <line x1="4" y1="12" x2="20" y2="12"/>
+    <line x1="4" y1="17" x2="20" y2="17"/>
+  </symbol>
+  <symbol id="sv-ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="6.5"/>
+    <line x1="15.8" y1="15.8" x2="20" y2="20"/>
+  </symbol>
+  <symbol id="sv-ico-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 8.5h12l-1 11H7l-1-11z"/>
+    <path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/>
+  </symbol>
+  <symbol id="sv-ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <line x1="6" y1="6" x2="18" y2="18"/>
+    <line x1="18" y1="6" x2="6" y2="18"/>
+  </symbol>
+  <symbol id="sv-ico-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/>
+    <polyline points="13 6 19 12 13 18"/>
+  </symbol>
+  <symbol id="sv-ico-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
+</svg>
+
 <a class="sv-hdr-skip" href="#main-content" data-i18n="header.a11y.skip_to_main">Skip to main content</a>
 
 <header
@@ -13,8 +41,8 @@
   data-sv-announcement-enabled="{{#if section.settings.announcement_enabled}}true{{else}}false{{/if}}"
   data-sv-announcement-hide-checkout="{{#if section.settings.announcement_hide_on_checkout}}true{{else}}false{{/if}}"
   data-sv-season-allow="{{#if section.settings.season_allow_override}}true{{else}}false{{/if}}"
-  data-sv-market-default="{{market.code | default: 'en-us'}}"
-  data-sv-currency-default="{{market.currency_symbol | default: '$'}}"
+  data-sv-market-default="{{#if market.code}}{{market.code}}{{else}}en-us{{/if}}"
+  data-sv-currency-default="{{#if market.currency_symbol}}{{market.currency_symbol}}{{else}}${{/if}}"
 >
   {{!-- Slot 1: header-announcement-bar (Desktop <=32px, Mobile 375px <=30px, 0px null on 3s timeout/missing) --}}
   <div
@@ -27,7 +55,12 @@
   >
     <div class="sv-hdr-announce__inner">
       <span class="sv-hdr-announce__season-icon" data-sv-season-icon-slot hidden aria-hidden="true">
-        <img src="/public/sv-header/sv-season-icon.svg" width="16" height="16" alt="" decoding="async">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true">
+          <line x1="8" y1="2" x2="8" y2="14"/>
+          <line x1="2" y1="8" x2="14" y2="8"/>
+          <line x1="4" y1="4" x2="12" y2="12"/>
+          <line x1="12" y1="4" x2="4" y2="12"/>
+        </svg>
       </span>
       <p class="sv-hdr-announce__track" data-sv-announce-track>
         <span class="sv-hdr-announce__seg" data-sv-field="duty"></span>
@@ -58,7 +91,7 @@
           data-i18n-aria="header.a11y.open_menu"
         >
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-menu"></use>
+            <use href="#sv-ico-menu"></use>
           </svg>
         </button>
         <button
@@ -72,7 +105,7 @@
           data-i18n-aria="header.a11y.open_search"
         >
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-search"></use>
+            <use href="#sv-ico-search"></use>
           </svg>
         </button>
       </div>
@@ -160,7 +193,7 @@
           data-i18n-aria="header.a11y.open_search"
         >
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-search"></use>
+            <use href="#sv-ico-search"></use>
           </svg>
         </button>
 
@@ -174,9 +207,9 @@
           aria-label="Change delivery market and language"
           data-i18n-aria="header.a11y.open_market"
         >
-          <span class="sv-hdr-market-btn__code" data-sv-market-code>{{market.code_short | default: 'US'}}</span>
+          <span class="sv-hdr-market-btn__code" data-sv-market-code>{{#if market.code_short}}{{market.code_short}}{{else}}US{{/if}}</span>
           <span class="sv-hdr-market-btn__dot" aria-hidden="true">·</span>
-          <span class="sv-hdr-market-btn__curr" data-sv-market-currency>{{market.currency_symbol | default: '$'}}</span>
+          <span class="sv-hdr-market-btn__curr" data-sv-market-currency>{{#if market.currency_symbol}}{{market.currency_symbol}}{{else}}${{/if}}</span>
         </button>
 
         <a
@@ -188,9 +221,9 @@
           data-i18n-aria="header.a11y.open_cart"
         >
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-bag"></use>
+            <use href="#sv-ico-bag"></use>
           </svg>
-          <span class="sv-hdr-bag-count" data-sv-cart-count>{{cart.item_count | default: 0}}</span>
+          <span class="sv-hdr-bag-count" data-sv-cart-count>{{#if cart.item_count}}{{cart.item_count}}{{else}}0{{/if}}</span>
         </a>
       </div>
     </div>
@@ -215,7 +248,7 @@
         <h2 id="sv-hdr-shop-title" class="sv-hdr-panel__title" data-i18n="header.nav.shop">Shop</h2>
         <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+            <use href="#sv-ico-close"></use>
           </svg>
         </button>
       </div>
@@ -235,7 +268,7 @@
             <div class="sv-hdr-scene-card__media" data-sv-scene-media>
               <img
                 class="sv-hdr-scene-card__img"
-                src="/public/sv-header/sv-scene-card-thumb.webp"
+                src="/public/global-header/sv-scene-card-thumb.png"
                 width="640"
                 height="400"
                 alt="SpaceVanta modular desk scene"
@@ -265,7 +298,7 @@
         <h2 id="sv-hdr-menu-title" class="sv-hdr-panel__title" data-i18n="header.nav.menu">Menu</h2>
         <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+            <use href="#sv-ico-close"></use>
           </svg>
         </button>
       </div>
@@ -330,7 +363,7 @@
         <h2 id="sv-hdr-search-title" class="sv-hdr-panel__title" data-i18n="header.search.title">Search</h2>
         <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+            <use href="#sv-ico-close"></use>
           </svg>
         </button>
       </div>
@@ -372,7 +405,7 @@
         <h2 id="sv-hdr-market-title" class="sv-hdr-panel__title" data-i18n="header.market.title">Market &amp; Language</h2>
         <button type="button" class="sv-hdr-icon-btn" data-portal-close aria-label="Close panel" data-i18n-aria="header.a11y.close_overlay">
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <use href="/public/sv-header/sv-ui-icons.svg#sv-ico-close"></use>
+            <use href="#sv-ico-close"></use>
           </svg>
         </button>
       </div>
@@ -421,15 +454,15 @@
     {
       "@type": "Organization",
       "name": "SpaceVanta",
-      "url": "{{shop.url | default: '/'}}"
+      "url": "{{#if shop.url}}{{shop.url}}{{else}}/{{/if}}"
     },
     {
       "@type": "WebSite",
       "name": "SpaceVanta",
-      "url": "{{shop.url | default: '/'}}",
+      "url": "{{#if shop.url}}{{shop.url}}{{else}}/{{/if}}",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "{{shop.url | default: ''}}/search?q={search_term_string}",
+        "target": "{{#if shop.url}}{{shop.url}}{{/if}}/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     },
