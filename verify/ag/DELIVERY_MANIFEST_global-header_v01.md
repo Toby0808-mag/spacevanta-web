@@ -38,3 +38,19 @@
 - `theme/global-header/antigravity/DELIVERY_MANIFEST_global-header_v01.md`（**新增**）
 - `theme/global-header/antigravity/build/global-header-L5v01.tar.gz`（**新增**，仅含上表 `web/` 下 12 个模块文件）
 - `theme/global-header/antigravity/build/global-header-L5v01.tar.gz.sha256`（**新增**）
+
+---
+
+## 三、V11 晋升变更记录（2026-11-27 · 已获「批准合入 V11，B0 备份」）
+
+- **B0 备份（只读留存，未删除）：**
+  - GitHub 标签：`backup/global-header-L5v01-B0`（指向 `5545023`）
+  - Drive 备份包：`theme/global-header/antigravity/build/global-header-L5v01.zip`（SHA-256 前 12 位 `4106fbd5ea29`）
+- **本次 V11 合入文件变更标注（仅模块内文件，0 全局文件）：**
+  - **替换 (REPLACE)：**
+    - `web/sections/global-header/global-header.css`（新 SHA-256 前 12 位 `78da16940a62`；合入 V11 E1 样式）
+    - `verify/ag/VERIFY_global-header_v01.md`（追加第四节 V11 复测记录）
+    - `verify/ag/DELIVERY_MANIFEST_global-header_v01.md`（追加本节 V11 晋升与 B0 备份记录）
+  - **新增 (ADD)：**
+    - Drive `theme/global-header/antigravity/build/global-header-L5v01-V11.zip` + `.sha256`（SHA-256 前 12 位 `acb6f593e711`）
+  - **删除 (DELETE)：** 无（0 删除）
