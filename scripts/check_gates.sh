@@ -3,13 +3,16 @@
 set -u
 BASE="${1:?base ref}"; HEAD="${2:-HEAD}"; BRANCH="${3:-$(git rev-parse --abbrev-ref HEAD)}"
 fail=0
+UMODE=0
 err(){ echo "FAIL: $*"; fail=1; }
 case "$BRANCH" in
+  ag-u/*)   ROLE=ag; UMODE=1;;   # U 系列自动跑沙箱：只能写 u-runs/ 与自己的学习记录
+  cu-u/*)   ROLE=cu; UMODE=1;;
   ag/*)     ROLE=ag;;
   cu/*)     ROLE=cu;;
   design/*) ROLE=design;;
   gov/*)    ROLE=gov;;
-  *) echo "FAIL: 分支名必须以 ag/ cu/ design/ gov/ 开头（当前：$BRANCH）"; exit 1;;
+  *) echo "FAIL: 分支名必须以 ag/ cu/ ag-u/ cu-u/ design/ gov/ 开头（当前：$BRANCH）"; exit 1;;
 esac
 handover(){ # $1=资产路径 assets/3d/ecosystem/cu/<id>/...；基准分支里存在 STATUS: HANDOVER 的 TRACK 才放行
   local id; id=$(echo "$1" | sed -E 's#^assets/3d/ecosystem/cu/([^/]+)/.*#\1#')
@@ -21,10 +24,17 @@ allowed(){ # $1=path
     change/CR-*.md) return 0;;                        # 变更单：任何角色
     track/TRACK_*.md) [ "$ROLE" = ag ] || [ "$ROLE" = cu ] && return 0;;
   esac
+  if [ "$UMODE" = 1 ]; then
+    case "$ROLE" in
+      ag) case "$p" in u-runs/ag/*|learning/antigravity/*) return 0;; esac;;
+      cu) case "$p" in u-runs/cu/*|learning/cursor/*) return 0;; esac;;
+    esac
+    return 1
+  fi
   [ "$ROLE" = ag ] && case "$p" in assets/3d/ecosystem/cu/*) handover "$p" && return 0;; esac
   case "$ROLE" in
-    ag) case "$p" in web/*|assets/3d/products/*|assets/3d/ecosystem/ag/*|verify/ag/*|code-checklist/*) return 0;; esac;;
-    cu) case "$p" in workers/*|agent/*|contracts/*|assets/3d/ecosystem/cu/*|verify/cu/*) return 0;; esac;;
+    ag) case "$p" in web/*|assets/3d/products/*|assets/3d/ecosystem/ag/*|verify/ag/*|code-checklist/*|learning/antigravity/*|delivery/*) return 0;; esac;;
+    cu) case "$p" in workers/*|agent/*|contracts/*|assets/3d/ecosystem/cu/*|verify/cu/*|learning/cursor/*|delivery/*) return 0;; esac;;
     design) case "$p" in design/*|docs/brand/*) return 0;; esac;;
     gov) case "$p" in .github/*|.cursor/*|scripts/*|docs/protocols/*|AGENTS.md) return 0;; esac;;
   esac
@@ -51,8 +61,17 @@ if [ "$ROLE" = ag ]; then
     [ "${STRICT_HEX:-0}" = 1 ] && fail=1
   fi
 fi
+# 施工方（非 U 沙箱）：学习记录闸 + 交付清单闸（+ 被退回重交付时复跑链路验证）
+if { [ "$ROLE" = ag ] || [ "$ROLE" = cu ]; } && [ "$UMODE" = 0 ]; then
+  D="$(dirname "$0")"; SAFE="${BRANCH//\//-}"
+  python3 "$D/learning_log.py" check "$ROLE" "$BASE" "$HEAD" "$BRANCH" || fail=1
+  python3 "$D/delivery_manifest.py" check "$BASE" "$HEAD" "$BRANCH" || fail=1
+  if git show "$HEAD:delivery/$SAFE/MANIFEST.md" 2>/dev/null | grep -Eq '^REDELIVERY:[[:space:]]*yes'; then
+    python3 "$D/chain_check.py" check "$BASE" "$HEAD" "$BRANCH" --role "$ROLE" || fail=1
+  fi
+fi
 # Antigravity：代码清单闸（开工前拉取、完工提交、基线不过期、锁不冲突）
-if [ "$ROLE" = ag ]; then
+if [ "$ROLE" = ag ] && [ "$UMODE" = 0 ]; then
   python3 "$(dirname "$0")/code_checklist.py" check "$BASE" "$HEAD" "$BRANCH" || fail=1
 fi
 [ $fail = 0 ] && echo "OK: gates passed ($ROLE)" || exit 1

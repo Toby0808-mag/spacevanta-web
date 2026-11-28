@@ -22,12 +22,16 @@ workers/  agent/  contracts/        Cloudflare 与智能体（Cursor）
 track/                              Cursor 算力不足时的续作记录
 verify/{ag,cu}/                     施工方验证报告
 change/                             变更单 CR-*.md
+learning/{antigravity,cursor}/      学习记录（基本盘/尝试/成功）
+delivery/                           每次交付的新增/删除/修改清单与链路验证
+u-runs/{ag,cu}/                     U 系列自动探索产出（沙箱，不进主干代码）
+code-checklist/                     Antigravity 代码清单
 docs/                               协议全文与品牌规范
 ```
 类别：`theme` · `model-product` · `model-ecosystem` · `cloudflare` · `agent`。
 
 ## 工作方式
-- 分支前缀决定角色：`ag/*` `cu/*` `design/*` `gov/*`；PR 标题写 `L5@vNN`。
+- 分支前缀决定角色：`ag/*` `cu/*` `ag-u/*` `cu-u/*`（U 沙箱）`design/*` `gov/*`；PR 标题写 `L5@vNN`。
 - CI（`scripts/check_gates.sh`）强制路径所有权与 L5 不可变。
 - 有疑问：开工前一次问完；开工后只提交 `change/CR-*.md`。
 - 合入需用户"批准合入"。
