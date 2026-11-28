@@ -1,0 +1,39 @@
+{
+  "global_prefixes": [
+    "web/layout/",
+    "web/components/",
+    "web/blocks/",
+    "web/public/sv-dna/",
+    "web/i18n/",
+    "web/config/",
+    "web/snippets/",
+    "web/sections/header-group",
+    "web/sections/footer-group",
+    "web/sections/sv-slot/",
+    "web/templates/policy.",
+    "web/templates/gift_card.",
+    "web/templates/proofing."
+  ],
+  "keep_backups": 2,
+  "keep_log_entries": 5,
+  "keep_source_batches": 3,
+  "global_files": [
+    "web/theme.schema.json",
+    "web/theme.config.json"
+  ],
+  "template_rules": [
+    {
+      "prefix": "web/sections/",
+      "depth": 1
+    },
+    {
+      "prefix": "web/public/",
+      "depth": 1,
+      "only_if_section_exists": true
+    },
+    {
+      "prefix": "web/templates/",
+      "stem": true
+    }
+  ]
+}
