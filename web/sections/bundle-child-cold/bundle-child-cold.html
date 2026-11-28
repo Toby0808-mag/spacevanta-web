@@ -1,0 +1,228 @@
+{{!-- SpaceVanta Bundle Child Indirect Cold P2 Planar Grid (L5@v02 · sv_flow_child_promote_v01)
+     Authorized for Indirect / Discovery templates (PDP Related / Hero Bridge / Collection Grid).
+     Strictly S0_COLD_IDLE: 0 WebGL, 0 GLB requests, 0 shadows, 0 rotation on initial load (V-06 / V-P4).
+     3 Touch Zones >=44x44px per card: PlanarTrayTrigger (Promote S0->S3), AddCuratedSetBtn, CustomizeMotherLink.
+     Zero customization form inside Cold card. Pure Shopline OS 3.0 Sline syntax.
+--}}
+{{#var sv_driver_url = "sv-bundle/BundleDriver.js" | asset_url() /}}
+{{#var sv_p2_01 = "bundle-child-cold/cold-p2-01.png" | asset_url() /}}
+{{#var sv_p2_02 = "bundle-child-cold/cold-p2-02.png" | asset_url() /}}
+{{#var sv_p2_03 = "bundle-child-cold/cold-p2-03.png" | asset_url() /}}
+
+<section
+  class="sv-bcc"
+  data-sv-module="sv_flow_child_promote_v01"
+  data-sv-role="cold_p2"
+  data-sv-webgl="0"
+  data-sv-driver-url="{{ sv_driver_url }}"
+  aria-labelledby="sv-bcc-heading"
+>
+  <header class="sv-bcc-head">
+    <p class="sv-bcc-eyebrow" data-i18n="bundle.child_cold.eyebrow">Curated 6-Bay Set · 2D Planar View</p>
+    <h2 id="sv-bcc-heading" class="sv-bcc-title">
+      {{#if section.settings.heading}}{{ section.settings.heading }}{{else}}Related 6-Bay Curated Sets{{/if}}
+    </h2>
+  </header>
+
+  <div class="sv-bcc-toast" data-sv-cold-toast role="status" aria-live="polite" hidden></div>
+
+  <div class="sv-bcc-grid" data-sv-slot="child-cold-p2-planar-grid">
+    {{!-- Card 1 --}}
+    <article
+      class="sv-bcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-pool-id="pool_daily_01"
+      data-pool-name="Daily Tasting 6-Bay Set"
+      data-poster-url="{{ sv_p2_01 }}"
+      data-skus="SV_MP_SKU_01_v01,SV_MP_SKU_02_v01,SV_MP_SKU_03_v01,SV_MP_SKU_04_v01,SV_MP_SKU_05_v01,SV_MP_SKU_06_v01"
+    >
+      {{!-- Zone 1: PlanarTrayTrigger (90-deg orthographic 2D planar mapping -> Promote S0->S3 read-only 3D preview) --}}
+      <button
+        type="button"
+        class="sv-bcc-planar-trigger"
+        data-action="cold-promote"
+        aria-label="Inspect Daily Tasting 6-Bay Set in 3D preview"
+      >
+        <span class="sv-bcc-planar-frame">
+          <img
+            class="sv-bcc-planar-img"
+            src="{{ sv_p2_01 }}"
+            width="640"
+            height="480"
+            alt="90-degree orthographic top-down planar view of SpaceVanta Daily Tasting 6-bay modular tray"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-bcc-promote-pill" data-i18n="bundle.child_cold.promote_btn">Inspect in 3D</span>
+      </button>
+
+      <div class="sv-bcc-card__meta">
+        <h3 class="sv-bcc-card__title" data-sv-field="pool-name">Daily Tasting 6-Bay Set</h3>
+        <span class="sv-bcc-card__count" data-sv-field="curated-count" hidden></span>
+        <span class="sv-bcc-card__price" data-sv-field="locale-price" hidden></span>
+      </div>
+
+      <div class="sv-bcc-card__actions">
+        {{!-- Zone 2: AddCuratedSetBtn (Idempotent add-to-cart, >=44px) --}}
+        <button
+          type="button"
+          class="svd-btn sv-bcc-add-btn"
+          data-action="cold-add-set"
+          data-pool-id="pool_daily_01"
+          data-i18n="bundle.child_cold.add_curated_btn"
+        >Add Curated Set</button>
+
+        {{!-- Zone 3: CustomizeMotherLink (Direct link to Mother page carrying poolId, >=44px) --}}
+        <a
+          class="sv-bcc-mother-link"
+          href="/pages/bundles?poolId=pool_daily_01"
+          data-sv-mother-link
+          data-pool-id="pool_daily_01"
+          data-i18n="bundle.child_cold.customize_link"
+        >Customize on Bundle Page ↗</a>
+      </div>
+    </article>
+
+    {{!-- Card 2 --}}
+    <article
+      class="sv-bcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-pool-id="pool_pour_over_02"
+      data-pool-name="Pour-Over Studio 6-Bay Set"
+      data-poster-url="{{ sv_p2_02 }}"
+      data-skus="SV_MP_SKU_04_v01,SV_MP_SKU_08_v01,SV_MP_SKU_01_v01,SV_MP_SKU_06_v01,SV_MP_SKU_03_v01,SV_MP_SKU_09_v01"
+    >
+      <button
+        type="button"
+        class="sv-bcc-planar-trigger"
+        data-action="cold-promote"
+        aria-label="Inspect Pour-Over Studio 6-Bay Set in 3D preview"
+      >
+        <span class="sv-bcc-planar-frame">
+          <img
+            class="sv-bcc-planar-img"
+            src="{{ sv_p2_02 }}"
+            width="640"
+            height="480"
+            alt="90-degree orthographic top-down planar view of SpaceVanta Pour-Over Studio 6-bay modular tray"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-bcc-promote-pill" data-i18n="bundle.child_cold.promote_btn">Inspect in 3D</span>
+      </button>
+
+      <div class="sv-bcc-card__meta">
+        <h3 class="sv-bcc-card__title" data-sv-field="pool-name">Pour-Over Studio 6-Bay Set</h3>
+        <span class="sv-bcc-card__count" data-sv-field="curated-count" hidden></span>
+        <span class="sv-bcc-card__price" data-sv-field="locale-price" hidden></span>
+      </div>
+
+      <div class="sv-bcc-card__actions">
+        <button
+          type="button"
+          class="svd-btn sv-bcc-add-btn"
+          data-action="cold-add-set"
+          data-pool-id="pool_pour_over_02"
+          data-i18n="bundle.child_cold.add_curated_btn"
+        >Add Curated Set</button>
+
+        <a
+          class="sv-bcc-mother-link"
+          href="/pages/bundles?poolId=pool_pour_over_02"
+          data-sv-mother-link
+          data-pool-id="pool_pour_over_02"
+          data-i18n="bundle.child_cold.customize_link"
+        >Customize on Bundle Page ↗</a>
+      </div>
+    </article>
+
+    {{!-- Card 3 --}}
+    <article
+      class="sv-bcc-card"
+      data-sv-cold-card
+      data-sv-promote-state="S0_COLD_IDLE"
+      data-pool-id="pool_matcha_tea_03"
+      data-pool-name="Matcha & Linen Tea 6-Bay Set"
+      data-poster-url="{{ sv_p2_03 }}"
+      data-skus="SV_MP_SKU_02_v01,SV_MP_SKU_05_v01,SV_MP_SKU_07_v01,SV_MP_SKU_01_v01,SV_MP_SKU_04_v01,SV_MP_SKU_06_v01"
+    >
+      <button
+        type="button"
+        class="sv-bcc-planar-trigger"
+        data-action="cold-promote"
+        aria-label="Inspect Matcha and Linen Tea 6-Bay Set in 3D preview"
+      >
+        <span class="sv-bcc-planar-frame">
+          <img
+            class="sv-bcc-planar-img"
+            src="{{ sv_p2_03 }}"
+            width="640"
+            height="480"
+            alt="90-degree orthographic top-down planar view of SpaceVanta Matcha and Linen Tea 6-bay modular tray"
+            loading="lazy"
+            decoding="async"
+          >
+        </span>
+        <span class="sv-bcc-promote-pill" data-i18n="bundle.child_cold.promote_btn">Inspect in 3D</span>
+      </button>
+
+      <div class="sv-bcc-card__meta">
+        <h3 class="sv-bcc-card__title" data-sv-field="pool-name">Matcha &amp; Linen Tea 6-Bay Set</h3>
+        <span class="sv-bcc-card__count" data-sv-field="curated-count" hidden></span>
+        <span class="sv-bcc-card__price" data-sv-field="locale-price" hidden></span>
+      </div>
+
+      <div class="sv-bcc-card__actions">
+        <button
+          type="button"
+          class="svd-btn sv-bcc-add-btn"
+          data-action="cold-add-set"
+          data-pool-id="pool_matcha_tea_03"
+          data-i18n="bundle.child_cold.add_curated_btn"
+        >Add Curated Set</button>
+
+        <a
+          class="sv-bcc-mother-link"
+          href="/pages/bundles?poolId=pool_matcha_tea_03"
+          data-sv-mother-link
+          data-pool-id="pool_matcha_tea_03"
+          data-i18n="bundle.child_cold.customize_link"
+        >Customize on Bundle Page ↗</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+{{#schema}}
+{
+  "name": "SpaceVanta Bundle Cold P2 Grid",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-bundle-child-cold-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Grid Heading",
+      "default": "Related 6-Bay Curated Sets"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta Bundle Cold P2 Grid",
+      "category": "Bundles",
+      "settings": {}
+    }
+  ]
+}
+{{/schema}}

@@ -1,5 +1,6 @@
-/* SpaceVanta Reusable Brand Seam Primitive (<=1px)
+/* SpaceVanta Reusable Brand Seam Primitive (L5@v02 · PALETTE v1.2.1)
  * Token-only: zero bare hex values. References --sv-* with --svd-* fallback.
+ * Includes [data-sv-seam-aura="true"] (<Seam aura="true"/>) mandatory on deep metal parents (11.72:1 AAA).
  */
 .sv-seam-rail {
   display: block;
@@ -12,6 +13,18 @@
 
 .sv-seam-rail--active {
   background-color: var(--sv-seam, var(--svd-seam));
+}
+
+/* Deep-metal mandatory <Seam aura="true"/> composite calibration line (2px seam + 1px locked seam-aura core) */
+.sv-seam-aura-bar,
+[data-sv-seam-aura="true"] {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--sv-seam, var(--svd-seam));
+  box-shadow: 0 0 0 1px var(--sv-seam-aura, var(--svd-seam-aura));
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

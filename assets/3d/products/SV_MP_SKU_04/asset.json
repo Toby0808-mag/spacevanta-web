@@ -1,0 +1,59 @@
+{
+  "id": "SV_MP_SKU_04_v01",
+  "category": "M-Proto Product Model",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MP_SKU_04_v01.glb",
+      "triangles": 336,
+      "bytes": 17208,
+      "sha256": "cd8c3f75005744f67b8d9ace940756ba0c4cdd7f3cb58c40bd5fa6145bcb287e"
+    },
+    "lod1": {
+      "file": "SV_MP_SKU_04_v01_lod1.glb",
+      "triangles": 192,
+      "bytes": 11156,
+      "sha256": "92eec46975af11f563f1513848e79c8abeb396faaa69b47b03ee4988490ae492"
+    },
+    "lod2": {
+      "file": "SV_MP_SKU_04_v01_lod2.glb",
+      "triangles": 120,
+      "bytes": 8132,
+      "sha256": "f5428d485656aa0639612766846e78a59d53c1de099e4072d25a42dc9215ec49"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 11877,
+    "maxBytes": 90000,
+    "sha256": "2971f1e1a984a4b1e78af085ae53463989dd72e92a95397e59a528e30fad17ea",
+    "alt": "SpaceVanta Warm Cream Ceramic Cup modular tray item"
+  },
+  "slotCompatibility": [
+    "bay_1",
+    "bay_2",
+    "bay_3",
+    "bay_4",
+    "bay_5",
+    "bay_6"
+  ],
+  "naturalMaterialSpec": "Warm Cream Ceramic Cup"
+}

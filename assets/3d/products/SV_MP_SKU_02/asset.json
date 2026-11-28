@@ -1,0 +1,59 @@
+{
+  "id": "SV_MP_SKU_02_v01",
+  "category": "M-Proto Product Model",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MP_SKU_02_v01.glb",
+      "triangles": 152,
+      "bytes": 7416,
+      "sha256": "6174926bef00ee880de50bef39f2e252a83280a6437d53e512157cf92db11c84"
+    },
+    "lod1": {
+      "file": "SV_MP_SKU_02_v01_lod1.glb",
+      "triangles": 44,
+      "bytes": 4888,
+      "sha256": "9790dbffc6de617139ebc70d12c83ca73c9b1ce03ddeae07b2746ae51a4d82e2"
+    },
+    "lod2": {
+      "file": "SV_MP_SKU_02_v01_lod2.glb",
+      "triangles": 44,
+      "bytes": 4888,
+      "sha256": "9790dbffc6de617139ebc70d12c83ca73c9b1ce03ddeae07b2746ae51a4d82e2"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 9718,
+    "maxBytes": 90000,
+    "sha256": "356ec3bf69ae2ebb3f5c83e1d351345c83b95d7cdd3bb5ded15285f857bc017e",
+    "alt": "SpaceVanta Matte Matcha Nut Crisps Pouch modular tray item"
+  },
+  "slotCompatibility": [
+    "bay_1",
+    "bay_2",
+    "bay_3",
+    "bay_4",
+    "bay_5",
+    "bay_6"
+  ],
+  "naturalMaterialSpec": "Matte Matcha Nut Crisps Pouch"
+}

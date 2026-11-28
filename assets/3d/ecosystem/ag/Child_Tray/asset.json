@@ -1,0 +1,151 @@
+{
+  "id": "Child_Tray",
+  "category": "Ecosystem Hot Tray + Hinged Lid + Plinth-Free 78x72mm SV + bay_1..6",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "lod0/Child_Tray.glb",
+      "triangles": 1716,
+      "maxTriangles": 120000,
+      "bytes": 154996,
+      "maxBytes": 314572800,
+      "sha256": "abd72e8e6cfe83accd27edf3fc7e137ab8c686ac6e4d26c15d7983a09455d9d1",
+      "animations": [
+        "clip_lid_toggle",
+        "clip_slot_add",
+        "clip_slot_swap",
+        "clip_slot_remove"
+      ]
+    },
+    "lod1": {
+      "file": "lod1/Child_Tray_lod1.glb",
+      "triangles": 1320,
+      "maxTriangles": 45000,
+      "bytes": 140364,
+      "maxBytes": 314572800,
+      "sha256": "4f744408b02603e37b364cf6a5311a3b7b4599deeb66394d94c79795b37ab358",
+      "animations": [
+        "clip_lid_toggle",
+        "clip_slot_add",
+        "clip_slot_swap",
+        "clip_slot_remove"
+      ]
+    },
+    "lod2": {
+      "file": "lod2/Child_Tray_lod2.glb",
+      "triangles": 1200,
+      "maxTriangles": 12000,
+      "bytes": 135356,
+      "maxBytes": 314572800,
+      "sha256": "f7f1d8263518fc03984bcaffd67aa4e4822ad8ca75131e6d6b55a8ef2bc8fa93",
+      "animations": [
+        "clip_lid_toggle",
+        "clip_slot_add",
+        "clip_slot_swap",
+        "clip_slot_remove"
+      ]
+    }
+  },
+  "svCrestFrozenSpec": {
+    "widthMm": 78,
+    "heightMm": 72,
+    "aspectRatio": 1.08,
+    "maxThicknessMm": 4,
+    "lidTopLocalYMm": 6.2,
+    "localBboxMinYMm": 0,
+    "plinthPresent": false
+  },
+  "hotspotMin": 2,
+  "hotspots": [
+    {
+      "id": "HS_BAY_GRID",
+      "group": "slot_grid",
+      "subTargets": [
+        "bay_1",
+        "bay_2",
+        "bay_3",
+        "bay_4",
+        "bay_5",
+        "bay_6"
+      ]
+    },
+    {
+      "id": "HS_SV_CREST",
+      "group": "brand_crest",
+      "subTargets": []
+    }
+  ],
+  "c1AnimationClips": [
+    {
+      "id": "clip_lid_toggle",
+      "durationMs": 400,
+      "loop": false,
+      "reducedMotionMs": 0
+    },
+    {
+      "id": "clip_slot_add",
+      "durationMs": 280,
+      "loop": false,
+      "reducedMotionMs": 0,
+      "closedLidAutoOpenDeg": 72
+    },
+    {
+      "id": "clip_slot_swap",
+      "durationMs": 320,
+      "loop": false,
+      "reducedMotionMs": 0,
+      "closedLidAutoOpenDeg": 72
+    },
+    {
+      "id": "clip_slot_remove",
+      "durationMs": 220,
+      "loop": false,
+      "reducedMotionMs": 0,
+      "closedLidAutoOpenDeg": 72
+    }
+  ],
+  "paletteTokenMapping": {
+    "canvasAndFloor": "var(--svd-paper) / var(--sv-paper)",
+    "innerCavityAndLidLiner": "var(--svd-paper-2) / var(--sv-paper-subtle)",
+    "shellRamp5Step": [
+      "var(--sv-metal-recess)",
+      "var(--sv-gunmetal)",
+      "var(--sv-slate)",
+      "var(--sv-steel)",
+      "var(--sv-pewter)"
+    ],
+    "svCrest": [
+      "var(--sv-specular)",
+      "var(--sv-silver)"
+    ],
+    "fractureSeam": [
+      "var(--sv-seam)",
+      "var(--sv-seam-aura)",
+      "var(--sv-seam-mid)"
+    ]
+  },
+  "poster": {
+    "file": "poster_child_tray_1600.png",
+    "bytes": 16921,
+    "maxBytes": 90000,
+    "sha256": "bb4c9ff9a3a6ac025276d00030378f870cf29763122ee07ce8d62064e28fa9f5",
+    "alt": "SpaceVanta brushed slate and gunmetal 6-bay modular bundle tray with warm paper interior"
+  },
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster_child_tray_1600.png"
+  ]
+}

@@ -1,0 +1,25 @@
+/* SpaceVanta Reusable Brand Seam Primitive (<=1px)
+ * Token-only: zero bare hex values. References --sv-* with --svd-* fallback.
+ */
+.sv-seam-rail {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--sv-paper-line, var(--svd-line));
+  transition: background-color var(--sv-dur, var(--svd-dur, 180ms)) ease;
+  pointer-events: none;
+}
+
+.sv-seam-rail--active {
+  background-color: var(--sv-seam, var(--svd-seam));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-seam-rail {
+    transition-duration: 0ms;
+  }
+}
+
+[data-sv-motion="off"] .sv-seam-rail {
+  transition-duration: 0ms;
+}

@@ -1,0 +1,59 @@
+{
+  "id": "SV_MP_SKU_06_v01",
+  "category": "M-Proto Product Model",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MP_SKU_06_v01.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "e7b400f003a594b72108941661a70eae966edd3adee56f6d52ea6dd2c910d796"
+    },
+    "lod1": {
+      "file": "SV_MP_SKU_06_v01_lod1.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "e7b400f003a594b72108941661a70eae966edd3adee56f6d52ea6dd2c910d796"
+    },
+    "lod2": {
+      "file": "SV_MP_SKU_06_v01_lod2.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "e7b400f003a594b72108941661a70eae966edd3adee56f6d52ea6dd2c910d796"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 9645,
+    "maxBytes": 90000,
+    "sha256": "602030b695b641a9c03ed675af43ca7ced1f7da92e640cab16a44da6408c1106",
+    "alt": "SpaceVanta Toasted Hazelnut Praline Box modular tray item"
+  },
+  "slotCompatibility": [
+    "bay_1",
+    "bay_2",
+    "bay_3",
+    "bay_4",
+    "bay_5",
+    "bay_6"
+  ],
+  "naturalMaterialSpec": "Toasted Hazelnut Praline Box"
+}

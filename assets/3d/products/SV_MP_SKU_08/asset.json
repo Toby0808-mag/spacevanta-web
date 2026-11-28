@@ -1,0 +1,59 @@
+{
+  "id": "SV_MP_SKU_08_v01",
+  "category": "M-Proto Product Model",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MP_SKU_08_v01.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "c2577c5e57a6a789c9511afe45286ec5069f9871d513839b9ef77af293b60263"
+    },
+    "lod1": {
+      "file": "SV_MP_SKU_08_v01_lod1.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "c2577c5e57a6a789c9511afe45286ec5069f9871d513839b9ef77af293b60263"
+    },
+    "lod2": {
+      "file": "SV_MP_SKU_08_v01_lod2.glb",
+      "triangles": 36,
+      "bytes": 4644,
+      "sha256": "c2577c5e57a6a789c9511afe45286ec5069f9871d513839b9ef77af293b60263"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 9617,
+    "maxBytes": 90000,
+    "sha256": "b28ba33191a8462cb1526f52e416cb02e28fdddd2f47dde490ec632a8b2a8c17",
+    "alt": "SpaceVanta Single-Origin Drip Coffee Folio modular tray item"
+  },
+  "slotCompatibility": [
+    "bay_1",
+    "bay_2",
+    "bay_3",
+    "bay_4",
+    "bay_5",
+    "bay_6"
+  ],
+  "naturalMaterialSpec": "Single-Origin Drip Coffee Folio"
+}

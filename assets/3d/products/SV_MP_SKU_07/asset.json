@@ -1,0 +1,59 @@
+{
+  "id": "SV_MP_SKU_07_v01",
+  "category": "M-Proto Product Model",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r3",
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MP_SKU_07_v01.glb",
+      "triangles": 336,
+      "bytes": 17208,
+      "sha256": "bcd8227a7baff34c03dc580db15dbe49dc1e6fcf12f7e7638a6b9926ed47414b"
+    },
+    "lod1": {
+      "file": "SV_MP_SKU_07_v01_lod1.glb",
+      "triangles": 192,
+      "bytes": 11152,
+      "sha256": "7031bf8118724a59ed41e1d0678c9ddbe7bbe1b82e31a85a85bad804b728e291"
+    },
+    "lod2": {
+      "file": "SV_MP_SKU_07_v01_lod2.glb",
+      "triangles": 120,
+      "bytes": 8132,
+      "sha256": "0c4d0aff4a69844fafbe8e661848966ad7c3a1b6bcf42bf6a47cb0b41436835b"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 11878,
+    "maxBytes": 90000,
+    "sha256": "bf12d372b3b7b355ecfe7ce85c79749b3d8bad856819dd253d30806f898fc731",
+    "alt": "SpaceVanta Bespoke Porcelain Tasting Vessel modular tray item"
+  },
+  "slotCompatibility": [
+    "bay_1",
+    "bay_2",
+    "bay_3",
+    "bay_4",
+    "bay_5",
+    "bay_6"
+  ],
+  "naturalMaterialSpec": "Bespoke Porcelain Tasting Vessel"
+}

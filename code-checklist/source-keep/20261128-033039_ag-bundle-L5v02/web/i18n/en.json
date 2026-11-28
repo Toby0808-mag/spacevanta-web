@@ -1,0 +1,67 @@
+{
+  "header": {
+    "a11y": {
+      "skip_to_main": "Skip to main content",
+      "primary_nav": "Primary navigation",
+      "announcement_region": "Shipping and fulfillment notice",
+      "open_shop": "Open Shop categories",
+      "open_menu": "Open navigation menu",
+      "open_search": "Open search",
+      "open_market": "Change delivery market and language",
+      "open_cart": "Shopping bag",
+      "close_overlay": "Close panel",
+      "cart_items_label": "items in bag"
+    },
+    "nav": {
+      "shop": "Shop",
+      "bundles": "Bundles",
+      "mto": "Made to Order",
+      "menu": "Menu",
+      "all_products": "All Products",
+      "scenes": "Scenes"
+    },
+    "shop": {
+      "categories_heading": "Categories",
+      "cat_01": "Desk Architecture",
+      "cat_02": "Modular Trays",
+      "cat_03": "Precision Tools",
+      "scene_heading": "Featured Scene",
+      "scene_title": "Explore by Desk Scene",
+      "scene_sub": "See how modular pieces align on warm paper surfaces.",
+      "scene_cta": "View Scene"
+    },
+    "drawer": {
+      "ways_heading": "Ways to Buy",
+      "guide_heading": "Guide & Policies",
+      "policy_shipping": "Shipping & Duties",
+      "how_it_works": "How It Works",
+      "about": "About SpaceVanta",
+      "privilege": "Member Privilege",
+      "contact": "Contact",
+      "account": "Account",
+      "current_market": "Market",
+      "change_market": "Change"
+    },
+    "market": {
+      "title": "Market & Language",
+      "delivery_label": "Delivery destination",
+      "lang_label": "Language",
+      "apply_cta": "Apply",
+      "helper": "Prices, duties, and shipping estimates update to match your selected destination.",
+      "degraded_msg": "Live market directory is temporarily unavailable. Your active market remains selected.",
+      "policy_link": "View Shipping & Duties Policy"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search modular pieces, bundles, or scenes",
+      "submit": "Search",
+      "quick_heading": "Quick Categories",
+      "empty_hint": "Enter a keyword or select a category below.",
+      "degraded_hint": "Live suggestions are unavailable. Press Enter to search directly."
+    },
+    "handoff": {
+      "deferred_notice": "Route queued for upcoming template release.",
+      "idempotent_notice": "Already triggered — ignoring duplicate click."
+    }
+  }
+}

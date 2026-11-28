@@ -1,0 +1,151 @@
+{{!-- SpaceVanta Bundle Child Direct-Related Hot Section (L5@v02 · sv_flow_child_promote_v01 · r2)
+     Authorized ONLY for Direct-Related templates (Home Bundle & Scene / Scene Page).
+     Strict ACL: single-pool (Worker-assigned pool only; zero cross-pool tabs; cross-pool hands off to Mother with Zero Reset).
+     Strict D-09 Order: Trust -> Motivate -> Remember. Zero bare hex, zero Liquid default filters, zero hardcoded prices.
+--}}
+{{#var sv_driver_url = "sv-bundle/BundleDriver.js" | asset_url() /}}
+{{#var sv_poster_url = "bundle-mother/poster-tray-1600.png" | asset_url() /}}
+
+<section
+  class="sv-bch"
+  data-sv-module="sv_flow_child_promote_v01"
+  data-sv-role="hot_child"
+  data-sv-acl="single-pool"
+  data-sv-model-tier="r2"
+  data-sv-state="hot_child_ready"
+  data-sv-driver-url="{{ sv_driver_url }}"
+  data-sv-poster-url="{{ sv_poster_url }}"
+>
+  {{!-- 1. D-09 TRUST: ChildTrustHeader (Hidden unless all 3 Trust 50 fields present -> 0 "· ·") --}}
+  <div
+    class="sv-bch-trust"
+    data-sv-slot="child-trust-header"
+    role="region"
+    aria-label="Scene bundle shipping clarity"
+    hidden
+  >
+    <p class="sv-bch-trust__track">
+      <span data-sv-field="duty"></span>
+      <span aria-hidden="true">·</span>
+      <span data-sv-field="leadtime"></span>
+      <span aria-hidden="true">·</span>
+      <span data-sv-field="threshold"></span>
+    </p>
+    <span class="sv-seam-rail sv-seam-rail--active" aria-hidden="true"></span>
+  </div>
+
+  {{!-- 2. D-09 MOTIVATE: Assigned Stage (reuses single persistent Hot Canvas) + Single-Pool Panel --}}
+  <div class="sv-bch-grid">
+    <div class="sv-bch-stage" data-sv-slot="child-hot-assigned-stage">
+      <div class="sv-bch-canvas-wrap">
+        <canvas
+          class="sv-bch-canvas"
+          data-sv-bundle-canvas
+          aria-label="3D assigned scene bundle tray"
+        ></canvas>
+
+        <div class="sv-bch-l4" data-sv-l4-static hidden>
+          <img src="{{ sv_poster_url }}" width="640" height="400" alt="SpaceVanta 6-bay scene bundle tray" decoding="async">
+        </div>
+      </div>
+      <div class="sv-bch-toolbar" role="toolbar" aria-label="Scene tray camera controls">
+        <button type="button" class="sv-bch-tool" data-action="child-cam" data-preset="tray_view" aria-pressed="true">3/4 Tray View</button>
+        <button type="button" class="sv-bch-tool" data-action="child-hotspot" data-hotspot-id="HS_BAY_GRID" aria-pressed="false">6-Bay Grid</button>
+        <button type="button" class="sv-bch-tool" data-action="child-hotspot" data-hotspot-id="HS_SV_CREST" aria-pressed="false">SV Crest</button>
+        <button type="button" class="sv-bch-tool" data-action="child-lid">Open / Close Lid</button>
+      </div>
+    </div>
+
+    <div class="sv-bch-panel" data-sv-slot="child-hot-singlepool-panel">
+      <p class="sv-bch-eyebrow" data-i18n="bundle.child_hot.eyebrow">Direct Scene Curation</p>
+      <h2 class="sv-bch-title" data-sv-assigned-title>
+        {{#if section.settings.heading}}{{ section.settings.heading }}{{else}}Scene Curated 6-Bay Tray{{/if}}
+      </h2>
+      <p class="sv-bch-note" data-i18n="bundle.child_hot.single_pool_note">
+        Direct inline swaps within this assigned pool. Cross-pool combinations continue on the Bundle page.
+      </p>
+
+      <div class="svd-chip sv-bch-pool-chip" data-sv-assigned-chip hidden>
+        <span data-i18n="bundle.child_hot.assigned_label">Assigned Pool</span>:
+        <strong data-sv-field="assigned-pool-name"></strong>
+      </div>
+
+      <ol class="sv-bch-slots" data-sv-child-slots>
+        <li class="sv-bch-slot" data-bay-index="0">
+          <span class="sv-bch-slot__label" data-sv-slot-name>Bay 1 · Cotton White Coffret</span>
+          <button type="button" class="sv-bch-swap" data-action="child-swap" data-bay-index="0">⇄ Swap</button>
+        </li>
+        <li class="sv-bch-slot" data-bay-index="1">
+          <span class="sv-bch-slot__label" data-sv-slot-name>Bay 2 · Matte Matcha Crisps</span>
+          <button type="button" class="sv-bch-swap" data-action="child-swap" data-bay-index="1">⇄ Swap</button>
+        </li>
+        <li class="sv-bch-slot" data-bay-index="2">
+          <span class="sv-bch-slot__label" data-sv-slot-name>Bay 3 · Roasted Cocoa Tin</span>
+          <button type="button" class="sv-bch-swap" data-action="child-swap" data-bay-index="2">⇄ Swap</button>
+        </li>
+        <li class="sv-bch-slot" data-bay-index="3">
+          <span class="sv-bch-slot__label" data-sv-slot-name>Bay 4 · Warm Cream Ceramic Cup</span>
+          <button type="button" class="sv-bch-swap" data-action="child-swap" data-bay-index="3">⇄ Swap</button>
+        </li>
+        <li class="sv-bch-slot" data-bay-index="4">
+          <span class="sv-bch-slot__label" data-sv-slot-name>Bay 5 · Oat Linen Tea Caddy</span>
+          <button type="button" class="sv-bch-swap" data-action="child-swap" data-bay-index="4">⇄ Swap</button>
+        </li>
+        <li class="sv-bch-slot" data-bay-index="5">
+          <span class="sv-bch-slot__label" data-sv-slot-name>Bay 6 · Toasted Praline Box</span>
+          <button type="button" class="sv-bch-swap" data-action="child-swap" data-bay-index="5">⇄ Swap</button>
+        </li>
+      </ol>
+
+      <div class="sv-bch-toast" data-sv-toast role="status" aria-live="polite" hidden></div>
+
+      <div class="sv-bch-cta-row">
+        <span class="sv-bch-price" data-sv-field="locale-price" hidden></span>
+        <button type="button" class="svd-btn sv-bch-commit" data-action="child-commit" data-sv-commit disabled>
+          <span data-sv-commit-label>Take This Set</span>
+        </button>
+      </div>
+
+      {{!-- 3. D-09 REMEMBER: Zero-Reset Handoff to Mother Bundle Page (carries poolId + activeSlotSkus) --}}
+      <div class="sv-bch-handoff">
+        <a
+          class="sv-bch-handoff-link"
+          href="/pages/bundles"
+          data-action="handoff-mother"
+          data-sv-handoff-link
+          data-i18n="bundle.child_hot.handoff_cta"
+        >Customize Across Pools on Bundle Page ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{#schema}}
+{
+  "name": "SpaceVanta Bundle Hot Child",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-bundle-child-hot-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Scene Curated 6-Bay Tray"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta Bundle Hot Child",
+      "category": "Bundles",
+      "settings": {}
+    }
+  ]
+}
+{{/schema}}

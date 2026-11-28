@@ -1,0 +1,128 @@
+{
+  "id": "SV_CHILD_COLD_P2_01..06_v01",
+  "category": "Cold Plan P2 90-deg Orthographic 2D Planar Mapping",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v02",
+  "r_target": "r1_static_s0",
+  "s0WebGL": 0,
+  "s0GlbRequests": 0,
+  "dnaProfile": {
+    "name": "pdp_collection",
+    "metalAreaPct": 6.8,
+    "seamBeta": 0.2,
+    "warmCoolRatio": 4.35
+  },
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "cards": [
+    {
+      "id": "SV_CHILD_COLD_P2_01_v01",
+      "png": "SV_CHILD_COLD_P2_01_v01.png",
+      "pngBytes": 25678,
+      "pngSha256": "2c74bbe4c9a414aa688c5043f69ca9c51cbc6ce5e19789006168dfd376fb1aed",
+      "svg": "SV_CHILD_COLD_P2_01_v01.svg",
+      "svgBytes": 851,
+      "svgSha256": "4701340c522c687f5a93b7f0012fadcd7db891e30c9f0818d8ef8a2ffbb5dc58",
+      "skus": [
+        "SV_MP_SKU_01_v01",
+        "SV_MP_SKU_02_v01",
+        "SV_MP_SKU_03_v01",
+        "SV_MP_SKU_04_v01",
+        "SV_MP_SKU_05_v01",
+        "SV_MP_SKU_06_v01"
+      ]
+    },
+    {
+      "id": "SV_CHILD_COLD_P2_02_v01",
+      "png": "SV_CHILD_COLD_P2_02_v01.png",
+      "pngBytes": 19720,
+      "pngSha256": "88a73c4fb1716d6220e8c733bcbc5556f459de1f9e3d589128b0872f070fdb1f",
+      "svg": "SV_CHILD_COLD_P2_02_v01.svg",
+      "svgBytes": 851,
+      "svgSha256": "4701340c522c687f5a93b7f0012fadcd7db891e30c9f0818d8ef8a2ffbb5dc58",
+      "skus": [
+        "SV_MP_SKU_04_v01",
+        "SV_MP_SKU_08_v01",
+        "SV_MP_SKU_01_v01",
+        "SV_MP_SKU_06_v01",
+        "SV_MP_SKU_03_v01",
+        "SV_MP_SKU_09_v01"
+      ]
+    },
+    {
+      "id": "SV_CHILD_COLD_P2_03_v01",
+      "png": "SV_CHILD_COLD_P2_03_v01.png",
+      "pngBytes": 32771,
+      "pngSha256": "fff9806769e40c1e2671cd844d4c04c0a25a03dad81010119ff6ef5d7e9a717d",
+      "svg": "SV_CHILD_COLD_P2_03_v01.svg",
+      "svgBytes": 851,
+      "svgSha256": "4701340c522c687f5a93b7f0012fadcd7db891e30c9f0818d8ef8a2ffbb5dc58",
+      "skus": [
+        "SV_MP_SKU_02_v01",
+        "SV_MP_SKU_05_v01",
+        "SV_MP_SKU_07_v01",
+        "SV_MP_SKU_01_v01",
+        "SV_MP_SKU_04_v01",
+        "SV_MP_SKU_06_v01"
+      ]
+    },
+    {
+      "id": "SV_CHILD_COLD_P2_04_v01",
+      "png": "SV_CHILD_COLD_P2_04_v01.png",
+      "pngBytes": 19832,
+      "pngSha256": "aef6c0826e12e9eec5410c531fc8c3c755478027082aa6b59232f0caa8a995f7",
+      "svg": "SV_CHILD_COLD_P2_04_v01.svg",
+      "svgBytes": 851,
+      "svgSha256": "4701340c522c687f5a93b7f0012fadcd7db891e30c9f0818d8ef8a2ffbb5dc58",
+      "skus": [
+        "SV_MP_SKU_03_v01",
+        "SV_MP_SKU_01_v01",
+        "SV_MP_SKU_06_v01",
+        "SV_MP_SKU_08_v01",
+        "SV_MP_SKU_04_v01",
+        "SV_MP_SKU_02_v01"
+      ]
+    },
+    {
+      "id": "SV_CHILD_COLD_P2_05_v01",
+      "png": "SV_CHILD_COLD_P2_05_v01.png",
+      "pngBytes": 25906,
+      "pngSha256": "8fb76829992597a59cda0330abd8fb5400853c405d409f62f0048a09fada4179",
+      "svg": "SV_CHILD_COLD_P2_05_v01.svg",
+      "svgBytes": 851,
+      "svgSha256": "4701340c522c687f5a93b7f0012fadcd7db891e30c9f0818d8ef8a2ffbb5dc58",
+      "skus": [
+        "SV_MP_SKU_05_v01",
+        "SV_MP_SKU_02_v01",
+        "SV_MP_SKU_04_v01",
+        "SV_MP_SKU_09_v01",
+        "SV_MP_SKU_01_v01",
+        "SV_MP_SKU_08_v01"
+      ]
+    },
+    {
+      "id": "SV_CHILD_COLD_P2_06_v01",
+      "png": "SV_CHILD_COLD_P2_06_v01.png",
+      "pngBytes": 32617,
+      "pngSha256": "2b5574ff1a3290d755c810bab391b735c520cfddb8c27bacf191c0ac666502b6",
+      "svg": "SV_CHILD_COLD_P2_06_v01.svg",
+      "svgBytes": 851,
+      "svgSha256": "4701340c522c687f5a93b7f0012fadcd7db891e30c9f0818d8ef8a2ffbb5dc58",
+      "skus": [
+        "SV_MP_SKU_07_v01",
+        "SV_MP_SKU_01_v01",
+        "SV_MP_SKU_03_v01",
+        "SV_MP_SKU_04_v01",
+        "SV_MP_SKU_09_v01",
+        "SV_MP_SKU_05_v01"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+/* SpaceVanta G-0 Agent Safe-Zone Placeholder Styles (L5@v02 · V-11 / V-12)
+ * Zero bare hex values. 90px (24mm) pure hollow dashed circle + unclipped caption on 375px Mobile.
+ */
+.sv-agent-slot-g0 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--svd-s2);
+  margin-left: auto;
+  padding: var(--svd-s3) var(--svd-s4);
+  max-width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  color: var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+.sv-agent-slot-g0__ring {
+  display: block;
+  width: 90px;
+  height: 90px;
+  border-radius: var(--svd-r-pill);
+  border: 1.5px dashed var(--svd-ink-soft, var(--sv-ink-soft));
+  background: transparent;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
+.sv-agent-slot-g0__caption {
+  display: block;
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  text-align: right;
+  max-width: calc(100vw - 32px);
+  overflow-wrap: anywhere;
+  color: var(--svd-ink-soft, var(--sv-ink-soft));
+}
+
+/* Kill switch ?sv_agent=off: silent collapse with zero empty hole */
+[data-sv-agent="off"] .sv-agent-slot-g0,
+[data-sv-agent="off"] [data-sv-agent-slot="g0"] {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .sv-agent-slot-g0 {
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-bottom: calc(var(--svd-s4) + env(safe-area-inset-bottom, 0px));
+  }
+}
