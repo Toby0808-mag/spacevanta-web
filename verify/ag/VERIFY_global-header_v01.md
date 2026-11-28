@@ -67,3 +67,8 @@
 - **Chromium 实测与五道硬闸（含 v2.4 第 0 道清单闸）：** `dt_h = 96px`、`mb_h = 80px`、`scrollW = 375`、`sv-scene-card-thumb.png` `complete = true / naturalW = 640 / 占比 = 1.07%`、`0` 404、`0` 控制台报错；`STRICT_HEX=1 scripts/check_gates.sh`（含 `code_checklist.py check`）全绿。
 
 - **r3 补充（Shopline `public/` 不支持 `.png`）：** 移除 `web/public/global-header/sv-scene-card-thumb.png`（`web/public/` 下 0 图片文件）；Cold Scene 卡改为 `{{#schema}}` 内 `scene_card_image`（`image_picker`，走 Shopline 媒体库上传）+ 默认内联纯令牌建筑线框 `<svg>`（0 裸 hex，0 外部图片请求，占比仍 `1.07% ≤ 4.0%`）。
+
+- **r4 补充（Shopline OS 3.0 独立区块渲染 & 编辑器控件对齐）：**
+  - 根因 1：Shopline OS 3.0 不会自动注入同目录 `.css`/`.js` 及 `components/` 资源，导致首屏无样式、覆层平铺。已将纯令牌 `<style>`（`sv-seam` + `sv-root-portal` + `global-header` V11，0 裸 hex）与 `<script>`（`sv-root-portal` + `global-header` 运行时）自包含内联进 `global-header.html`；
+  - 根因 2：`{{#schema}}` 中 Shopify 控件名 `checkbox` / `link_list` 在 Shopline OS 3.0 中应为 `switch` / `menu_picker`，否则右侧面板显示「暂无可编辑的内容」。已全部替换为 Shopline OS 3.0 合法控件并补充 `"icon": "header"`；
+  - 零外部依赖独立渲染复测（Chromium）：`jsReady=true`、`dt_h=64px/96px`、`mb_h=80px`、`scrollW=375`、`shopHidden=true`、`menuHidden=true`、`svg_pct=1.07%`、`esc_back=A1`、`0` 404、`0` 报错。

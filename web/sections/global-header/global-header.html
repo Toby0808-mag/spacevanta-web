@@ -30,6 +30,855 @@
   </symbol>
 </svg>
 
+<style data-sv-inline="global-header">
+/* SpaceVanta Reusable Brand Seam Primitive (<=1px)
+ * Token-only: zero bare hex values. References --sv-* with --svd-* fallback.
+ */
+.sv-seam-rail {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--sv-paper-line, var(--svd-line));
+  transition: background-color var(--sv-dur, var(--svd-dur, 180ms)) ease;
+  pointer-events: none;
+}
+
+.sv-seam-rail--active {
+  background-color: var(--sv-seam, var(--svd-seam));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-seam-rail {
+    transition-duration: 0ms;
+  }
+}
+
+[data-sv-motion="off"] .sv-seam-rail {
+  transition-duration: 0ms;
+}
+
+/* SpaceVanta RootModalPortal (direct child of <body>)
+ * Isolates overlays from clip-path / 3D transform ancestors.
+ * Token-only: zero bare hex values.
+ */
+.sv-root-portal {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.sv-root-portal[data-open="true"] {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.sv-root-portal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--sv-ink, var(--svd-ink));
+  opacity: 0;
+  transition: opacity var(--sv-dur, var(--svd-dur, 180ms)) ease;
+  cursor: pointer;
+}
+
+.sv-root-portal[data-open="true"] .sv-root-portal__backdrop {
+  opacity: 0.36;
+}
+
+.sv-root-portal__slot {
+  position: relative;
+  z-index: 1;
+}
+
+.sv-root-portal__slot[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-root-portal__backdrop {
+    transition-duration: 0ms;
+  }
+}
+
+[data-sv-motion="off"] .sv-root-portal__backdrop {
+  transition-duration: 0ms;
+}
+
+/* SpaceVanta Global Header CSS (L5@v01)
+ * Strict token discipline: ZERO bare hex values.
+ * Zero backdrop-filter, zero drop shadow on sticky, zero seam blue on small text/links.
+ * Desktop total <= 96px (announce <= 32px + main <= 64px).
+ * Mobile 375px total <= 86px (announce <= 30px + main <= 56px), scrollWidth <= 375px.
+ */
+
+.sv-hdr-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9500;
+  padding: 10px 16px;
+  background-color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-paper, var(--svd-paper));
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.sv-hdr-skip:focus {
+  left: 8px;
+  top: 8px;
+  outline: 2px solid var(--sv-seam, var(--svd-seam));
+  outline-offset: 2px;
+}
+
+.sv-hdr {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  background-color: var(--sv-paper, var(--svd-paper));
+  color: var(--sv-ink, var(--svd-ink));
+  font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.sv-hdr[data-sv-sticky="true"] {
+  position: sticky;
+  top: 0;
+}
+
+/* Slot 1: Announcement Bar (Desktop <=32px, Mobile <=30px) */
+.sv-hdr-announce {
+  width: 100%;
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  color: var(--sv-ink, var(--svd-ink));
+}
+
+.sv-hdr-announce[hidden] {
+  display: none;
+}
+
+.sv-hdr-announce__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 31px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.sv-hdr-announce__season-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--sv-season-icon, var(--svd-season-icon, var(--sv-ink, var(--svd-ink))));
+}
+
+.sv-hdr-announce__track {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--sv-ink, var(--svd-ink));
+}
+
+.sv-hdr-announce__sep {
+  margin: 0 6px;
+  color: var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+/* Slot 2: Main Bar (Desktop <=64px, Mobile <=56px; solid paper, zero glassmorphism/shadow) */
+.sv-hdr-main {
+  width: 100%;
+  background-color: var(--sv-paper, var(--svd-paper));
+}
+
+.sv-hdr-main__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 63px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 24px);
+}
+
+.sv-hdr-main__mobile-left {
+  display: none;
+  align-items: center;
+  gap: 0;
+}
+
+.sv-hdr-main__brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.sv-hdr-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--sv-ink, var(--svd-ink));
+  text-decoration: none;
+}
+
+.sv-hdr-logo__svg,
+.sv-hdr-logo__img {
+  display: block;
+  height: 22px;
+  width: auto;
+  max-width: 168px;
+}
+
+.sv-hdr-nav-desktop {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.sv-hdr-nav-desktop__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.8vw, 28px);
+  min-width: 0;
+}
+
+.sv-hdr-nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 4px;
+  color: var(--sv-ink, var(--svd-ink));
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sv-hdr-nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.sv-hdr-main__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 0;
+}
+
+.sv-hdr-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--sv-ink, var(--svd-ink));
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sv-hdr-ico {
+  display: block;
+  flex-shrink: 0;
+}
+
+.sv-hdr-market-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--sv-ink, var(--svd-ink));
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.sv-hdr-market-btn:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.sv-hdr-bag-count {
+  margin-left: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sv-ink, var(--svd-ink));
+}
+
+/* Visible 2px seam focus ring for keyboard navigation */
+.sv-hdr :focus-visible,
+.sv-root-portal :focus-visible {
+  outline: 2px solid var(--sv-seam, var(--svd-seam));
+  outline-offset: 2px;
+}
+
+/* Non-blocking idempotent / deferred route toast */
+.sv-hdr-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 9200;
+  max-width: min(92vw, 420px);
+  padding: 10px 16px;
+  background-color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-paper, var(--svd-paper));
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.sv-hdr-toast[hidden] {
+  display: none;
+}
+
+/* Overlays: Panels (P1 Shop, P3 Search) and Drawers (P2 Menu, P4 Market) */
+.sv-hdr-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--sv-paper, var(--svd-paper));
+  color: var(--sv-ink, var(--svd-ink));
+  border-bottom: 1px solid var(--sv-paper-line, var(--svd-line));
+  padding: 20px 24px 28px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.sv-hdr-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: min(100vw, 400px);
+  background-color: var(--sv-paper, var(--svd-paper));
+  color: var(--sv-ink, var(--svd-ink));
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sv-hdr-menu-drawer {
+  left: 0;
+  border-right: 1px solid var(--sv-paper-line, var(--svd-line));
+}
+
+.sv-hdr-market-drawer {
+  right: 0;
+  border-left: 1px solid var(--sv-paper-line, var(--svd-line));
+}
+
+.sv-hdr-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sv-paper-line, var(--svd-line));
+}
+
+.sv-hdr-panel .sv-hdr-panel__head {
+  padding: 0 0 12px;
+  margin-bottom: 16px;
+}
+
+.sv-hdr-panel__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sv-ink, var(--svd-ink));
+}
+
+.sv-hdr-eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+.sv-hdr-muted {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+.sv-hdr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sv-hdr-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--sv-ink, var(--svd-ink));
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sv-hdr-link--strong {
+  font-weight: 600;
+}
+
+.sv-hdr-shop-panel__grid {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.sv-hdr-scene-card {
+  display: block;
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  border: 1px solid var(--sv-paper-line, var(--svd-line));
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--sv-ink, var(--svd-ink));
+  max-width: 320px;
+}
+
+.sv-hdr-scene-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  overflow: hidden;
+}
+
+.sv-hdr-scene-card__media--silhouette {
+  border-bottom: 1px dashed var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+.sv-hdr-scene-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sv-hdr-scene-card__body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sv-hdr-scene-card__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--sv-ink, var(--svd-ink));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sv-hdr-scene-card__sub {
+  font-size: 0.8125rem;
+  color: var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+.sv-hdr-drawer__body {
+  flex: 1 1 auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sv-hdr-drawer__group {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--sv-paper-line, var(--svd-line));
+}
+
+.sv-hdr-drawer__group:last-child {
+  border-bottom: 0;
+}
+
+.sv-hdr-drawer__foot {
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--sv-paper-line, var(--svd-line));
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sv-hdr-drawer__market-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sv-hdr-inline-btn {
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--sv-ink, var(--svd-ink));
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* Search Overlay */
+.sv-hdr-search-form {
+  max-width: 720px;
+  margin: 0 auto 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.sv-hdr-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--sv-paper-line, var(--svd-line));
+  border-radius: 6px;
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  color: var(--sv-ink, var(--svd-ink));
+  font-family: inherit;
+  font-size: 0.9375rem;
+}
+
+.sv-hdr-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-paper, var(--svd-paper));
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sv-hdr-primary-btn--full {
+  width: 100%;
+}
+
+.sv-hdr-inline-hint {
+  max-width: 720px;
+  margin: 0 auto 12px;
+  font-size: 0.8125rem;
+  color: var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+.sv-hdr-search-quick {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.sv-hdr-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sv-hdr-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid var(--sv-paper-line, var(--svd-line));
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  color: var(--sv-ink, var(--svd-ink));
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+
+.sv-hdr-suggest-list {
+  list-style: none;
+  max-width: 720px;
+  margin: 12px auto 0;
+  padding: 0;
+  border-top: 1px solid var(--sv-paper-line, var(--svd-line));
+}
+
+/* Market Form & Degraded Card */
+.sv-hdr-market-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sv-hdr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sv-hdr-select {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--sv-paper-line, var(--svd-line));
+  border-radius: 6px;
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  color: var(--sv-ink, var(--svd-ink));
+  font-family: inherit;
+  font-size: 0.9375rem;
+}
+
+.sv-hdr-degraded-card {
+  padding: 16px;
+  border: 1px solid var(--sv-paper-line, var(--svd-line));
+  border-radius: 10px;
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sv-hdr-degraded-card__val {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sv-ink, var(--svd-ink));
+}
+
+/* L5 No-JS Fallback: when JS has not mounted RootModalPortal, keep SSR nav & search accessible inline */
+.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-overlays-source {
+  padding: 12px 16px;
+  border-top: 1px solid var(--sv-paper-line, var(--svd-line));
+  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
+}
+
+.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-panel,
+.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-drawer {
+  position: static;
+  width: auto;
+  max-height: none;
+  border: 0;
+  padding: 8px 0;
+  background: transparent;
+}
+
+.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-shop-panel,
+.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-market-drawer {
+  display: none;
+}
+
+/* Seasonal off switch */
+[data-sv-season="off"] .sv-hdr-announce__season-icon,
+[data-sv-season="off"] .sv-hdr-announce__order-by {
+  display: none;
+}
+
+/* Global G-0 agent off switch (no empty gap) */
+[data-sv-agent="off"] [data-sv-agent-slot="g0"] {
+  display: none;
+}
+
+/* Tablet / Mobile (<= 1023px & 375px) */
+@media (max-width: 1023px) {
+  .sv-hdr-announce__inner {
+    height: 29px;
+    padding: 0 10px;
+  }
+
+  .sv-hdr-announce__leadtime-wrap {
+    display: none;
+  }
+
+  .sv-hdr-main__inner {
+    height: 55px;
+    padding: 0 6px;
+    grid-template-columns: auto 1fr auto;
+    gap: 4px;
+  }
+
+  .sv-hdr-main__mobile-left {
+    display: flex;
+  }
+
+  .sv-hdr-main__brand {
+    justify-content: center;
+  }
+
+  .sv-hdr-logo__svg,
+  .sv-hdr-logo__img {
+    height: 18px;
+    max-width: 126px;
+  }
+
+  .sv-hdr-nav-desktop,
+  .sv-hdr-desktop-only {
+    display: none;
+  }
+
+  .sv-hdr-market-btn {
+    padding: 0 4px;
+    font-size: 0.75rem;
+  }
+
+  .sv-hdr-main__right {
+    gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-hdr,
+  .sv-hdr *,
+  .sv-root-portal * {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+
+[data-sv-motion="off"] .sv-hdr,
+[data-sv-motion="off"] .sv-hdr *,
+[data-sv-motion="off"] .sv-root-portal * {
+  transition-duration: 0ms !important;
+  animation-duration: 0ms !important;
+}
+
+/* ==========================================================================
+ * Promoted Variant V11 (L5@v01 E1-bounded · Precision Fast-Conversion)
+ * - Fixes Cold Scene card viewport area: 4.88% -> 1.07% (<= 4.0%), panel -80px
+ * - Mobile 375px total height: 86px -> 80px (+6px first-fold Hero clearance)
+ * - 120ms seam-in draw, active anchor 1px micro-seam, 44px search pills
+ * - Token-only: ZERO bare hex values, ZERO E0 changes.
+ * ========================================================================== */
+.sv-hdr {
+  --sv-dur: 120ms;
+}
+
+.sv-hdr-announce__track {
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.sv-hdr-announce__sep {
+  margin: 0 10px;
+}
+
+.sv-hdr-main__rail {
+  transform-origin: center;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.sv-hdr-main__rail.sv-seam-rail--active {
+  transform: scaleX(1);
+}
+
+.sv-hdr [data-sv-trigger][aria-expanded="true"] {
+  box-shadow: inset 0 -1px 0 var(--sv-seam, var(--svd-seam));
+}
+
+.sv-hdr-shop-panel__grid {
+  grid-template-columns: 1.2fr 1fr;
+  gap: 36px;
+}
+
+.sv-hdr-scene-card {
+  display: grid;
+  grid-template-columns: 136px 1fr;
+  max-width: 400px;
+  align-items: stretch;
+}
+
+.sv-hdr-scene-card__media {
+  aspect-ratio: 4 / 3;
+  height: 100%;
+}
+
+.sv-hdr-scene-card__body {
+  justify-content: center;
+}
+
+.sv-hdr-drawer__body {
+  padding: 12px 18px;
+  gap: 14px;
+}
+
+.sv-hdr-drawer__group {
+  padding-bottom: 12px;
+}
+
+.sv-hdr-pill {
+  min-height: 44px;
+  padding: 0 14px;
+  font-weight: 500;
+}
+
+.sv-hdr-pill:hover {
+  border-color: var(--sv-ink, var(--svd-ink));
+}
+
+@media (max-width: 1023px) {
+  .sv-hdr-announce__inner {
+    height: 27px;
+  }
+
+  .sv-hdr-main__inner {
+    height: 51px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-hdr-main__rail {
+    transition-duration: 0ms;
+  }
+}
+
+[data-sv-motion="off"] .sv-hdr-main__rail {
+  transition-duration: 0ms;
+}
+</style>
+
 <a class="sv-hdr-skip" href="#main-content" data-i18n="header.a11y.skip_to_main">Skip to main content</a>
 
 <header
@@ -489,9 +1338,798 @@
 }
 </script>
 
+<script data-sv-inline="global-header">
+/**
+ * SpaceVanta RootModalPortal (L5@v01)
+ * Mounts overlay slots (P1..P4) as direct children of <body> to physically
+ * isolate them from ancestor clip-path / 3D transform stacking contexts.
+ * Guarantees mutual exclusion, background `inert`, Esc/backdrop/[X] close,
+ * and exact keyboard focus restoration to the original trigger anchor (A1..A4).
+ */
+(function (global) {
+  'use strict';
+
+  function createRootPortal(options) {
+    var opts = options || {};
+    var onOpen = typeof opts.onOpen === 'function' ? opts.onOpen : function () {};
+    var onClose = typeof opts.onClose === 'function' ? opts.onClose : function () {};
+
+    var host = document.getElementById('sv-root-portal');
+    if (!host) {
+      host = document.createElement('div');
+      host.id = 'sv-root-portal';
+      host.className = 'sv-root-portal';
+      host.setAttribute('data-open', 'false');
+
+      var backdrop = document.createElement('div');
+      backdrop.className = 'sv-root-portal__backdrop';
+      backdrop.setAttribute('data-portal-backdrop', 'true');
+      backdrop.setAttribute('aria-hidden', 'true');
+      host.appendChild(backdrop);
+
+      document.body.appendChild(host);
+    }
+
+    var backdropEl = host.querySelector('[data-portal-backdrop="true"]');
+    var slots = Object.create(null);
+    var activeSlotId = null;
+    var returnFocusEl = null;
+    var inertNodes = [];
+
+    function setBackgroundInert(enable) {
+      var children = Array.prototype.slice.call(document.body.children);
+      if (enable) {
+        inertNodes = [];
+        for (var i = 0; i < children.length; i++) {
+          var node = children[i];
+          if (node === host || node.tagName === 'SCRIPT' || node.tagName === 'STYLE') {
+            continue;
+          }
+          if (!node.hasAttribute('inert')) {
+            node.setAttribute('inert', '');
+            inertNodes.push(node);
+          }
+        }
+      } else {
+        for (var j = 0; j < inertNodes.length; j++) {
+          inertNodes[j].removeAttribute('inert');
+        }
+        inertNodes = [];
+      }
+    }
+
+    function registerSlot(slotId, el) {
+      if (!slotId || !el) return;
+      el.classList.add('sv-root-portal__slot');
+      el.setAttribute('data-portal-slot', slotId);
+      el.setAttribute('hidden', '');
+      host.appendChild(el);
+      slots[slotId] = el;
+    }
+
+    function getFocusable(container) {
+      if (!container) return [];
+      var list = container.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      return Array.prototype.filter.call(list, function (el) {
+        return !el.hidden && el.offsetParent !== null;
+      });
+    }
+
+    function open(slotId, triggerEl, extraOpts) {
+      var target = slots[slotId];
+      if (!target) return false;
+
+      var preserveOrigin = extraOpts && extraOpts.preserveReturnFocus;
+      var prevSlot = activeSlotId;
+
+      if (prevSlot && prevSlot !== slotId && slots[prevSlot]) {
+        slots[prevSlot].setAttribute('hidden', '');
+      }
+
+      if (!preserveOrigin) {
+        returnFocusEl = triggerEl || document.activeElement;
+      } else if (!returnFocusEl && triggerEl) {
+        returnFocusEl = triggerEl;
+      }
+
+      activeSlotId = slotId;
+      target.removeAttribute('hidden');
+      host.setAttribute('data-open', 'true');
+      host.setAttribute('data-active-slot', slotId);
+      if (!prevSlot) {
+        setBackgroundInert(true);
+      }
+
+      var focusables = getFocusable(target);
+      if (focusables.length > 0) {
+        focusables[0].focus();
+      } else {
+        target.setAttribute('tabindex', '-1');
+        target.focus();
+      }
+
+      onOpen(slotId, prevSlot);
+      return true;
+    }
+
+    function close(reason) {
+      if (!activeSlotId) return false;
+      var closedSlot = activeSlotId;
+      var el = slots[closedSlot];
+      if (el) {
+        el.setAttribute('hidden', '');
+      }
+      activeSlotId = null;
+      host.setAttribute('data-open', 'false');
+      host.removeAttribute('data-active-slot');
+      setBackgroundInert(false);
+
+      var anchor = returnFocusEl;
+      returnFocusEl = null;
+
+      onClose(closedSlot, reason || 'close');
+
+      if (anchor && typeof anchor.focus === 'function' && document.contains(anchor)) {
+        // If trigger anchor is hidden (e.g. viewport resized), fall back to visible header anchor
+        if (anchor.offsetParent !== null) {
+          anchor.focus();
+        } else {
+          var fallbackAnchor = document.querySelector('[data-sv-anchor="A2"]:not([hidden]), [data-sv-anchor="A4"]');
+          if (fallbackAnchor && fallbackAnchor.offsetParent !== null) {
+            fallbackAnchor.focus();
+          }
+        }
+      }
+      return true;
+    }
+
+    function onKeyDown(e) {
+      if (!activeSlotId) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close('escape');
+        return;
+      }
+      if (e.key === 'Tab') {
+        var activeEl = slots[activeSlotId];
+        var focusables = getFocusable(activeEl);
+        if (focusables.length === 0) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    if (backdropEl) {
+      backdropEl.addEventListener('click', function () {
+        close('backdrop');
+      });
+    }
+
+    host.addEventListener('click', function (e) {
+      var closeBtn = e.target && e.target.closest ? e.target.closest('[data-portal-close]') : null;
+      if (closeBtn) {
+        e.preventDefault();
+        close('close_button');
+      }
+    });
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return {
+      host: host,
+      registerSlot: registerSlot,
+      open: open,
+      close: close,
+      getActiveSlot: function () {
+        return activeSlotId;
+      },
+      destroy: function () {
+        document.removeEventListener('keydown', onKeyDown);
+        setBackgroundInert(false);
+      }
+    };
+  }
+
+  global.SVRootPortal = {
+    create: createRootPortal
+  };
+})(window);
+
+/**
+ * SpaceVanta Global Header Runtime (L5@v01 · sv_flow_global_header_v01)
+ *
+ * Strict protocol boundaries (Antigravity_施工协议_v2.1 §5 & L5@v01 §5):
+ * - NEVER reads shipping cookies directly.
+ * - NEVER constructs backend Worker URLs.
+ * - Consumes ONLY `window.SpaceVanta` (`market / season / api / slots`) and
+ *   events `sv:data`, `sv:market`, `sv:season`.
+ * - 12 explicit state names (zero blacklisted loading/error/success/processing).
+ * - 3000ms fast-fail silent degradation; 2.5s idempotent lock on DEFERRED routes.
+ * - Never throws, never refreshes, never blocks first paint.
+ */
+(function (global) {
+  'use strict';
+
+  var TIMEOUT_MS = 3000;
+  var IDEMPOTENT_MS = 2500;
+  var SEASON_PREF_KEY = 'sv_ui_season_pref';
+
+  var MARKET_META = {
+    'en-us': { code: 'US', currencySymbol: '$' },
+    'en-gb': { code: 'GB', currencySymbol: '£' },
+    'en-au': { code: 'AU', currencySymbol: 'A$' },
+    'en-ca': { code: 'CA', currencySymbol: 'C$' },
+    'en-sg': { code: 'SG', currencySymbol: 'S$' },
+    'en-hk': { code: 'HK', currencySymbol: 'HK$' }
+  };
+
+  function parseFlags() {
+    var flags = Object.create(null);
+    try {
+      var sources = [];
+      if (global.location && global.location.search) {
+        sources.push(global.location.search.replace(/^\?/, ''));
+      }
+      if (global.location && global.location.hash) {
+        var hash = global.location.hash;
+        var qIdx = hash.indexOf('?');
+        if (qIdx !== -1) {
+          sources.push(hash.slice(qIdx + 1));
+        } else if (hash.indexOf('=') !== -1) {
+          sources.push(hash.replace(/^#/, ''));
+        }
+      }
+      for (var i = 0; i < sources.length; i++) {
+        var params = new URLSearchParams(sources[i]);
+        params.forEach(function (val, key) {
+          flags[key] = val;
+        });
+      }
+    } catch (_e) {
+      // Never throw on malformed URLs
+    }
+    return flags;
+  }
+
+  function safeReadPref(key) {
+    try {
+      return global.sessionStorage ? global.sessionStorage.getItem(key) : null;
+    } catch (_e) {
+      return null;
+    }
+  }
+
+  function safeWritePref(key, val) {
+    try {
+      if (!global.sessionStorage) return;
+      if (val === null) {
+        global.sessionStorage.removeItem(key);
+      } else {
+        global.sessionStorage.setItem(key, val);
+      }
+    } catch (_e) {
+      // Ignore storage restrictions
+    }
+  }
+
+  function emitTelemetry(eventName, detail) {
+    try {
+      global.dispatchEvent(new CustomEvent(eventName, { detail: detail }));
+    } catch (_e) {
+      // Silent fail
+    }
+  }
+
+  function detectRouteMarket(defaultMarket) {
+    try {
+      var m = (global.location && global.location.pathname || '').match(/^\/([a-z]{2}-[a-z]{2})(\/|$)/i);
+      if (m && m[1]) return m[1].toLowerCase();
+    } catch (_e) {
+      // Fallback
+    }
+    return (defaultMarket || 'en-us').toLowerCase();
+  }
+
+  function initGlobalHeader(headerEl) {
+    if (!headerEl || headerEl.getAttribute('data-sv-js-ready') === 'true') return;
+
+    try {
+      var flags = parseFlags();
+      var docEl = document.documentElement;
+
+      // Global runtime switches (search + hash)
+      var seasonOff = false;
+      if (flags.sv_season === 'off') {
+        safeWritePref(SEASON_PREF_KEY, 'off');
+        seasonOff = true;
+      } else if (flags.sv_season === 'on') {
+        safeWritePref(SEASON_PREF_KEY, null);
+        seasonOff = false;
+      } else if (safeReadPref(SEASON_PREF_KEY) === 'off') {
+        seasonOff = true;
+      }
+      if (headerEl.getAttribute('data-sv-season-allow') === 'false') {
+        seasonOff = true;
+      }
+      if (seasonOff) {
+        docEl.setAttribute('data-sv-season', 'off');
+      } else {
+        docEl.removeAttribute('data-sv-season');
+      }
+
+      if (flags.sv_motion === 'off') {
+        docEl.setAttribute('data-sv-motion', 'off');
+      }
+      if (flags.sv_agent === 'off') {
+        docEl.setAttribute('data-sv-agent', 'off');
+      }
+      if (flags.sv_kv === 'off') {
+        docEl.setAttribute('data-sv-kv', 'off');
+      }
+      if (flags.sv_3d === 'off') {
+        docEl.setAttribute('data-sv-3d', 'off');
+      }
+
+      // State management (12 explicit states only)
+      var activeMarket = detectRouteMarket(headerEl.getAttribute('data-sv-market-default'));
+      var activeLang = 'en';
+      var activeCurrency = (MARKET_META[activeMarket] && MARKET_META[activeMarket].currencySymbol) ||
+        headerEl.getAttribute('data-sv-currency-default') || '$';
+      var currentState = seasonOff ? 'season_off' : 'header_idle_top';
+      var fulfillmentReceived = false;
+      var marketListAvailable = true;
+      var suggestAvailable = true;
+      var lastRouteTs = Object.create(null);
+      var toastTimer = null;
+
+      function setState(nextState) {
+        currentState = nextState;
+        headerEl.setAttribute('data-sv-state', nextState);
+      }
+
+      // DOM refs
+      var announceBar = headerEl.querySelector('[data-sv-slot="announcement-bar"]');
+      var dutyEl = headerEl.querySelector('[data-sv-field="duty"]');
+      var leadtimeEl = headerEl.querySelector('[data-sv-field="leadtime"]');
+      var thresholdEl = headerEl.querySelector('[data-sv-field="threshold"]');
+      var orderByEl = headerEl.querySelector('[data-sv-field="orderBy"]');
+      var seasonSepEl = headerEl.querySelector('[data-sv-season-sep]');
+      var seasonIconSlot = headerEl.querySelector('[data-sv-season-icon-slot]');
+      var railR01 = headerEl.querySelector('[data-sv-rail="R-01"]');
+      var railR02 = headerEl.querySelector('[data-sv-rail="R-02"]');
+      var marketCodeEl = headerEl.querySelector('[data-sv-market-code]');
+      var marketCurrEl = headerEl.querySelector('[data-sv-market-currency]');
+      var cartCountEl = headerEl.querySelector('[data-sv-cart-count]');
+      var toastEl = headerEl.querySelector('[data-sv-toast]');
+
+      var shopPanel = headerEl.querySelector('#sv-hdr-shop-panel');
+      var menuDrawer = headerEl.querySelector('#sv-hdr-menu-drawer');
+      var searchOverlay = headerEl.querySelector('#sv-hdr-search-overlay');
+      var marketDrawer = headerEl.querySelector('#sv-hdr-market-drawer');
+
+      // Mount overlays into body-level RootModalPortal
+      var portal = global.SVRootPortal && global.SVRootPortal.create({
+        onOpen: function (slotId) {
+          updateTriggerExpanded(slotId);
+          var stateMap = {
+            shop: 'shop_panel_open',
+            menu: 'menu_drawer_open',
+            search: suggestAvailable ? 'search_overlay_open' : 'search_suggest_degraded',
+            market: marketListAvailable ? 'market_drawer_open' : 'market_config_degraded'
+          };
+          setState(stateMap[slotId] || 'header_idle_top');
+          emitTelemetry('sv.header.overlay_opened', {
+            market: activeMarket,
+            slot: slotId
+          });
+        },
+        onClose: function () {
+          updateTriggerExpanded(null);
+          syncScrollState();
+        }
+      });
+
+      if (portal) {
+        if (shopPanel) portal.registerSlot('shop', shopPanel);
+        if (menuDrawer) portal.registerSlot('menu', menuDrawer);
+        if (searchOverlay) portal.registerSlot('search', searchOverlay);
+        if (marketDrawer) portal.registerSlot('market', marketDrawer);
+      }
+
+      function updateTriggerExpanded(openSlot) {
+        var btns = headerEl.querySelectorAll('[data-sv-trigger]');
+        for (var i = 0; i < btns.length; i++) {
+          var s = btns[i].getAttribute('data-sv-trigger');
+          btns[i].setAttribute('aria-expanded', s === openSlot ? 'true' : 'false');
+        }
+      }
+
+      function showToast(msg) {
+        if (!toastEl || !msg) return;
+        toastEl.textContent = msg;
+        toastEl.removeAttribute('hidden');
+        if (toastTimer) global.clearTimeout(toastTimer);
+        toastTimer = global.setTimeout(function () {
+          toastEl.setAttribute('hidden', '');
+        }, IDEMPOTENT_MS);
+      }
+
+      // Sync sticky scrolled seam (R-02)
+      function syncScrollState() {
+        var scrolled = (global.scrollY || global.pageYOffset || 0) > 0;
+        if (railR02) {
+          railR02.classList.toggle('sv-seam-rail--active', scrolled);
+        }
+        if (!portal || !portal.getActiveSlot()) {
+          if (scrolled) {
+            setState('header_sticky_scrolled');
+          } else {
+            setState(seasonOff ? 'season_off' : 'header_idle_top');
+          }
+        }
+      }
+
+      global.addEventListener('scroll', syncScrollState, { passive: true });
+      syncScrollState();
+
+      // Update market UI
+      function renderMarket(codeSlug, currencySymbol, lang) {
+        if (codeSlug) activeMarket = String(codeSlug).toLowerCase();
+        var meta = MARKET_META[activeMarket] || {
+          code: activeMarket.split('-').pop().toUpperCase(),
+          currencySymbol: currencySymbol || activeCurrency
+        };
+        activeCurrency = currencySymbol || meta.currencySymbol;
+        if (lang) activeLang = lang;
+
+        if (marketCodeEl) marketCodeEl.textContent = meta.code;
+        if (marketCurrEl) marketCurrEl.textContent = activeCurrency;
+
+        var summaryText = meta.code + ' · ' + activeCurrency;
+        var summaries = document.querySelectorAll('[data-sv-market-summary], [data-sv-market-readonly]');
+        for (var i = 0; i < summaries.length; i++) {
+          summaries[i].textContent = summaryText;
+        }
+        var mSel = document.querySelector('[data-sv-market-select]');
+        if (mSel && MARKET_META[activeMarket]) {
+          mSel.value = activeMarket;
+        }
+        var lSel = document.querySelector('[data-sv-lang-select]');
+        if (lSel && activeLang) {
+          lSel.value = activeLang;
+        }
+      }
+
+      renderMarket(activeMarket, activeCurrency, activeLang);
+
+      // Update announcement bar strictly from sv:data (0 hardcoded fallback numbers; null 0px on missing/timeout)
+      function renderAnnouncement(data) {
+        if (!announceBar) return;
+        if (headerEl.getAttribute('data-sv-announcement-enabled') === 'false') {
+          announceBar.setAttribute('hidden', '');
+          return;
+        }
+        var duty = data && data.shipping && data.shipping.dutyLabel;
+        var lead = data && data.shipping && data.shipping.leadtimeLabel;
+        var thresh = data && data.bundle && data.bundle.thresholdLabel;
+
+        if (!duty || !lead || !thresh) {
+          announceBar.setAttribute('hidden', '');
+          setState('announcement_timeout_hidden');
+          emitTelemetry('sv.header.degraded', {
+            market: activeMarket,
+            reason: 'config_missing'
+          });
+          return;
+        }
+
+        fulfillmentReceived = true;
+        if (dutyEl) dutyEl.textContent = String(duty);
+        if (leadtimeEl) leadtimeEl.textContent = String(lead);
+        if (thresholdEl) thresholdEl.textContent = String(thresh);
+        announceBar.removeAttribute('hidden');
+      }
+
+      function renderSeason(season) {
+        if (seasonOff || !season || !season.enabled || !season.reviewed) {
+          if (orderByEl) {
+            orderByEl.textContent = '';
+            orderByEl.setAttribute('hidden', '');
+          }
+          if (seasonSepEl) seasonSepEl.setAttribute('hidden', '');
+          if (seasonIconSlot) seasonIconSlot.setAttribute('hidden', '');
+          if (railR01) railR01.classList.remove('sv-seam-rail--active');
+          if (seasonOff) {
+            emitTelemetry('sv.header.degraded', {
+              market: activeMarket,
+              reason: 'season_off'
+            });
+          }
+          return;
+        }
+
+        if (season.orderByLabel && orderByEl) {
+          orderByEl.textContent = String(season.orderByLabel);
+          orderByEl.removeAttribute('hidden');
+          if (seasonSepEl) seasonSepEl.removeAttribute('hidden');
+        }
+        if (seasonIconSlot) seasonIconSlot.removeAttribute('hidden');
+        if (railR01) railR01.classList.add('sv-seam-rail--active');
+      }
+
+      // 3-second fast-fail timeout for fulfillment announcement
+      var announceTimeout = global.setTimeout(function () {
+        if (!fulfillmentReceived && announceBar) {
+          announceBar.setAttribute('hidden', '');
+          if (!portal || !portal.getActiveSlot()) {
+            setState('announcement_timeout_hidden');
+          }
+          emitTelemetry('sv.header.degraded', {
+            market: activeMarket,
+            reason: 'timeout_3s'
+          });
+        }
+      }, TIMEOUT_MS);
+
+      // Listen to SpaceVanta bus events (read-only consumption; zero direct Worker fetch)
+      global.addEventListener('sv:data', function (e) {
+        var detail = e && e.detail ? e.detail : null;
+        if (detail && detail.timeout) {
+          fulfillmentReceived = false;
+          if (announceBar) announceBar.setAttribute('hidden', '');
+          setState('announcement_timeout_hidden');
+          emitTelemetry('sv.header.degraded', { market: activeMarket, reason: 'timeout_3s' });
+          return;
+        }
+        global.clearTimeout(announceTimeout);
+        renderAnnouncement(detail);
+        if (detail && detail.marketsUnavailable) {
+          setMarketDegraded(true);
+        }
+        if (detail && detail.suggestUnavailable) {
+          setSearchDegraded(true);
+        }
+      });
+
+      global.addEventListener('sv:market', function (e) {
+        var detail = e && e.detail ? e.detail : null;
+        if (!detail) return;
+        renderMarket(detail.code || detail.market, detail.currencySymbol, detail.lang);
+      });
+
+      global.addEventListener('sv:season', function (e) {
+        var detail = e && e.detail ? e.detail : null;
+        renderSeason(detail);
+      });
+
+      // Hydrate if window.SpaceVanta already holds state
+      if (global.SpaceVanta) {
+        var sv = global.SpaceVanta;
+        if (sv.market && (sv.market.code || sv.market.market)) {
+          renderMarket(sv.market.code || sv.market.market, sv.market.currencySymbol, sv.market.lang);
+        }
+        if (sv.slots && typeof sv.slots.cartCount !== 'undefined' && cartCountEl) {
+          cartCountEl.textContent = String(sv.slots.cartCount);
+        }
+        if (sv.data) {
+          global.clearTimeout(announceTimeout);
+          renderAnnouncement(sv.data);
+        }
+        if (sv.season) {
+          renderSeason(sv.season);
+        }
+      }
+
+      // Market degraded helper (L3)
+      function setMarketDegraded(isDegraded) {
+        marketListAvailable = !isDegraded;
+        var form = document.querySelector('[data-sv-market-form]');
+        var deg = document.querySelector('[data-sv-market-degraded]');
+        if (form) form.hidden = isDegraded;
+        if (deg) deg.hidden = !isDegraded;
+        if (isDegraded && portal && portal.getActiveSlot() === 'market') {
+          setState('market_config_degraded');
+        }
+      }
+
+      // Search suggest degraded helper (L3)
+      function setSearchDegraded(isDegraded) {
+        suggestAvailable = !isDegraded;
+        var list = document.querySelector('[data-sv-suggest-list]');
+        var hint = document.querySelector('[data-sv-search-hint]');
+        if (list) list.hidden = true;
+        if (hint) {
+          if (isDegraded) {
+            hint.textContent = 'Live suggestions are unavailable. Press Enter to search directly.';
+            hint.hidden = false;
+          } else {
+            hint.hidden = true;
+          }
+        }
+        if (isDegraded && portal && portal.getActiveSlot() === 'search') {
+          setState('search_suggest_degraded');
+        }
+      }
+
+      // L4 Empty menu / group graceful degradation
+      var catList = document.querySelector('[data-sv-cat-list]');
+      if (catList && catList.children.length === 0) {
+        var fallbackLi = document.createElement('li');
+        var fallbackA = document.createElement('a');
+        fallbackA.className = 'sv-hdr-link sv-hdr-link--strong';
+        fallbackA.href = '#tbd';
+        fallbackA.setAttribute('data-sv-route-key', 'ROUTE_CAT_ALL');
+        fallbackA.setAttribute('data-sv-deferred', 'true');
+        fallbackA.textContent = 'All Products';
+        fallbackLi.appendChild(fallbackA);
+        catList.appendChild(fallbackLi);
+      }
+      var navGroups = document.querySelectorAll('[data-sv-nav-group]');
+      for (var g = 0; g < navGroups.length; g++) {
+        var links = navGroups[g].querySelectorAll('a');
+        if (links.length === 0) {
+          navGroups[g].setAttribute('hidden', '');
+        }
+      }
+
+      // Cold scene card image error -> dashed silhouette placeholder
+      var sceneImg = document.querySelector('.sv-hdr-scene-card__img');
+      if (sceneImg) {
+        sceneImg.addEventListener('error', function () {
+          sceneImg.hidden = true;
+          var media = sceneImg.closest('[data-sv-scene-media]');
+          if (media) media.classList.add('sv-hdr-scene-card__media--silhouette');
+        });
+      }
+
+      // Overlay triggers (A1..A4)
+      headerEl.addEventListener('click', function (e) {
+        var trigger = e.target && e.target.closest ? e.target.closest('[data-sv-trigger]') : null;
+        if (!trigger || !portal) return;
+        e.preventDefault();
+        var slot = trigger.getAttribute('data-sv-trigger');
+        if (portal.getActiveSlot() === slot) {
+          portal.close('toggle');
+        } else {
+          portal.open(slot, trigger);
+        }
+      });
+
+      // Mutual-exclusion chain: Menu (P2) -> Change Market (P4), preserving origin anchor on Esc
+      document.addEventListener('click', function (e) {
+        var switchBtn = e.target && e.target.closest ? e.target.closest('[data-sv-switch-to-market]') : null;
+        if (switchBtn && portal) {
+          e.preventDefault();
+          portal.open('market', null, { preserveReturnFocus: true });
+          return;
+        }
+
+        // DEFERRED external routes: 2.5s idempotent lock + /{market}/ context pass-through
+        var routeLink = e.target && e.target.closest ? e.target.closest('[data-sv-deferred="true"]') : null;
+        if (!routeLink) return;
+        e.preventDefault();
+        var routeKey = routeLink.getAttribute('data-sv-route-key') || 'ROUTE_UNKNOWN';
+        var now = Date.now();
+        var last = lastRouteTs[routeKey] || 0;
+        var blocked = (now - last) < IDEMPOTENT_MS;
+
+        if (!blocked) {
+          lastRouteTs[routeKey] = now;
+        }
+
+        setState('deferred_route_handoff');
+        emitTelemetry('sv.header.nav_intent', {
+          market: activeMarket,
+          routeKey: routeKey,
+          prefixedPath: '/' + activeMarket + '/' + routeKey.toLowerCase(),
+          idempotentBlocked: blocked
+        });
+        showToast(
+          blocked
+            ? 'Already triggered — ignoring duplicate click.'
+            : '/' + activeMarket + '/ · ' + routeKey + ' queued.'
+        );
+      });
+
+      // Market form submit: dispatch sv:market non-blocking
+      var marketForm = document.querySelector('[data-sv-market-form]');
+      if (marketForm) {
+        marketForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var mSel = marketForm.querySelector('[data-sv-market-select]');
+          var lSel = marketForm.querySelector('[data-sv-lang-select]');
+          var nextMarket = mSel ? mSel.value : activeMarket;
+          var nextLang = lSel ? lSel.value : activeLang;
+          var fromMarket = activeMarket;
+          var meta = MARKET_META[nextMarket] || { code: nextMarket.toUpperCase(), currencySymbol: '$' };
+
+          setState('market_switching');
+          renderMarket(nextMarket, meta.currencySymbol, nextLang);
+
+          global.dispatchEvent(new CustomEvent('sv:market', {
+            detail: {
+              code: nextMarket,
+              currencySymbol: meta.currencySymbol,
+              lang: nextLang
+            }
+          }));
+
+          emitTelemetry('sv.header.market_switched', {
+            fromMarket: fromMarket,
+            toMarket: nextMarket,
+            lang: nextLang
+          });
+
+          if (portal) portal.close('market_applied');
+        });
+      }
+
+      // Search form submit: empty keyword inline hint (no navigation), non-empty dispatches intent
+      var searchForm = document.querySelector('[data-sv-search-form]');
+      if (searchForm) {
+        searchForm.addEventListener('submit', function (e) {
+          var input = searchForm.querySelector('[data-sv-search-input]');
+          var hint = document.querySelector('[data-sv-search-hint]');
+          var q = input ? input.value.trim() : '';
+          if (!q) {
+            e.preventDefault();
+            if (hint) {
+              hint.textContent = 'Enter a keyword or select a category below.';
+              hint.hidden = false;
+            }
+            if (input) input.focus();
+            return;
+          }
+          // In L5@v01 ROUTE_SEARCH is DEFERRED
+          e.preventDefault();
+          setState('deferred_route_handoff');
+          emitTelemetry('sv.header.nav_intent', {
+            market: activeMarket,
+            routeKey: 'ROUTE_SEARCH',
+            idempotentBlocked: false
+          });
+          showToast('/' + activeMarket + '/ · ROUTE_SEARCH queued.');
+        });
+      }
+
+      headerEl.setAttribute('data-sv-js-ready', 'true');
+    } catch (_err) {
+      // L5@v01 stability rule: never throw, never block first paint
+    }
+  }
+
+  function boot() {
+    var headers = document.querySelectorAll('[data-sv-section="global-header"]');
+    for (var i = 0; i < headers.length; i++) {
+      initGlobalHeader(headers[i]);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  global.SVGlobalHeader = {
+    init: initGlobalHeader
+  };
+})(window);
+</script>
+
 {{#schema}}
 {
   "name": "SpaceVanta Global Header",
+  "icon": "header",
   "tag": "div",
   "class": "sv-global-header-section",
   "settings": [
@@ -511,36 +2149,36 @@
       "label": "Shop Panel Scene Card Image (Cold)"
     },
     {
-      "type": "checkbox",
+      "type": "switch",
       "id": "sticky_enabled",
       "label": "Enable Sticky Header",
       "default": true
     },
     {
-      "type": "checkbox",
+      "type": "switch",
       "id": "announcement_enabled",
       "label": "Show Announcement Bar",
       "default": true
     },
     {
-      "type": "checkbox",
+      "type": "switch",
       "id": "announcement_hide_on_checkout",
       "label": "Hide Announcement Bar on Checkout",
       "default": false
     },
     {
-      "type": "checkbox",
+      "type": "switch",
       "id": "season_allow_override",
       "label": "Allow Seasonal Seam Override",
       "default": true
     },
     {
-      "type": "link_list",
+      "type": "menu_picker",
       "id": "categories_menu_ref",
       "label": "Categories Navigation Menu"
     },
     {
-      "type": "link_list",
+      "type": "menu_picker",
       "id": "secondary_menu_ref",
       "label": "Secondary & Guide Navigation Menu"
     }

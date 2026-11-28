@@ -84,3 +84,12 @@
 - **Drive 归档：**
   - `build/global-header-L5v01-V11-r3-delta.zip`（**仅含 1 个文件：`web/sections/global-header/global-header.html`**）
   - `build/global-header-L5v01-V11-r3.zip`（完整 8 文件模块包，0 图片文件在 `public/`）
+
+---
+
+## 六、r4 修正（Shopline OS 3.0 渲染 & 编辑器控件对齐 · 仅替换 1 个文件）
+
+- **替换 (REPLACE)：** `web/sections/global-header/global-header.html`（自包含纯令牌 `<style>` + `<script>` 解决 Shopline 无法自动加载同目录/组件资源导致的无样式平铺问题；`{{#schema}}` 控件对齐 Shopline OS 3.0：`checkbox → switch`、`link_list → menu_picker`、补 `"icon": "header"`，解决右侧面板「暂无可编辑的内容」）。
+- **Drive 归档：**
+  - `build/global-header-L5v01-V11-r4-delta.zip`（**仅含 1 个文件：`web/sections/global-header/global-header.html`**）
+  - `build/global-header-L5v01-V11-r4.zip`（完整 8 文件模块包）
