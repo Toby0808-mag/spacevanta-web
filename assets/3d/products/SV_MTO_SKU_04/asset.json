@@ -1,0 +1,50 @@
+{
+  "id": "SV_MTO_SKU_04_v01",
+  "category": "MTO Cross-Category Product Model (4000K Warm Studio)",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v01",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MTO_SKU_04_v01.glb",
+      "triangles": 36,
+      "bytes": 4228,
+      "sha256": "6335dd8892b1bae782b3ef6280a0958726f22c766d243d002dd1aecb1a9fc734"
+    },
+    "lod1": {
+      "file": "SV_MTO_SKU_04_v01_lod1.glb",
+      "triangles": 36,
+      "bytes": 4228,
+      "sha256": "6335dd8892b1bae782b3ef6280a0958726f22c766d243d002dd1aecb1a9fc734"
+    },
+    "lod2": {
+      "file": "SV_MTO_SKU_04_v01_lod2.glb",
+      "triangles": 36,
+      "bytes": 4228,
+      "sha256": "6335dd8892b1bae782b3ef6280a0958726f22c766d243d002dd1aecb1a9fc734"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 8140,
+    "maxBytes": 90000,
+    "sha256": "efcabc9a7b789652ccbb4a3b2f82c3f557a3f345616dd4819e029745559cc1c5",
+    "alt": "SpaceVanta 4000K structured warm canvas modular travel organizer"
+  },
+  "naturalMaterialSpec": "Modular Travel Organizer"
+}

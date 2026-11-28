@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "mto-mother": {
+      "type": "mto-mother",
+      "settings": {
+        "heading_override": "Made to Order, Shaped Around You.",
+        "allow_seasonal_accent": true,
+        "color_scheme": "scheme-1"
+      },
+      "disabled": false,
+      "blocks": {},
+      "custom_css": []
+    }
+  },
+  "order": [
+    "mto-mother"
+  ]
+}

@@ -1,0 +1,723 @@
+{{#var sv_driver_url = "sv-bundle/BundleDriver.js" | asset_url() /}}
+{{#var sv_poster_01 = "mto-mother/poster-mto-01-1600.png" | asset_url() /}}
+{{#var sv_poster_02 = "mto-mother/poster-mto-02-1600.png" | asset_url() /}}
+{{#var sv_poster_03 = "mto-mother/poster-mto-03-1600.png" | asset_url() /}}
+{{#var sv_glb_01 = "mto-mother/mto-sku-01.glb" | asset_url() /}}
+{{#var sv_glb_02 = "mto-mother/mto-sku-02.glb" | asset_url() /}}
+{{#var sv_glb_03 = "mto-mother/mto-sku-03.glb" | asset_url() /}}
+{{#var sv_glb_04 = "mto-mother/mto-sku-04.glb" | asset_url() /}}
+{{#var sv_glb_05 = "mto-mother/mto-sku-05.glb" | asset_url() /}}
+{{#var sv_thumb_01 = "mto-mother/sku-4000k-01.png" | asset_url() /}}
+{{#var sv_thumb_02 = "mto-mother/sku-4000k-02.png" | asset_url() /}}
+{{#var sv_thumb_03 = "mto-mother/sku-4000k-03.png" | asset_url() /}}
+{{#var sv_thumb_04 = "mto-mother/sku-4000k-04.png" | asset_url() /}}
+{{#var sv_thumb_05 = "mto-mother/sku-4000k-05.png" | asset_url() /}}
+
+<section
+  id="sv-mto-ecosystem-page"
+  class="sv-mm"
+  data-sv-module="sv_flow_mto_ecosystem_v02"
+  data-sv-l5="L5@v01"
+  data-sv-role="mto_mother"
+  data-sv-track="01"
+  data-sv-model-tier="r2"
+  data-sv-state="track1_square_showcase"
+  data-sv-driver-url="{{ sv_driver_url }}"
+  data-sv-poster-01="{{ sv_poster_01 }}"
+  data-sv-poster-02="{{ sv_poster_02 }}"
+  data-sv-poster-03="{{ sv_poster_03 }}"
+  data-sv-glb-01="{{ sv_glb_01 }}"
+  data-sv-glb-02="{{ sv_glb_02 }}"
+  data-sv-glb-03="{{ sv_glb_03 }}"
+  data-sv-glb-04="{{ sv_glb_04 }}"
+  data-sv-glb-05="{{ sv_glb_05 }}"
+  data-sv-season-allow="{{#if section.settings.allow_seasonal_accent}}true{{else}}false{{/if}}"
+>
+  <div class="sv-mm-trust-zone" data-d09="Trust">
+    <div
+      class="sv-mm-trust"
+      data-sv-slot="mto-key-trust-bar"
+      role="region"
+      aria-label="{{ "mto.trust.region_label" | t() }}"
+      hidden
+    >
+      <div class="sv-mm-trust__inner">
+        <p class="sv-mm-trust__line">
+          <span class="sv-mm-trust__seg" data-sv-field="duty"></span>
+          <span class="sv-mm-trust__sep" aria-hidden="true">·</span>
+          <span class="sv-mm-trust__seg" data-sv-field="leadtime"></span>
+          <span class="sv-mm-trust__sep" aria-hidden="true">·</span>
+          <span class="sv-mm-trust__seg" data-sv-field="threshold"></span>
+        </p>
+        <a
+          class="sv-mm-trust__link"
+          href="/en-us/pages/mto-status"
+          data-sv-guide-link
+        >{{ "mto.trust.details_track" | t() }}</a>
+      </div>
+      <div class="sv-mm-season-strip" data-sv-mto-season-strip hidden>
+        <span class="sv-mm-season-strip__dot" aria-hidden="true"></span>
+        <span data-sv-field="order-by"></span>
+      </div>
+      <span class="sv-seam-rail sv-seam-rail--active" aria-hidden="true"></span>
+    </div>
+
+    <p class="sv-mm-mobile-glance" data-sv-mobile-glance>
+      {{ "mto.trust.mobile_glance" | t() }}
+    </p>
+  </div>
+
+  <div class="sv-mm-motivate-zone" data-d09="Motivate">
+    <header class="sv-mm-header">
+      <p class="sv-mm-eyebrow">{{ "mto.mother.eyebrow" | t() }}</p>
+      <h1 class="sv-mm-title">
+        {{#if section.settings.heading_override}}{{ section.settings.heading_override }}{{else}}{{ "mto.mother.title" | t() }}{{/if}}
+      </h1>
+      <p class="sv-mm-subtitle">{{ "mto.mother.subtitle" | t() }}</p>
+    </header>
+
+    <div class="sv-mm-switcher-bar" role="tablist" aria-label="Made-to-Order specialized 3D tracks">
+      <button
+        type="button"
+        role="tab"
+        id="sv-mto-tab-01"
+        class="sv-mm-track-tab"
+        data-action="mto-switch-track"
+        data-track="01"
+        aria-selected="true"
+        aria-controls="sv-mto-panel-01"
+      >{{ "mto.mother.track_01" | t() }}</button>
+      <button
+        type="button"
+        role="tab"
+        id="sv-mto-tab-02"
+        class="sv-mm-track-tab"
+        data-action="mto-switch-track"
+        data-track="02"
+        aria-selected="false"
+        aria-controls="sv-mto-panel-02"
+      >{{ "mto.mother.track_02" | t() }}</button>
+      <button
+        type="button"
+        role="tab"
+        id="sv-mto-tab-03"
+        class="sv-mm-track-tab"
+        data-action="mto-switch-track"
+        data-track="03"
+        aria-selected="false"
+        aria-controls="sv-mto-panel-03"
+      >{{ "mto.mother.track_03" | t() }}</button>
+
+      <div class="sv-mm-tier-controls" aria-label="3D fidelity tier">
+        <button type="button" class="sv-mm-tier-pill" data-action="mto-set-tier" data-tier="r2" aria-pressed="true">r2</button>
+        <button type="button" class="sv-mm-tier-pill" data-action="mto-set-tier" data-tier="r1" aria-pressed="false">r1</button>
+        <button type="button" class="sv-mm-tier-pill" data-action="mto-set-tier" data-tier="poster" aria-pressed="false">Poster</button>
+      </div>
+    </div>
+
+    <div class="sv-mm-workspace" data-sv-mto-workspace>
+      <aside
+        class="sv-mm-left-dock"
+        data-sv-left-sku-dock
+        data-sv-webgl="0"
+        aria-label="Customizable 2D product rail"
+        hidden
+      >
+        <button
+          type="button"
+          class="sv-mm-sku-card"
+          data-action="mto-select-sku"
+          data-sku="SV_MTO_SKU_01"
+          data-pool-id="mto_pool_ceramic_01"
+          aria-pressed="true"
+        >
+          <img src="{{ sv_thumb_01 }}" width="64" height="64" alt="4000K warm stoneware Ceramic Pour-Over Vessel" loading="lazy" decoding="async">
+          <span class="sv-mm-sku-card__meta">
+            <strong class="sv-mm-sku-card__name">Ceramic Pour-Over Vessel</strong>
+            <span class="sv-mm-sku-card__cat">Ceramic</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="sv-mm-sku-card"
+          data-action="mto-select-sku"
+          data-sku="SV_MTO_SKU_02"
+          data-pool-id="mto_pool_linen_02"
+          aria-pressed="false"
+        >
+          <img src="{{ sv_thumb_02 }}" width="64" height="64" alt="4000K oatmeal Woven Linen Desk Folio" loading="lazy" decoding="async">
+          <span class="sv-mm-sku-card__meta">
+            <strong class="sv-mm-sku-card__name">Woven Linen Desk Folio</strong>
+            <span class="sv-mm-sku-card__cat">Linen</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="sv-mm-sku-card"
+          data-action="mto-select-sku"
+          data-sku="SV_MTO_SKU_03"
+          data-pool-id="mto_pool_thermal_03"
+          aria-pressed="false"
+        >
+          <img src="{{ sv_thumb_03 }}" width="64" height="64" alt="4000K brushed slate Thermal Carafe" loading="lazy" decoding="async">
+          <span class="sv-mm-sku-card__meta">
+            <strong class="sv-mm-sku-card__name">Brushed Thermal Carafe</strong>
+            <span class="sv-mm-sku-card__cat">Thermal</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="sv-mm-sku-card"
+          data-action="mto-select-sku"
+          data-sku="SV_MTO_SKU_04"
+          data-pool-id="mto_pool_travel_04"
+          aria-pressed="false"
+        >
+          <img src="{{ sv_thumb_04 }}" width="64" height="64" alt="4000K structured warm canvas Modular Travel Organizer" loading="lazy" decoding="async">
+          <span class="sv-mm-sku-card__meta">
+            <strong class="sv-mm-sku-card__name">Modular Travel Organizer</strong>
+            <span class="sv-mm-sku-card__cat">Travel</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="sv-mm-sku-card"
+          data-action="mto-select-sku"
+          data-sku="SV_MTO_SKU_05"
+          data-pool-id="mto_pool_travertine_05"
+          aria-pressed="false"
+        >
+          <img src="{{ sv_thumb_05 }}" width="64" height="64" alt="4000K honed warm Travertine Valet Tray" loading="lazy" decoding="async">
+          <span class="sv-mm-sku-card__meta">
+            <strong class="sv-mm-sku-card__name">Honed Travertine Valet Tray</strong>
+            <span class="sv-mm-sku-card__cat">Travertine</span>
+          </span>
+        </button>
+      </aside>
+
+      <div class="sv-mm-stage-col">
+        <div class="sv-mm-stage-shell" data-sv-hot-stage-shell>
+          <canvas
+            class="sv-mm-canvas"
+            data-sv-mto-canvas
+            aria-label="Interactive 3D SpaceVanta Made-to-Order studio stage"
+          ></canvas>
+
+          <div class="sv-mm-hotspots" data-sv-mto-hotspots>
+            <div class="sv-mm-hotspot-group" data-hotspot-track="01">
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--nw" data-action="mto-hotspot" data-hotspot-id="HS_MTO_01_SAT_01" data-sat-index="0" aria-label="Satellite 01 Woven Linen Desk Folio">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Sat 01 · Linen</span>
+              </button>
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--ne" data-action="mto-hotspot" data-hotspot-id="HS_MTO_01_SAT_02" data-sat-index="1" aria-label="Satellite 02 Brushed Thermal Carafe">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Sat 02 · Thermal</span>
+              </button>
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--sw" data-action="mto-hotspot" data-hotspot-id="HS_MTO_01_SAT_03" data-sat-index="2" aria-label="Satellite 03 Modular Travel Organizer">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Sat 03 · Travel</span>
+              </button>
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--se" data-action="mto-hotspot" data-hotspot-id="HS_MTO_01_SAT_04" data-sat-index="3" aria-label="Satellite 04 Honed Travertine Valet Tray">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Sat 04 · Stone</span>
+              </button>
+            </div>
+
+            <div class="sv-mm-hotspot-group" data-hotspot-track="02" hidden>
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--spec" data-action="mto-hotspot" data-hotspot-id="HS_MTO_02_SPEC" data-anchor="anchor_spec" aria-expanded="false">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Spec (pack/label)</span>
+              </button>
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--finish" data-action="mto-hotspot" data-hotspot-id="HS_MTO_02_FINISH" data-anchor="anchor_finish" aria-expanded="false">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Finish (surface/coat)</span>
+              </button>
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--form" data-action="mto-hotspot" data-hotspot-id="HS_MTO_02_FORM" data-anchor="anchor_form" aria-expanded="false">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Form (base/body)</span>
+              </button>
+            </div>
+
+            <div class="sv-mm-hotspot-group" data-hotspot-track="03" hidden>
+              <button type="button" class="sv-mm-hs-pin sv-mm-hs-pin--folio" data-action="mto-hotspot" data-hotspot-id="HS_MTO_03_FOLIO_COVER" aria-label="Open warm linen sourcing folio">
+                <span class="sv-mm-hs-pin__dot"></span>
+                <span class="sv-mm-hs-pin__label">Unfold Linen Folio</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sv-mm-anchor-popover" data-sv-anchor-popover role="dialog" aria-label="Anchor layer options" hidden>
+            <div class="sv-mm-anchor-popover__head">
+              <strong data-sv-popover-title>Anchor Layer</strong>
+              <button type="button" class="sv-mm-anchor-popover__done" data-action="mto-close-popover">Done</button>
+            </div>
+            <p class="sv-mm-anchor-popover__sub" data-sv-popover-desc>Select layer option — preserved across SKU switches.</p>
+          </div>
+
+          <div class="sv-mm-poster-fallback" data-sv-mto-poster-box hidden>
+            <img
+              class="sv-mm-poster-fallback__img"
+              src="{{ sv_poster_01 }}"
+              width="800"
+              height="500"
+              alt="SpaceVanta 4000K warm-paper Made-to-Order planar studio view"
+              data-sv-mto-poster-img
+              decoding="async"
+            >
+            <a
+              class="svd-btn svd-btn--ghost sv-mm-poster-fallback__btn"
+              href="{{ sv_poster_01 }}"
+              target="_blank"
+              rel="noopener"
+              data-sv-view-full-poster
+            >{{ "mto.mother.view_full_poster" | t() }}</a>
+          </div>
+        </div>
+
+        <div
+          id="mto-whisper-i1"
+          class="sv-mm-whisper"
+          data-sv-whisper-i1
+          role="status"
+          aria-live="polite"
+        >
+          <span class="sv-mm-whisper__dot" aria-hidden="true"></span>
+          <span class="sv-mm-whisper__text" data-sv-whisper-text>{{ "mto.mother.whisper_default" | t() }}</span>
+        </div>
+      </div>
+
+      <div class="sv-mm-panels-col">
+        <div
+          id="sv-mto-panel-01"
+          class="sv-mm-panel"
+          role="tabpanel"
+          aria-labelledby="sv-mto-tab-01"
+          data-track-panel="01"
+        >
+          <div class="sv-mm-panel__top">
+            <div>
+              <span class="svd-chip" data-sv-active-cat>Ceramic</span>
+              <h2 class="sv-mm-panel__title" data-sv-active-sku-title>Ceramic Pour-Over Vessel</h2>
+            </div>
+            <button
+              type="button"
+              class="sv-mm-autocycle-btn"
+              data-action="mto-toggle-autocycle"
+              aria-pressed="true"
+            >{{ "mto.mother.auto_cycle" | t() }}</button>
+          </div>
+
+          <p class="sv-mm-relay-note" data-sv-relay-box>
+            <span data-sv-relay-text>Made-to-order preparation &amp; handover followed by tracked Space Express carrier transit.</span>
+          </p>
+
+          <div class="sv-mm-sat-strip" aria-label="Swap surrounding satellites into center showcase">
+            <button type="button" class="sv-mm-sat-pill" data-action="mto-sat-swap" data-sat-index="0" data-sku="SV_MTO_SKU_02">01 · Linen Folio</button>
+            <button type="button" class="sv-mm-sat-pill" data-action="mto-sat-swap" data-sat-index="1" data-sku="SV_MTO_SKU_03">02 · Thermal Carafe</button>
+            <button type="button" class="sv-mm-sat-pill" data-action="mto-sat-swap" data-sat-index="2" data-sku="SV_MTO_SKU_04">03 · Travel Case</button>
+            <button type="button" class="sv-mm-sat-pill" data-action="mto-sat-swap" data-sat-index="3" data-sku="SV_MTO_SKU_05">04 · Stone Tray</button>
+          </div>
+
+          <div class="sv-mm-cta-stack">
+            <button type="button" class="svd-btn sv-mm-primary-btn" data-action="mto-add-01">
+              <span data-sv-add01-label>{{ "mto.mother.cta_add_curated" | t() }}</span>
+            </button>
+            <div class="sv-mm-handoff-row">
+              <button type="button" class="svd-btn svd-btn--ghost" data-action="mto-handoff-02">
+                {{ "mto.mother.cta_customize_this" | t() }}
+              </button>
+              <button type="button" class="svd-btn svd-btn--ghost" data-action="mto-handoff-03">
+                {{ "mto.mother.cta_use_ref" | t() }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="sv-mto-panel-02"
+          class="sv-mm-panel"
+          role="tabpanel"
+          aria-labelledby="sv-mto-tab-02"
+          data-track-panel="02"
+          hidden
+        >
+          <div class="sv-mm-panel__top">
+            <div>
+              <span class="svd-chip">SV_MOTHER_MTO_v01 · 3 Anchors</span>
+              <h2 class="sv-mm-panel__title" data-sv-t02-sku-title>Ceramic Pour-Over Vessel</h2>
+            </div>
+          </div>
+
+          <div class="sv-mm-field-grid">
+            <label class="sv-mm-field" data-anchor-field="anchor_form">
+              <span class="sv-mm-field__label">Form (anchor_form · base/body)</span>
+              <select class="sv-mm-select" data-sv-input="form" aria-label="Form proportion">
+                <option value="base_fluted">Fluted Architectural Base</option>
+                <option value="body_slim_a5">Slim Studio Proportion</option>
+                <option value="body_tapered">Tapered Ergonomic Profile</option>
+                <option value="base_compact_tray">Compact Modular Footprint</option>
+              </select>
+            </label>
+
+            <label class="sv-mm-field" data-anchor-field="anchor_finish">
+              <span class="sv-mm-field__label">Finish (anchor_finish · surface/coat)</span>
+              <select class="sv-mm-select" data-sv-input="finish" aria-label="Surface finish">
+                <option value="surface_warm_glaze">Warm Cream Matte Glaze</option>
+                <option value="coat_raw_linen">Natural Oatmeal Linen</option>
+                <option value="surface_satin_slate">Brushed Satin Gunmetal Collar</option>
+                <option value="surface_honed_stone">Honed Warm Travertine</option>
+              </select>
+            </label>
+
+            <label class="sv-mm-field" data-anchor-field="anchor_spec">
+              <span class="sv-mm-field__label">Spec (anchor_spec · pack/label)</span>
+              <select class="sv-mm-select" data-sv-input="spec" aria-label="Packaging and label specification">
+                <option value="pack_single_box">Warm Paper Presentation Box</option>
+                <option value="label_blind_deboss">Blind Debossed Monogram</option>
+                <option value="pack_gift_sleeve">Archival Linen Wrap Sleeve</option>
+                <option value="label_monogram_tag">Engraved Slate Serial Tag</option>
+              </select>
+            </label>
+
+            <label class="sv-mm-field">
+              <span class="sv-mm-field__label">Custom Notes (preserved across SKUs)</span>
+              <textarea
+                class="sv-mm-textarea"
+                rows="2"
+                data-sv-input="note"
+                placeholder="Describe dimension tweaks, pairing context, or inscription details"
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="sv-mm-submit-zone" data-sv-submit-zone-02>
+            <button
+              type="button"
+              class="svd-btn sv-mm-primary-btn sv-mm-submit-btn"
+              data-action="mto-submit-02"
+              data-sv-submit-btn-02
+            >
+              <span data-sv-submit-label-02>{{ "mto.mother.cta_send_02" | t() }}</span>
+              <span class="sv-seam-aura-bar sv-mm-btn-aura" data-sv-seam-aura="true" aria-hidden="true" hidden></span>
+            </button>
+
+            <div
+              class="sv-mm-inplace-ack"
+              data-sv-ack-02
+              role="status"
+              aria-live="polite"
+              tabindex="-1"
+              hidden
+            >
+              <div class="sv-mm-inplace-ack__head">
+                <strong class="sv-mm-inplace-ack__title">{{ "mto.mother.ack_heading" | t() }}</strong>
+                <code class="sv-mm-inplace-ack__req" data-sv-ack-req-02></code>
+              </div>
+              <p class="sv-mm-inplace-ack__sla" data-sv-ack-sla-02>
+                {{ "mto.mother.ack_fallback_02" | t() }}
+              </p>
+              <div class="sv-mm-inplace-ack__actions">
+                <a class="svd-btn svd-btn--ghost sv-mm-ack-link" href="/en-us/pages/mto-status" data-sv-ack-tracker-02>
+                  {{ "mto.mother.cta_view_tracker" | t() }}
+                </a>
+                <button type="button" class="svd-btn svd-btn--ghost sv-mm-ack-btn" data-action="mto-new-request">
+                  {{ "mto.mother.cta_new_request" | t() }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="sv-mto-panel-03"
+          class="sv-mm-panel"
+          role="tabpanel"
+          aria-labelledby="sv-mto-tab-03"
+          data-track-panel="03"
+          hidden
+        >
+          <div class="sv-mm-folio-closed" data-sv-folio-closed-view>
+            <span class="svd-chip">Warm Linen Sourcing Folio</span>
+            <h2 class="sv-mm-panel__title">Ask for Anything Beyond the Shelf</h2>
+            <p class="sv-mm-folio-lead">Choose a starting scenario or open the three-wing sourcing folio — zero research fee.</p>
+
+            <div class="sv-mm-scenario-grid">
+              <button type="button" class="sv-mm-scenario-card" data-action="mto-pick-scenario" data-scenario="desk_fit">
+                <strong>Desk Architecture Fit</strong>
+                <span>Tailored tray or stand sized to your workspace</span>
+              </button>
+              <button type="button" class="sv-mm-scenario-card" data-action="mto-pick-scenario" data-scenario="material_pair">
+                <strong>Custom Material Pairing</strong>
+                <span>Match stoneware, linen, or brushed metal finishes</span>
+              </button>
+              <button type="button" class="sv-mm-scenario-card" data-action="mto-pick-scenario" data-scenario="gift_edition">
+                <strong>Bespoke Studio Edition</strong>
+                <span>Small-run presentation sets with custom sleeves</span>
+              </button>
+              <button type="button" class="sv-mm-scenario-card" data-action="mto-pick-scenario" data-scenario="archive_piece">
+                <strong>Off-Catalog Sourcing</strong>
+                <span>Source an object not currently in our collection</span>
+              </button>
+            </div>
+
+            <button type="button" class="svd-btn sv-mm-primary-btn" data-action="mto-unfold-folio">
+              {{ "mto.mother.cta_open_folio" | t() }}
+            </button>
+          </div>
+
+          <div class="sv-mm-folio-wings" data-sv-folio-open-view hidden>
+            <div class="sv-mm-folio-wings__head">
+              <span class="svd-chip" data-sv-scenario-badge>Scenario · Desk Architecture Fit</span>
+              <button type="button" class="sv-mm-fold-btn" data-action="mto-fold-folio">
+                {{ "mto.mother.cta_fold_back" | t() }}
+              </button>
+            </div>
+
+            <div class="sv-mm-wing" data-wing="1">
+              <span class="sv-mm-field__label">Wing 1 · Starting Direction</span>
+              <div class="sv-mm-wing-pills">
+                <button type="button" class="sv-mm-wing-pill" data-action="mto-pick-scenario" data-scenario="desk_fit" aria-pressed="true">Desk Fit</button>
+                <button type="button" class="sv-mm-wing-pill" data-action="mto-pick-scenario" data-scenario="material_pair" aria-pressed="false">Material Pair</button>
+                <button type="button" class="sv-mm-wing-pill" data-action="mto-pick-scenario" data-scenario="gift_edition" aria-pressed="false">Studio Edition</button>
+                <button type="button" class="sv-mm-wing-pill" data-action="mto-pick-scenario" data-scenario="archive_piece" aria-pressed="false">Off-Catalog</button>
+              </div>
+            </div>
+
+            <div class="sv-mm-wing" data-wing="2">
+              <label class="sv-mm-field">
+                <span class="sv-mm-field__label">Wing 2 · Sourcing Brief &amp; Destination Pre-Check</span>
+                <textarea
+                  class="sv-mm-textarea"
+                  rows="2"
+                  data-sv-input="folio-note"
+                  placeholder="Describe dimensions, materials, or reference object"
+                ></textarea>
+              </label>
+              <div class="sv-mm-import-note" data-sv-import-box role="status" aria-live="polite">
+                <strong data-sv-market-badge>EN-US</strong>:
+                <span data-sv-import-text>{{ "mto.mother.import_fallback" | t() }}</span>
+              </div>
+            </div>
+
+            <div class="sv-mm-wing" data-wing="3">
+              <span class="sv-mm-field__label">Wing 3 · Intent Scope (Required)</span>
+              <div class="sv-mm-intent-row">
+                <label class="sv-mm-field">
+                  <span class="sv-mm-field__sublabel">Destination Market</span>
+                  <select class="sv-mm-select" data-sv-input="targetMarket" aria-label="Target delivery market">
+                    <option value="en-us">United States (EN-US)</option>
+                    <option value="en-gb">United Kingdom (EN-GB)</option>
+                    <option value="en-au">Australia (EN-AU)</option>
+                    <option value="en-ca">Canada (EN-CA)</option>
+                    <option value="en-sg">Singapore (EN-SG)</option>
+                    <option value="en-hk">Hong Kong SAR (EN-HK)</option>
+                  </select>
+                </label>
+
+                <label class="sv-mm-field">
+                  <span class="sv-mm-field__sublabel">Craft Scope Tier</span>
+                  <select class="sv-mm-select" data-sv-input="budgetBand" aria-label="Craft scope tier">
+                    <option value="tier_standard">Everyday Utility Scope</option>
+                    <option value="tier_studio" selected>Studio Craft Scope</option>
+                    <option value="tier_collector">Bespoke Collector Scope</option>
+                  </select>
+                </label>
+
+                <label class="sv-mm-field">
+                  <span class="sv-mm-field__sublabel">Quantity Band</span>
+                  <select class="sv-mm-select" data-sv-input="qtyBand" aria-label="Quantity band">
+                    <option value="qty_single" selected>Single Piece</option>
+                    <option value="qty_small">Small Studio Set</option>
+                    <option value="qty_batch">Team / Studio Run</option>
+                  </select>
+                </label>
+              </div>
+
+              <label class="sv-mm-field">
+                <span class="sv-mm-field__sublabel">Reply Email (for Magic Link quote notification)</span>
+                <input
+                  type="email"
+                  class="sv-mm-input"
+                  data-sv-input="email"
+                  autocomplete="email"
+                  placeholder="you@domain.com"
+                >
+              </label>
+            </div>
+
+            <div class="sv-mm-submit-zone" data-sv-submit-zone-03>
+              <button
+                type="button"
+                class="svd-btn sv-mm-primary-btn sv-mm-submit-btn"
+                data-action="mto-submit-03"
+                data-sv-submit-btn-03
+              >
+                <span data-sv-submit-label-03>{{ "mto.mother.cta_send_03" | t() }}</span>
+                <span class="sv-seam-aura-bar sv-mm-btn-aura" data-sv-seam-aura="true" aria-hidden="true" hidden></span>
+              </button>
+
+              <div
+                class="sv-mm-inplace-ack"
+                data-sv-ack-03
+                role="status"
+                aria-live="polite"
+                tabindex="-1"
+                hidden
+              >
+                <div class="sv-mm-inplace-ack__head">
+                  <strong class="sv-mm-inplace-ack__title">{{ "mto.mother.ack_heading" | t() }}</strong>
+                  <code class="sv-mm-inplace-ack__req" data-sv-ack-req-03></code>
+                </div>
+                <p class="sv-mm-inplace-ack__sla" data-sv-ack-sla-03>
+                  {{ "mto.mother.ack_fallback_03" | t() }}
+                </p>
+                <div class="sv-mm-inplace-ack__actions">
+                  <a class="svd-btn svd-btn--ghost sv-mm-ack-link" href="/en-us/pages/mto-status" data-sv-ack-tracker-03>
+                    {{ "mto.mother.cta_view_tracker" | t() }}
+                  </a>
+                  <button type="button" class="svd-btn svd-btn--ghost sv-mm-ack-btn" data-action="mto-new-request">
+                    {{ "mto.mother.cta_new_request" | t() }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sv-mm-toast" data-sv-mto-toast role="status" aria-live="polite" hidden>
+          <span data-sv-mto-toast-text></span>
+          <button type="button" class="sv-mm-toast__retry" data-action="mto-retry" data-sv-mto-retry hidden>
+            {{ "mto.mother.cta_retry" | t() }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sv-mm-budget-divider" aria-hidden="true">
+
+  <footer class="sv-mm-remember-zone" data-d09="Remember">
+    <div class="sv-mm-remember-strip" data-sv-remember-strip>
+      <div class="sv-mm-remember-strip__summary">
+        <span class="sv-mm-remember-strip__label">{{ "mto.remember.heading" | t() }}</span>
+        <strong class="sv-mm-remember-strip__sel" data-sv-remember-selection>Ceramic Pour-Over Vessel · Fluted Base · Warm Glaze</strong>
+        <code class="sv-mm-remember-strip__req" data-sv-remember-req hidden></code>
+      </div>
+      <a
+        class="sv-mm-remember-strip__link"
+        href="/en-us/pages/mto-status"
+        data-sv-status-link
+      >{{ "mto.remember.track_link" | t() }}</a>
+    </div>
+
+    <div class="sv-mm-seo-summary" data-sv-desktop-seo>
+      <h2 class="sv-mm-seo-summary__heading">{{ "mto.remember.seo_heading" | t() }}</h2>
+      <div class="sv-mm-seo-summary__rows">
+        <article class="sv-mm-seo-row">
+          <h3 class="sv-mm-seo-row__title">{{ "mto.remember.seo_1_title" | t() }}</h3>
+          <p class="sv-mm-seo-row__body">{{ "mto.remember.seo_1_body" | t() }}</p>
+        </article>
+        <article class="sv-mm-seo-row">
+          <h3 class="sv-mm-seo-row__title">{{ "mto.remember.seo_2_title" | t() }}</h3>
+          <p class="sv-mm-seo-row__body">{{ "mto.remember.seo_2_body" | t() }}</p>
+        </article>
+        <article class="sv-mm-seo-row">
+          <h3 class="sv-mm-seo-row__title">{{ "mto.remember.seo_3_title" | t() }}</h3>
+          <p class="sv-mm-seo-row__body">{{ "mto.remember.seo_3_body" | t() }}</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="sv-mm-d1-footer" data-sv-mobile-d1-footer>
+      <a
+        class="svd-btn svd-btn--ghost sv-mm-d1-target"
+        href="/en-us/pages/mto-status"
+        data-sv-d1-target-link
+      >{{ "mto.trust.details_track" | t() }}</a>
+      <button
+        type="button"
+        class="svd-btn sv-mm-d1-sticky-cta"
+        data-action="mto-mobile-sticky-cta"
+        data-sv-mobile-sticky-cta
+      >
+        <span data-sv-mobile-sticky-label>{{ "mto.mother.cta_add_curated" | t() }}</span>
+      </button>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="sv-mm-noscript">
+      <p>SpaceVanta Made-to-Order Studio — zero upfront charge until every detail is verified.</p>
+      <a href="/en-us/pages/mto-status">Open Live Request Tracker (/en-us/pages/mto-status)</a>
+    </div>
+  </noscript>
+
+  <aside
+    class="sv-mm-agent-g0"
+    data-sv-agent-slot="g0"
+    data-sv-asset-id="AGENT_SLOT_MTO_G0"
+    aria-label="Agent slot G-0 placeholder"
+  >
+    <span class="sv-mm-agent-g0__ring" aria-hidden="true"></span>
+    <span class="sv-mm-agent-g0__caption">{{ "mto.agent.g0_caption" | t() }}</span>
+  </aside>
+</section>
+
+<script type="application/ld+json" data-sv-mto-jsonld>
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "SpaceVanta Made to Order Studio",
+  "description": "Explore ready-to-make pieces, customize proportions and finishes, or request bespoke sourcing with zero upfront charge until approved.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "SpaceVanta"
+  },
+  "mainEntity": {
+    "@type": "Service",
+    "name": "SpaceVanta Made-to-Order & Bespoke Sourcing",
+    "provider": {
+      "@type": "Brand",
+      "name": "SpaceVanta"
+    }
+  }
+}
+</script>
+
+{{#schema}}
+{
+  "name": "SpaceVanta MTO Ecosystem Studio",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-mto-mother-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_override",
+      "label": "Page Heading Override",
+      "default": "Made to Order, Shaped Around You."
+    },
+    {
+      "type": "switch",
+      "id": "allow_seasonal_accent",
+      "label": "Allow Seasonal Order-By Strip",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta MTO Ecosystem Studio",
+      "category": "Made to Order",
+      "settings": {
+        "allow_seasonal_accent": true
+      }
+    }
+  ]
+}
+{{/schema}}

@@ -1,0 +1,151 @@
+{{#var sv_driver_url = "sv-bundle/BundleDriver.js" | asset_url() /}}
+
+<section
+  id="sv-mto-status-page"
+  class="sv-ms"
+  data-sv-module="sv_flow_mto_ecosystem_v02"
+  data-sv-l5="L5@v01"
+  data-sv-role="mto_status"
+  data-sv-webgl="0"
+  data-sv-state="mto_status_idle"
+  data-sv-driver-url="{{ sv_driver_url }}"
+>
+  <div class="sv-ms-trust" data-d09="Trust">
+    <div class="sv-ms-trust__bar" data-sv-slot="mto-status-trust" hidden>
+      <p class="sv-ms-trust__line">
+        <span data-sv-field="duty"></span>
+        <span aria-hidden="true">·</span>
+        <span data-sv-field="leadtime"></span>
+        <span aria-hidden="true">·</span>
+        <span data-sv-field="threshold"></span>
+      </p>
+      <span class="sv-seam-rail sv-seam-rail--active" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <div class="sv-ms-main" data-d09="Motivate">
+    <header class="sv-ms-header">
+      <p class="sv-ms-eyebrow">{{ "mto.status.eyebrow" | t() }}</p>
+      <h1 class="sv-ms-title">
+        {{#if section.settings.heading}}{{ section.settings.heading }}{{else}}{{ "mto.status.title" | t() }}{{/if}}
+      </h1>
+    </header>
+
+    <form class="sv-ms-lookup" data-sv-status-lookup novalidate>
+      <label class="sv-ms-lookup__label" for="sv-mto-req-input">{{ "mto.status.lookup_label" | t() }}</label>
+      <div class="sv-ms-lookup__row">
+        <input
+          id="sv-mto-req-input"
+          type="text"
+          class="sv-ms-input"
+          data-sv-req-input
+          placeholder="mto_..."
+          autocomplete="off"
+        >
+        <button type="submit" class="svd-btn sv-ms-lookup__btn">{{ "mto.status.lookup_btn" | t() }}</button>
+      </div>
+    </form>
+
+    <article class="sv-ms-card" data-sv-status-card hidden>
+      <div class="sv-ms-card__head">
+        <div>
+          <span class="svd-chip" data-sv-status-badge>In Review</span>
+          <h2 class="sv-ms-card__req" data-sv-card-req-id></h2>
+        </div>
+        <span class="sv-ms-card__sla" data-sv-card-sla>Confirm every detail before you pay.</span>
+      </div>
+
+      <p class="sv-ms-card__spec" data-sv-card-spec></p>
+
+      <div class="sv-ms-quote-box" data-sv-quote-box hidden>
+        <div class="sv-ms-quote-box__row">
+          <span class="sv-ms-quote-box__lbl">Approved Quote</span>
+          <strong class="sv-ms-quote-box__price" data-sv-locale-price></strong>
+        </div>
+        <p class="sv-ms-quote-box__ttl" data-sv-quote-ttl></p>
+      </div>
+
+      <div class="sv-ms-expired-box" data-sv-expired-box hidden>
+        <p>{{ "mto.status.expired_msg" | t() }}</p>
+      </div>
+
+      <div class="sv-ms-revise-panel" data-sv-revise-panel>
+        <label class="sv-ms-lookup__label" for="sv-mto-revise-note">Pre-Approval Specification Revision</label>
+        <textarea
+          id="sv-mto-revise-note"
+          class="sv-ms-textarea"
+          rows="2"
+          data-sv-revise-note
+          placeholder="Refine Form, Finish, Spec, or dimensions"
+        ></textarea>
+      </div>
+
+      <div class="sv-ms-actions">
+        <button
+          type="button"
+          class="svd-btn svd-btn--ghost"
+          data-action="status-revise"
+          data-sv-revise-btn
+        >{{ "mto.status.revise_btn" | t() }}</button>
+
+        <button
+          type="button"
+          class="svd-btn sv-ms-approve-btn"
+          data-action="status-approve-cart"
+          data-sv-approve-btn
+          hidden
+          disabled
+        >
+          <span data-sv-approve-label>{{ "mto.status.approve_btn" | t() }}</span>
+          <span class="sv-seam-aura-bar sv-ms-btn-aura" data-sv-seam-aura="true" aria-hidden="true" hidden></span>
+        </button>
+
+        <button
+          type="button"
+          class="svd-btn"
+          data-action="status-resubmit"
+          data-sv-resubmit-btn
+          hidden
+        >{{ "mto.status.resubmit_btn" | t() }}</button>
+      </div>
+
+      <div class="sv-ms-notice" data-sv-status-notice role="status" aria-live="polite" hidden></div>
+    </article>
+  </div>
+
+  <footer class="sv-ms-remember" data-d09="Remember">
+    <a class="sv-ms-studio-link" href="/en-us/pages/made-to-order" data-sv-back-studio>
+      ← Return to SpaceVanta Made-to-Order Studio
+    </a>
+  </footer>
+</section>
+
+{{#schema}}
+{
+  "name": "SpaceVanta MTO Live Status Tracker",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-mto-status-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Track & Manage Your Made-to-Order Request"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta MTO Live Status Tracker",
+      "category": "Made to Order",
+      "settings": {}
+    }
+  ]
+}
+{{/schema}}

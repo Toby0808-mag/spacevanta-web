@@ -1,28 +1,26 @@
-# Antigravity 代码清单：全局/驱动层共用代码
+# Antigravity 代码清单：模板「page」内部代码
 
 PULLED_SHA: 892cacf021247b51f50512022a0e6e13ad1b7625
-UPDATED_AT: 2026-11-28 02:44
-UPDATED_BY:
+UPDATED_AT: 2026-11-28 03:30
+UPDATED_BY: ag/bundle-L5v02
 
 规则：开工前 pull、完工后 submit，随 PR 提交。其他模板要调用本模板内部组件，请先读本清单，并用 `dep` 登记依赖。
 
 ## 1. 在途施工锁
 <!-- LOCKS -->
-LOCK|ag/bundle-L5v02|web/public/sv-dna/|892cacf021|2026-11-28 02:44|ACTIVE
-LOCK|ag/bundle-L5v02|web/public/sv-vendor/|892cacf021|2026-11-28 02:44|ACTIVE
-LOCK|ag/bundle-L5v02|web/public/sv-bundle/|892cacf021|2026-11-28 02:44|ACTIVE
-LOCK|ag/bundle-L5v02|web/components/sv-seam/|892cacf021|2026-11-28 02:44|ACTIVE
-LOCK|ag/bundle-L5v02|web/components/sv-agent-slot-g0/|892cacf021|2026-11-28 02:44|ACTIVE
-LOCK|ag/bundle-L5v02|web/components/sv-promote-portal/|892cacf021|2026-11-28 02:44|ACTIVE
-LOCK|ag/bundle-L5v02|web/i18n/|892cacf021|2026-11-28 02:44|ACTIVE
+LOCK|ag/bundle-L5v02|web/templates/page.bundles.json|892cacf021|2026-11-28 02:44|DONE
+LOCK|ag/bundle-L5v02|web/templates/page.mechanism-bundles-statement.json|892cacf021|2026-11-28 02:44|DONE
 <!-- /LOCKS -->
 
 ## 2. 文件台账
 <!-- FILES -->
+FILE|web/templates/page.bundles.json|c824ab7b7822|-|L5@v02|ag
+FILE|web/templates/page.mechanism-bundles-statement.json|c5018901e517|-|L5@v02|ag
 <!-- /FILES -->
 
 ## 3. 变更记录
 <!-- CHANGES -->
+CHG|2026-11-28 03:30|ag/bundle-L5v02|L5@v02|无文件变动
 <!-- /CHANGES -->
 
 ## 4. 拉取记录

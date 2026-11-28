@@ -1,0 +1,50 @@
+{
+  "id": "SV_MTO_SKU_02_v01",
+  "category": "MTO Cross-Category Product Model (4000K Warm Studio)",
+  "owner": "Antigravity",
+  "evaluationStandard": "dimension",
+  "l5Version": "L5@v01",
+  "r_target": "r2",
+  "promoteStates": [
+    "S0_COLD_IDLE",
+    "S1_PROMOTE_ARM",
+    "S2_CROSSFADE",
+    "S3_HOT_LIVE_PREVIEW",
+    "S4_DEMOTE",
+    "S5_COLD_PARK"
+  ],
+  "degradationChain": [
+    "r2",
+    "r1",
+    "poster1600.png"
+  ],
+  "lods": {
+    "lod0": {
+      "file": "SV_MTO_SKU_02_v01.glb",
+      "triangles": 36,
+      "bytes": 4212,
+      "sha256": "371b99e5f721480eb7baebbe09995257518d4b14632207d6b91ff13d814df6bc"
+    },
+    "lod1": {
+      "file": "SV_MTO_SKU_02_v01_lod1.glb",
+      "triangles": 36,
+      "bytes": 4212,
+      "sha256": "371b99e5f721480eb7baebbe09995257518d4b14632207d6b91ff13d814df6bc"
+    },
+    "lod2": {
+      "file": "SV_MTO_SKU_02_v01_lod2.glb",
+      "triangles": 36,
+      "bytes": 4212,
+      "sha256": "371b99e5f721480eb7baebbe09995257518d4b14632207d6b91ff13d814df6bc"
+    }
+  },
+  "poster": {
+    "file": "poster1600.png",
+    "dimensions": "1600x1000",
+    "bytes": 8078,
+    "maxBytes": 90000,
+    "sha256": "b1c678947d03aa99aeaa0218706cd794d41f205a8f83b40800214ce06717aa48",
+    "alt": "SpaceVanta 4000K oatmeal woven linen desk folio with gunmetal spine clasp"
+  },
+  "naturalMaterialSpec": "Woven Linen Desk Folio"
+}

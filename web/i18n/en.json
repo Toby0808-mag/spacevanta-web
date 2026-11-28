@@ -132,5 +132,82 @@
     "agent": {
       "g0_caption": "AGENT SLOT · G-0 · NOT IMPLEMENTED · ?sv_agent=off"
     }
+  },
+  "mto": {
+    "trust": {
+      "region_label": "Made-to-Order shipping and policy clarity",
+      "details_track": "Details & Track ↗",
+      "mobile_glance": "Free to explore · Nothing charged until you approve every detail."
+    },
+    "mother": {
+      "eyebrow": "SpaceVanta Made-to-Order Studio",
+      "title": "Made to Order, Shaped Around You.",
+      "subtitle": "Explore ready-to-make pieces, customize proportions and finishes, or request off-catalog sourcing with zero upfront charge.",
+      "track_01": "01 Ready to Make",
+      "track_02": "02 Shape It Your Way",
+      "track_03": "03 Ask for Anything",
+      "auto_cycle": "Auto-Cycle",
+      "view_full_poster": "View Full Poster",
+      "whisper_default": "Free to explore across all tracks — nothing is charged until every detail is verified and approved.",
+      "cta_add_curated": "Add to Cart",
+      "cta_customize_this": "Customize This (02) →",
+      "cta_use_ref": "Use as Reference (03) →",
+      "cta_send_02": "Send Request — No Charge Yet",
+      "cta_send_03": "Send Free Request — No Charge Yet",
+      "cta_submitting": "Sending Request",
+      "cta_open_folio": "Open Sourcing Folio",
+      "cta_fold_back": "Fold Back",
+      "cta_view_tracker": "View Live Tracker",
+      "cta_new_request": "New Request",
+      "cta_retry": "Retry",
+      "ack_heading": "Request Received — Zero Charge Applied",
+      "ack_fallback_02": "Confirm every detail before you pay · Complimentary pre-approval revision included.",
+      "ack_fallback_03": "Free sourcing research · Import compliance verified before you confirm.",
+      "duplicate_notice": "Request already submitted — duplicate click ignored.",
+      "timeout_notice": "Connection timed out. Your custom selections and notes are safely preserved.",
+      "import_fallback": "Destination import compliance is verified before sourcing confirmation."
+    },
+    "remember": {
+      "heading": "Active Selection & Request Tracker",
+      "track_link": "Open Live Tracker (/pages/mto-status) ↗",
+      "seo_heading": "Made-to-Order Fulfillment & Assurance",
+      "seo_1_title": "Two-Stage Made-to-Order Fulfillment Relay",
+      "seo_1_body": "Every ready-to-make piece completes studio preparation and handover before carrier transit begins, keeping dispatch windows transparent.",
+      "seo_2_title": "Zero Upfront Charge & Pre-Approval Revision",
+      "seo_2_body": "Submit custom proportion, finish, or specification requests with zero payment upfront and refine details before approving a final quote.",
+      "seo_3_title": "Destination Market Import Compliance Pre-Check",
+      "seo_3_body": "Sourcing requests automatically check destination import guidance across supported SpaceVanta markets prior to quote issuance."
+    },
+    "status": {
+      "eyebrow": "SpaceVanta Live MTO Tracker",
+      "title": "Track & Manage Your Made-to-Order Request",
+      "lookup_label": "Request ID",
+      "lookup_btn": "Load Status",
+      "revise_btn": "Request Revision",
+      "approve_btn": "Approve & Add to Cart",
+      "resubmit_btn": "Re-submit for Fresh Quote",
+      "revision_cap_msg": "Complimentary revision allowance reached for this request.",
+      "expired_msg": "Quote validity window has elapsed. Payment is disabled — re-submit with your saved specifications for a fresh review."
+    },
+    "child_hot": {
+      "eyebrow": "Made-to-Order Spotlight",
+      "title": "Curated Made-to-Order Showcase",
+      "mode_a1": "01 Ready to Make",
+      "mode_a2": "Preview & Pre-fill Customize (02) →",
+      "back_a1": "← Back to 01 Showcase",
+      "add_curated": "Add Curated MTO",
+      "continue_mother": "Continue & Submit in MTO Studio →",
+      "handoff_hint": "Carrying your selected item & pre-filled notes directly to MTO Studio Track 02."
+    },
+    "child_cold": {
+      "eyebrow": "Made-to-Order · 2D Planar Square Map",
+      "title": "Explore Made-to-Order Pieces",
+      "promote_btn": "Inspect in 3D",
+      "add_btn": "Add Curated MTO",
+      "studio_link": "Open in MTO Studio ↗"
+    },
+    "agent": {
+      "g0_caption": "AGENT SLOT · G-0 · NOT IMPLEMENTED · ?sv_agent=off"
+    }
   }
 }

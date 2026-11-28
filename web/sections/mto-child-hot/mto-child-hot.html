@@ -1,0 +1,198 @@
+{{#var sv_driver_url = "sv-bundle/BundleDriver.js" | asset_url() /}}
+{{#var sv_poster_hot = "mto-child-hot/poster-mto-hot-1600.png" | asset_url() /}}
+{{#var sv_glb_01 = "mto-mother/mto-sku-01.glb" | asset_url() /}}
+{{#var sv_glb_02 = "mto-mother/mto-sku-02.glb" | asset_url() /}}
+{{#var sv_glb_03 = "mto-mother/mto-sku-03.glb" | asset_url() /}}
+{{#var sv_glb_04 = "mto-mother/mto-sku-04.glb" | asset_url() /}}
+{{#var sv_glb_05 = "mto-mother/mto-sku-05.glb" | asset_url() /}}
+
+<section
+  class="sv-mch"
+  data-sv-module="sv_flow_mto_ecosystem_v02"
+  data-sv-l5="L5@v01"
+  data-sv-role="hot_child"
+  data-sv-mode="A1"
+  data-sv-model-tier="r2"
+  data-sv-state="hot_child_ready_01"
+  data-sv-driver-url="{{ sv_driver_url }}"
+  data-sv-poster-url="{{ sv_poster_hot }}"
+  data-sv-glb-01="{{ sv_glb_01 }}"
+  data-sv-glb-02="{{ sv_glb_02 }}"
+  data-sv-glb-03="{{ sv_glb_03 }}"
+  data-sv-glb-04="{{ sv_glb_04 }}"
+  data-sv-glb-05="{{ sv_glb_05 }}"
+>
+  <div class="sv-mch-trust" data-d09="Trust">
+    <div class="sv-mch-trust__bar" data-sv-slot="mto-child-trust-bar" hidden>
+      <div class="sv-mch-trust__inner">
+        <p class="sv-mch-trust__line">
+          <span data-sv-field="duty"></span>
+          <span aria-hidden="true">·</span>
+          <span data-sv-field="leadtime"></span>
+          <span aria-hidden="true">·</span>
+          <span data-sv-field="threshold"></span>
+        </p>
+        <a class="sv-mch-trust__link" href="/en-us/pages/mto-status" data-sv-child-guide-link>
+          {{ "mto.trust.details_track" | t() }}
+        </a>
+      </div>
+      <span class="sv-seam-rail sv-seam-rail--active" aria-hidden="true"></span>
+    </div>
+    <p class="sv-mch-mobile-glance">{{ "mto.trust.mobile_glance" | t() }}</p>
+  </div>
+
+  <div class="sv-mch-motivate" data-d09="Motivate">
+    <div class="sv-mch-grid">
+      <div class="sv-mch-stage-col">
+        <div class="sv-mch-stage-shell" data-sv-child-stage-shell>
+          <canvas
+            class="sv-mch-canvas"
+            data-sv-mto-child-canvas
+            aria-label="Interactive 3D SpaceVanta Made-to-Order spotlight showcase"
+          ></canvas>
+          <div class="sv-mch-poster" data-sv-mto-child-poster hidden>
+            <img src="{{ sv_poster_hot }}" width="800" height="500" alt="SpaceVanta 4000K Made-to-Order spotlight planar poster" decoding="async">
+            <a class="svd-btn svd-btn--ghost" href="{{ sv_poster_hot }}" target="_blank" rel="noopener">
+              {{ "mto.mother.view_full_poster" | t() }}
+            </a>
+          </div>
+        </div>
+
+        <div class="sv-mch-whisper" data-sv-child-whisper role="status" aria-live="polite">
+          <span class="sv-mch-whisper__dot" aria-hidden="true"></span>
+          <span data-sv-child-whisper-text>{{ "mto.mother.whisper_default" | t() }}</span>
+        </div>
+      </div>
+
+      <div class="sv-mch-panel">
+        <div class="sv-mch-panel__head">
+          <p class="sv-mch-eyebrow">{{ "mto.child_hot.eyebrow" | t() }}</p>
+          <h2 class="sv-mch-title" data-sv-child-title>
+            {{#if section.settings.heading}}{{ section.settings.heading }}{{else}}{{ "mto.child_hot.title" | t() }}{{/if}}
+          </h2>
+          <span class="svd-chip" data-sv-assigned-pool-chip hidden></span>
+        </div>
+
+        <div class="sv-mch-mode-a1" data-sv-mode-panel="A1">
+          <p class="sv-mch-active-sku" data-sv-child-sku-label>Ceramic Pour-Over Vessel</p>
+          <div class="sv-mch-sat-row">
+            <button type="button" class="sv-mch-sat-btn" data-action="child-sat-swap" data-sat-index="0" data-sku="SV_MTO_SKU_02">01 · Linen Folio</button>
+            <button type="button" class="sv-mch-sat-btn" data-action="child-sat-swap" data-sat-index="1" data-sku="SV_MTO_SKU_03">02 · Thermal Carafe</button>
+            <button type="button" class="sv-mch-sat-btn" data-action="child-sat-swap" data-sat-index="2" data-sku="SV_MTO_SKU_04">03 · Travel Case</button>
+            <button type="button" class="sv-mch-sat-btn" data-action="child-sat-swap" data-sat-index="3" data-sku="SV_MTO_SKU_05">04 · Stone Tray</button>
+          </div>
+          <div class="sv-mch-actions">
+            <button type="button" class="svd-btn sv-mch-commit-btn" data-action="child-add-curated" data-sv-child-add>
+              <span data-sv-child-add-label>{{ "mto.child_hot.add_curated" | t() }}</span>
+              <span class="sv-seam-aura-bar sv-mch-btn-aura" data-sv-seam-aura="true" aria-hidden="true" hidden></span>
+            </button>
+            <button type="button" class="svd-btn svd-btn--ghost" data-action="child-switch-a2">
+              {{ "mto.child_hot.mode_a2" | t() }}
+            </button>
+          </div>
+        </div>
+
+        <div class="sv-mch-mode-a2" data-sv-mode-panel="A2" hidden>
+          <div class="sv-mch-a2-top">
+            <span class="svd-chip">Mode A2 · Pre-fill Customize</span>
+            <button type="button" class="sv-mch-back-btn" data-action="child-switch-a1">
+              {{ "mto.child_hot.back_a1" | t() }}
+            </button>
+          </div>
+
+          <div class="sv-mch-fields">
+            <label class="sv-mch-field">
+              <span>Form (anchor_form)</span>
+              <select class="sv-mch-select" data-sv-child-input="form">
+                <option value="base_fluted">Fluted Architectural Base</option>
+                <option value="body_slim_a5">Slim Studio Proportion</option>
+                <option value="body_tapered">Tapered Ergonomic Profile</option>
+                <option value="base_compact_tray">Compact Modular Footprint</option>
+              </select>
+            </label>
+            <label class="sv-mch-field">
+              <span>Finish (anchor_finish)</span>
+              <select class="sv-mch-select" data-sv-child-input="finish">
+                <option value="surface_warm_glaze">Warm Cream Matte Glaze</option>
+                <option value="coat_raw_linen">Natural Oatmeal Linen</option>
+                <option value="surface_satin_slate">Brushed Satin Gunmetal Collar</option>
+                <option value="surface_honed_stone">Honed Warm Travertine</option>
+              </select>
+            </label>
+            <label class="sv-mch-field">
+              <span>Spec (anchor_spec)</span>
+              <select class="sv-mch-select" data-sv-child-input="spec">
+                <option value="pack_single_box">Warm Paper Presentation Box</option>
+                <option value="label_blind_deboss">Blind Debossed Monogram</option>
+                <option value="pack_gift_sleeve">Archival Linen Wrap Sleeve</option>
+                <option value="label_monogram_tag">Engraved Slate Serial Tag</option>
+              </select>
+            </label>
+            <label class="sv-mch-field">
+              <span>Pre-fill Notes</span>
+              <textarea class="sv-mch-textarea" rows="2" data-sv-child-input="note" placeholder="Carried losslessly to MTO Studio Track 02"></textarea>
+            </label>
+          </div>
+
+          <p class="sv-mch-handoff-hint">{{ "mto.child_hot.handoff_hint" | t() }}</p>
+
+          <a
+            class="svd-btn sv-mch-handoff-cta"
+            href="/en-us/pages/made-to-order?track=02"
+            data-action="child-handoff-mother"
+            data-sv-child-handoff-link
+          >{{ "mto.child_hot.continue_mother" | t() }}</a>
+        </div>
+
+        <div class="sv-mch-toast" data-sv-child-toast role="status" aria-live="polite" hidden></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sv-mch-divider" aria-hidden="true">
+
+  <div class="sv-mch-remember" data-d09="Remember">
+    <a class="sv-mch-studio-link" href="/en-us/pages/made-to-order" data-sv-child-mother-link>
+      Open Full Made-to-Order Studio (/pages/made-to-order) ↗
+    </a>
+  </div>
+</section>
+
+<script type="application/ld+json" data-sv-mto-child-jsonld>
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "SpaceVanta Curated Made-to-Order Showcase",
+  "numberOfItems": 5
+}
+</script>
+
+{{#schema}}
+{
+  "name": "SpaceVanta MTO Hot Child Spotlight",
+  "icon": "generalSection",
+  "tag": "div",
+  "class": "sv-mto-child-hot-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Curated Made-to-Order Showcase"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SpaceVanta MTO Hot Child Spotlight",
+      "category": "Made to Order",
+      "settings": {}
+    }
+  ]
+}
+{{/schema}}

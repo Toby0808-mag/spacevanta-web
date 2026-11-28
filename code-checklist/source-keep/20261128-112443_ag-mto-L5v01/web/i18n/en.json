@@ -1,0 +1,136 @@
+{
+  "header": {
+    "a11y": {
+      "skip_to_main": "Skip to main content",
+      "primary_nav": "Primary navigation",
+      "announcement_region": "Shipping and fulfillment notice",
+      "open_shop": "Open Shop categories",
+      "open_menu": "Open navigation menu",
+      "open_search": "Open search",
+      "open_market": "Change delivery market and language",
+      "open_cart": "Shopping bag",
+      "close_overlay": "Close panel",
+      "cart_items_label": "items in bag"
+    },
+    "nav": {
+      "shop": "Shop",
+      "bundles": "Bundles",
+      "mto": "Made to Order",
+      "menu": "Menu",
+      "all_products": "All Products",
+      "scenes": "Scenes"
+    },
+    "shop": {
+      "categories_heading": "Categories",
+      "cat_01": "Desk Architecture",
+      "cat_02": "Modular Trays",
+      "cat_03": "Precision Tools",
+      "scene_heading": "Featured Scene",
+      "scene_title": "Explore by Desk Scene",
+      "scene_sub": "See how modular pieces align on warm paper surfaces.",
+      "scene_cta": "View Scene"
+    },
+    "drawer": {
+      "ways_heading": "Ways to Buy",
+      "guide_heading": "Guide & Policies",
+      "policy_shipping": "Shipping & Duties",
+      "how_it_works": "How It Works",
+      "about": "About SpaceVanta",
+      "privilege": "Member Privilege",
+      "contact": "Contact",
+      "account": "Account",
+      "current_market": "Market",
+      "change_market": "Change"
+    },
+    "market": {
+      "title": "Market & Language",
+      "delivery_label": "Delivery destination",
+      "lang_label": "Language",
+      "apply_cta": "Apply",
+      "helper": "Prices, duties, and shipping estimates update to match your selected destination.",
+      "degraded_msg": "Live market directory is temporarily unavailable. Your active market remains selected.",
+      "policy_link": "View Shipping & Duties Policy"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search modular pieces, bundles, or scenes",
+      "submit": "Search",
+      "quick_heading": "Quick Categories",
+      "empty_hint": "Enter a keyword or select a category below.",
+      "degraded_hint": "Live suggestions are unavailable. Press Enter to search directly."
+    },
+    "handoff": {
+      "deferred_notice": "Route queued for upcoming template release.",
+      "idempotent_notice": "Already triggered — ignoring duplicate click."
+    }
+  },
+  "bundle": {
+    "trust": {
+      "region_label": "Bundle shipping and threshold clarity"
+    },
+    "mother": {
+      "eyebrow": "SpaceVanta Modular Bundle",
+      "title": "Precision 6-Bay Curated Tray",
+      "subtitle": "Brushed slate-and-gunmetal tray with warm paper inner cavity and direct 6-bay slot arrangement.",
+      "peek_bubble": "Tray lid gently ajar — inspect all 6 compartments or customize slots on the right.",
+      "workspace_heading": "6-Bay Tray Arrangement",
+      "reset_curated": "Reset Curated",
+      "flip_compare": "Compare Curated / Custom",
+      "drop_remove_zone": "Drag a bay card here to clear slot",
+      "cta_take_curated": "Take This Set",
+      "cta_take_custom": "Take My Custom Set",
+      "cta_take_active": "Take Active Set",
+      "cta_swap_slot": "Swap a Slot",
+      "cta_continue_mto": "Continue / Add to Cart",
+      "cta_submitting": "Adding Set",
+      "cta_cancel": "Cancel",
+      "cta_go_cart": "Go to Cart",
+      "cta_retry": "Retry",
+      "added_confirm": "Bundle selection added to your shopping bag.",
+      "duplicate_notice": "Already triggered — duplicate click ignored.",
+      "timeout_notice": "Connection timed out. Your 6-bay selection is safely preserved.",
+      "f2_mto_fallback": "Includes a Made-to-Order piece. Choose combined or split dispatch on the Cart page.",
+      "boundary_min_skus": "Keep the minimum variety of distinct items in your tray, or swap a slot instead.",
+      "boundary_max_qty": "All 6 tray bays are filled — swap an existing bay to try another piece.",
+      "boundary_max_per_sku": "Per-item limit reached for this tray — pick another piece from the pool.",
+      "boundary_cross_cap": "Cross-pool allowance reached — swap an existing cross-pool slot to continue.",
+      "cross_pool_heading": "Cross-Bundle Pool Picks",
+      "cross_pool_sub": "Planar reference cards — zero active 3D overhead until promoted.",
+      "cross_pool_left_label": "Cross-pool slots remaining",
+      "vital_heading": "Tray Architecture & Bundle Mechanism",
+      "vital_sec1_title": "Brushed Metal Shell & Warm Paper Cavity",
+      "vital_sec1_body": "Engineered with a five-step brushed slate-and-gunmetal exterior, warm tactile paper dividers, and a plinth-free origami SV crest.",
+      "vital_sec2_title": "Flexible 6-Bay Curation & Tier Clarity",
+      "vital_sec2_body": "Start from a balanced 6-bay curation or swap individual compartments inline with automatic lid clearance.",
+      "vital_sec3_title": "Single-Parcel Space Express & MTO Coordination",
+      "vital_sec3_body": "Standard pieces ship together; mixed Made-to-Order selections offer clear dispatch options in your shopping bag.",
+      "statement_cta": "Read Full Bundle Mechanism Statement"
+    },
+    "hotspot": {
+      "inspector_heading": "3D Stage & Hotspot Inspector",
+      "view_tray": "3/4 Tray View",
+      "bay_grid_title": "6-Bay Slot Grid (HS_BAY_GRID)",
+      "bay_grid_desc": "Opens hinged lid and inspects compartments Bay 1 through Bay 6.",
+      "sv_crest_title": "SV Origami Crest (HS_SV_CREST)",
+      "sv_crest_desc": "Closes lid for oblique close-up of brushed specular facets and fracture seam.",
+      "toggle_lid": "Open / Close Lid",
+      "view_full_poster": "View Full Poster",
+      "l4_static_note": "Static warm-paper planar tray active (3D stage disabled or unavailable)."
+    },
+    "child_hot": {
+      "eyebrow": "Direct Scene Curation",
+      "assigned_label": "Assigned Pool",
+      "single_pool_note": "Direct inline swaps within this assigned pool. Cross-pool combinations continue on the Bundle page.",
+      "handoff_cta": "Customize Across Pools on Bundle Page ↗"
+    },
+    "child_cold": {
+      "eyebrow": "Curated 6-Bay Set · 2D Planar View",
+      "promote_btn": "Inspect in 3D",
+      "add_curated_btn": "Add Curated Set",
+      "customize_link": "Customize on Bundle Page ↗"
+    },
+    "agent": {
+      "g0_caption": "AGENT SLOT · G-0 · NOT IMPLEMENTED · ?sv_agent=off"
+    }
+  }
+}

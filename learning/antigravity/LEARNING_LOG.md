@@ -14,12 +14,15 @@ BASE|B005|sv-core|window.SpaceVanta：market/season/api/slots；失败静默回�
 
 ## 2. 施工前已读 REVIEWS（REVIEW|时间|分支|标签|看到的失败条数）
 <!-- REVIEWS -->
+REVIEW|2026-11-28 07:18|ag/mto-L5v01|mto,promote,r2,shopline-asset,shopline-comment,shopline-schema,shopline-syntax,sv-core|0
 <!-- /REVIEWS -->
 
 ## 3. 尝试 TRIES（TRY|id|时间|分支|结果|标签|目标|要点（失败点/通过点）|与已失败路线的不同）
 <!-- TRIES -->
+TRY|T0001|2026-11-28 11:24|ag/mto-L5v01|PASS|mto,promote,r2,shopline-syntax|Implement MTO ecosystem baseline L5@v01 (Mother + Status + Hot/Cold Child + r2 3D + clip_submit_in_place_ack)|All V-01..V-10 Playwright WebGL2 assertions passed; rapid 3x duplicate-click handler preserves reqId in mto-whisper-i1 and V-P5 short-circuits synchronously before dynamic import|-
 <!-- /TRIES -->
 
 ## 4. 成功记录 SUCCESS（SUCC|id|时间|标签|下轮/其他方向可走）
 <!-- SUCCESS -->
+SUCC|T0001|2026-11-28 11:24|mto,promote,r2,shopline-syntax|Wait for L5@v01 baseline gate review and approval before starting any E1 controlled variants
 <!-- /SUCCESS -->

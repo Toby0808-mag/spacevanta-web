@@ -11,6 +11,7 @@
   --svd-line: #E4DDD0;
   --svd-white: #FFFFFF;
   --svd-seam-aura: #E5FFFF;
+  --svd-sage-tint: #E8F4F0;
 
   /* E1 5-Step Brushed Metal Ramp (hueBand 216-225 deg + terminal 18% metalRampGuard) */
   --svd-metal-recess: #1F222A;
@@ -30,8 +31,10 @@
   /* PALETTE v1.2.1 Design-Layer Aliases (--sv-*) */
   --sv-paper: var(--svd-paper);
   --sv-paper-subtle: var(--svd-paper-2);
+  --sv-sage-tint: var(--svd-sage-tint);
   --sv-ink: var(--svd-ink);
   --sv-ink-soft: var(--svd-ink-soft);
+  --sv-ink-muted: var(--svd-ink-soft);
   --sv-line: var(--svd-line);
   --sv-paper-line: var(--svd-line);
   --sv-metal-recess: var(--svd-metal-recess);
@@ -112,6 +115,17 @@
   height: 2px;
   background: var(--svd-seam);
   transform-origin: left center;
+}
+
+.sv-seam-aura-bar,
+[data-sv-seam-aura="true"] {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--sv-seam, var(--svd-seam));
+  box-shadow: 0 0 0 1px var(--sv-seam-aura, var(--svd-seam-aura));
+  pointer-events: none;
 }
 
 .svd-seam-in {

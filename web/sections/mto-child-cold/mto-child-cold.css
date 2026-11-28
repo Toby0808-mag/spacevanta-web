@@ -1,0 +1,203 @@
+/* SpaceVanta MTO Cold 01 Planar Square Map Grid Styles (L5@v01 · pdp_collection low DNA tier)
+ * Strictly 0 WebGL, 0 shadows, 0 rotation in S0_COLD_IDLE; zero bare hex values.
+ * Single planar map <= 10% viewport width on Desktop; horizontal snap rail on Mobile 375px (0 overflowX).
+ */
+
+.sv-mcc,
+.sv-mcc *,
+.sv-mcc *::before,
+.sv-mcc *::after {
+  box-sizing: border-box;
+}
+
+.sv-mcc {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: var(--svd-s6, 40px) var(--svd-s5, 24px);
+  background-color: var(--sv-paper, var(--svd-paper));
+  color: var(--sv-ink, var(--svd-ink));
+  overflow-x: clip;
+}
+
+.sv-mcc-head {
+  margin-bottom: var(--svd-s4, 16px);
+}
+
+.sv-mcc-eyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+.sv-mcc-title {
+  margin: 0;
+  font-size: clamp(20px, 2.1vw, 26px);
+  line-height: 1.25;
+}
+
+.sv-mcc-toast {
+  margin-bottom: var(--svd-s3, 12px);
+  padding: var(--svd-s3, 12px) var(--svd-s4, 16px);
+  border-radius: var(--svd-r-md, 10px);
+  border: 1px solid var(--sv-line, var(--svd-line));
+  border-left: 2px solid var(--sv-seam, var(--svd-seam));
+  background-color: var(--sv-paper-subtle, var(--svd-paper-2));
+  font-size: 13px;
+}
+
+.sv-mcc-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--svd-s3, 12px);
+}
+
+.sv-mcc-card {
+  padding: var(--svd-s3, 12px);
+  border-radius: var(--svd-r-md, 10px);
+  border: 1px solid var(--sv-line, var(--svd-line));
+  background-color: var(--sv-paper-subtle, var(--svd-paper-2));
+  box-shadow: none;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--svd-s3, 12px);
+  transition: transform var(--sv-dur, 240ms) var(--svd-ease), border-color var(--sv-dur, 240ms) var(--svd-ease);
+}
+
+/* S1_PROMOTE_ARM <= 80ms micro-lift + left 2px seam calibration bar */
+.sv-mcc-card[data-sv-promote-state="S1_PROMOTE_ARM"],
+.sv-mcc-card[data-sv-promote-state="S2_CROSSFADE"],
+.sv-mcc-card[data-sv-promote-state="S3_HOT_LIVE_PREVIEW"] {
+  border-left: 2px solid var(--sv-seam, var(--svd-seam));
+  transform: scale(1.02);
+}
+
+.sv-mcc-planar-trigger {
+  appearance: none;
+  border: 1px solid var(--sv-line, var(--svd-line));
+  border-radius: var(--svd-r-sm, 6px);
+  background-color: var(--sv-paper, var(--svd-paper));
+  padding: var(--svd-s2, 8px);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--svd-s2, 8px);
+  min-height: 44px;
+}
+
+.sv-mcc-planar-trigger:focus-visible,
+.sv-mcc-studio-link:focus-visible {
+  outline: none;
+  box-shadow: var(--svd-focus);
+}
+
+.sv-mcc-planar-frame {
+  display: block;
+  width: 100%;
+  max-width: min(132px, 9.2vw);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--svd-r-sm, 6px);
+}
+
+.sv-mcc-planar-frame--silhouette {
+  border: 1px dashed var(--sv-line, var(--svd-line));
+  background-color: var(--sv-paper-subtle, var(--svd-paper-2));
+}
+
+.sv-mcc-planar-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sv-mcc-promote-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: var(--svd-r-pill, 999px);
+  border: 1px solid var(--sv-line, var(--svd-line));
+  background-color: var(--sv-paper-subtle, var(--svd-paper-2));
+  color: var(--sv-ink, var(--svd-ink));
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sv-mcc-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sv-mcc-card__cat {
+  font-size: 11px;
+  color: var(--sv-ink-muted, var(--svd-ink-soft));
+}
+
+.sv-mcc-card__title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--sv-ink, var(--svd-ink));
+}
+
+.sv-mcc-card__actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sv-mcc-add-btn {
+  width: 100%;
+  padding: 0 var(--svd-s3, 12px);
+  font-size: 12px;
+}
+
+.sv-mcc-studio-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sv-ink, var(--svd-ink));
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-mcc-card { transition: none; transform: none !important; }
+}
+
+[data-sv-motion="off"] .sv-mcc-card {
+  transition: none;
+  transform: none !important;
+}
+
+@media (max-width: 767px) {
+  .sv-mcc {
+    padding: var(--svd-s4, 16px);
+  }
+  .sv-mcc-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--svd-s3, 12px);
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+  }
+  .sv-mcc-card {
+    flex: 0 0 228px;
+    scroll-snap-align: start;
+  }
+  .sv-mcc-planar-frame {
+    max-width: 156px;
+  }
+}

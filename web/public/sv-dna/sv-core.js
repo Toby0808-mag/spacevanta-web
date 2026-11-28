@@ -152,7 +152,9 @@
       market: ds.endpointMarket || '',
       shipping: ds.endpointShipping || '',
       bundle: ds.endpointBundle || '',
-      mto: ds.endpointMto || ''
+      mto: ds.endpointMto || '',
+      pricing: ds.endpointPricing || '',
+      season: ds.endpointSeason || ''
     },
     modelsBase: ds.modelsBase || '',
     defaultMarket: (ds.defaultMarket || 'en-us').toLowerCase(),
@@ -290,6 +292,61 @@
           global.clearTimeout(timer);
           return null;
         });
+    },
+    request: function (method, key, path, body, opts) {
+      opts = opts || {};
+      var url = SV.api.url(key, path, opts.params);
+      if (!url || typeof fetch !== 'function') {
+        return Promise.resolve({ ok: false, status: 0, reason: 'endpoint_unconfigured', data: null });
+      }
+      var ctl = typeof AbortController === 'function' ? new AbortController() : null;
+      var timer = global.setTimeout(function () { if (ctl) ctl.abort(); }, opts.timeout || cfg.timeout || 3000);
+      var headers = Object.assign({ 'Accept': 'application/json' }, opts.headers || {});
+      if (opts.idempotencyKey) {
+        headers['Idempotency-Key'] = String(opts.idempotencyKey);
+      }
+      var fetchInit = {
+        method: method || 'GET',
+        credentials: 'omit',
+        headers: headers,
+        signal: ctl ? ctl.signal : undefined
+      };
+      if (body !== undefined && body !== null && method !== 'GET') {
+        headers['Content-Type'] = headers['Content-Type'] || 'application/json';
+        fetchInit.body = typeof body === 'string' ? body : JSON.stringify(body);
+      }
+      return fetch(url, fetchInit)
+        .then(function (r) {
+          return r.text().then(function (txt) {
+            var parsed = null;
+            if (txt) {
+              try { parsed = JSON.parse(txt); } catch (_e) { parsed = null; }
+            }
+            return {
+              ok: r.ok,
+              status: r.status,
+              reason: r.ok ? '' : ('http_' + r.status),
+              data: parsed
+            };
+          });
+        })
+        .then(function (res) {
+          global.clearTimeout(timer);
+          return res;
+        })
+        .catch(function (err) {
+          global.clearTimeout(timer);
+          var isAbort = Boolean(err && (err.name === 'AbortError' || String(err.message || '').indexOf('abort') !== -1));
+          return {
+            ok: false,
+            status: 0,
+            reason: isAbort ? 'timeout' : 'network_error',
+            data: null
+          };
+        });
+    },
+    post: function (key, path, body, opts) {
+      return SV.api.request('POST', key, path, body, opts);
     }
   };
 
