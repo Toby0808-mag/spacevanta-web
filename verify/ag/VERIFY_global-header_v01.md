@@ -65,3 +65,5 @@
   - UI 图标雪碧图（1.5 KB）、Logo（757 B）、季节图标（345 B）全部内联进 `global-header.html`（`currentColor`，0 外部 `.svg`）；
   - Cold Scene 缩略图转码为 `web/public/global-header/sv-scene-card-thumb.png`（640×400，**5.5 KB ≤ 90 KB**，归入模板内部目录，100% 兼容 Shopline `public/`）。
 - **Chromium 实测与五道硬闸（含 v2.4 第 0 道清单闸）：** `dt_h = 96px`、`mb_h = 80px`、`scrollW = 375`、`sv-scene-card-thumb.png` `complete = true / naturalW = 640 / 占比 = 1.07%`、`0` 404、`0` 控制台报错；`STRICT_HEX=1 scripts/check_gates.sh`（含 `code_checklist.py check`）全绿。
+
+- **r3 补充（Shopline `public/` 不支持 `.png`）：** 移除 `web/public/global-header/sv-scene-card-thumb.png`（`web/public/` 下 0 图片文件）；Cold Scene 卡改为 `{{#schema}}` 内 `scene_card_image`（`image_picker`，走 Shopline 媒体库上传）+ 默认内联纯令牌建筑线框 `<svg>`（0 裸 hex，0 外部图片请求，占比仍 `1.07% ≤ 4.0%`）。

@@ -73,3 +73,14 @@
 - **Drive 归档包（`theme/global-header/antigravity/build/`）：**
   - `global-header-L5v01-V11-r2-delta.zip`（**增量补丁包**，仅含上面 2 个需上传的文件：`global-header.html` + `sv-scene-card-thumb.png`）
   - `global-header-L5v01-V11-r2.zip`（**完整模块包**，9 个模块文件，0 `.svg`/`.webp` 在 `public/`）
+
+---
+
+## 五、r3 最终修正（Shopline `public/` 不支持 `.png` · 仅需替换 1 个文件）
+
+- **替换 (REPLACE)：** `web/sections/global-header/global-header.html`（新增 `scene_card_image` `image_picker` 供 Shopline 媒体库选图；未选图时默认渲染内联纯令牌 Cold 建筑线框 `<svg>`，0 外部图片请求、0 裸 hex）。
+- **新增 (ADD)：** 无（`public/` 下 **0 个图片文件**）。
+- **删除 (DELETE)：** `web/public/sv-header/*` 与 `web/public/global-header/*`（全部移除）。
+- **Drive 归档：**
+  - `build/global-header-L5v01-V11-r3-delta.zip`（**仅含 1 个文件：`web/sections/global-header/global-header.html`**）
+  - `build/global-header-L5v01-V11-r3.zip`（完整 8 文件模块包，0 图片文件在 `public/`）

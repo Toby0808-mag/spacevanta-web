@@ -266,15 +266,30 @@
           <p class="sv-hdr-eyebrow" data-i18n="header.shop.scene_heading">Featured Scene</p>
           <a class="sv-hdr-scene-card" href="#tbd" data-sv-route-key="ROUTE_SCENE_SHOWCASE" data-sv-deferred="true" data-sv-role="COLD">
             <div class="sv-hdr-scene-card__media" data-sv-scene-media>
-              <img
-                class="sv-hdr-scene-card__img"
-                src="/public/global-header/sv-scene-card-thumb.png"
-                width="640"
-                height="400"
-                alt="SpaceVanta modular desk scene"
-                loading="lazy"
-                decoding="async"
-              >
+              {{#if section.settings.scene_card_image}}
+                <img
+                  class="sv-hdr-scene-card__img"
+                  src="{{section.settings.scene_card_image}}"
+                  width="640"
+                  height="400"
+                  alt="SpaceVanta modular desk scene"
+                  loading="lazy"
+                  decoding="async"
+                >
+              {{else}}
+                <svg class="sv-hdr-scene-card__img" viewBox="0 0 640 400" width="640" height="400" fill="none" role="img" aria-label="SpaceVanta modular desk scene">
+                  <rect width="640" height="400" fill="var(--sv-paper-subtle, var(--svd-paper-subtle))"/>
+                  <rect x="48" y="48" width="544" height="304" fill="var(--sv-paper, var(--svd-paper))" stroke="var(--sv-paper-line, var(--svd-line))" stroke-width="2"/>
+                  <rect x="92" y="108" width="248" height="184" fill="var(--sv-paper-subtle, var(--svd-paper-subtle))" stroke="var(--sv-ink, var(--svd-ink))" stroke-width="2"/>
+                  <rect x="112" y="128" width="104" height="144" fill="var(--sv-paper, var(--svd-paper))" stroke="var(--sv-ink-muted, var(--svd-ink-soft))" stroke-width="1.5"/>
+                  <rect x="228" y="128" width="92" height="66" fill="var(--sv-paper, var(--svd-paper))" stroke="var(--sv-ink-muted, var(--svd-ink-soft))" stroke-width="1.5"/>
+                  <rect x="228" y="206" width="92" height="66" fill="var(--sv-paper, var(--svd-paper))" stroke="var(--sv-ink-muted, var(--svd-ink-soft))" stroke-width="1.5"/>
+                  <line x1="360" y1="92" x2="360" y2="308" stroke="var(--sv-seam, var(--svd-seam))" stroke-width="3"/>
+                  <rect x="380" y="108" width="168" height="84" fill="var(--sv-paper-subtle, var(--svd-paper-subtle))" stroke="var(--sv-ink, var(--svd-ink))" stroke-width="2"/>
+                  <rect x="380" y="212" width="168" height="80" fill="var(--sv-paper-subtle, var(--svd-paper-subtle))" stroke="var(--sv-ink-muted, var(--svd-ink-soft))" stroke-width="1.5" stroke-dasharray="6 4"/>
+                  <line x1="92" y1="320" x2="548" y2="320" stroke="var(--sv-ink-muted, var(--svd-ink-soft))" stroke-width="1.5"/>
+                </svg>
+              {{/if}}
             </div>
             <div class="sv-hdr-scene-card__body">
               <strong class="sv-hdr-scene-card__title" data-i18n="header.shop.scene_title">Explore by Desk Scene</strong>
@@ -489,6 +504,11 @@
       "type": "image_picker",
       "id": "logo_mobile",
       "label": "Mobile Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_card_image",
+      "label": "Shop Panel Scene Card Image (Cold)"
     },
     {
       "type": "checkbox",
