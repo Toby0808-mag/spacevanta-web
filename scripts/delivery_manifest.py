@@ -9,7 +9,7 @@ EXCL = ('delivery/', 'learning/', 'code-checklist/')
 
 
 def git(*a, ok=False):
-    r = subprocess.run(['git', *a], capture_output=True, text=True)
+    r = subprocess.run(['git', '-c', 'core.quotepath=false', *a], capture_output=True, text=True)
     if r.returncode and not ok:
         sys.exit('git %s 失败：%s' % (' '.join(a), r.stderr.strip()))
     return r.stdout if r.returncode == 0 else ''

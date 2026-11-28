@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # SpaceVanta 闸门：路径所有权 + L5 不可变 + 受保护前缀。用法：scripts/check_gates.sh <base-ref> [head-ref] [branch-name]
 set -u
+git(){ command git -c core.quotepath=false "$@"; }   # 中文文件名不被转义成 \346… 形式
 BASE="${1:?base ref}"; HEAD="${2:-HEAD}"; BRANCH="${3:-$(git rev-parse --abbrev-ref HEAD)}"
 fail=0
 UMODE=0
@@ -59,6 +60,20 @@ if [ "$ROLE" = ag ]; then
   if [ -n "$hits" ]; then
     echo "WARN: 新增行出现 hex（应改用 var(--svd-*)）："; echo "$hits"
     [ "${STRICT_HEX:-0}" = 1 ] && fail=1
+  fi
+fi
+# U 系列 token 限额闸：方向单（design/*）与运行记录（ag-u/ cu-u/）
+D="$(dirname "$0")"
+while IFS= read -r sheet; do
+  [ -z "$sheet" ] && continue
+  python3 "$D/u_quota.py" check-sheet "$sheet" || fail=1
+done < <(git diff --name-only "$BASE...$HEAD" | grep -E '(^|/)U1_.*方向单\.md$' || true)
+if [ "$UMODE" = 1 ]; then
+  runs=$(git diff --name-only "$BASE...$HEAD" | grep -E '^u-runs/(ag|cu)/U1/.*/U1_run_[^/]*\.md$' || true)
+  if [ -n "$runs" ]; then
+    sheet=$(grep -h -m1 '^SHEET:' $runs | head -1 | sed 's/^SHEET:[[:space:]]*//')
+    if [ -z "$sheet" ] || [ ! -f "$sheet" ]; then echo "FAIL: 运行记录缺少有效的 SHEET: 方向单路径"; fail=1
+    else python3 "$D/u_quota.py" check-runs "$sheet" $runs || fail=1; fi
   fi
 fi
 # 施工方（非 U 沙箱）：学习记录闸 + 交付清单闸（+ 被退回重交付时复跑链路验证）
