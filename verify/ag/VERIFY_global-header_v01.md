@@ -44,3 +44,13 @@
 - 12 显式状态黑名单（`loading`/`error`/`success`/`processing`）：**0 命中**
 - 越界修改 `workers/`、`contracts/`、`design/`：**0 变更**
 - 变更单状态：无未决 T2/T3 变更单（14 项 `DEFERRED` 路由经用户明确许可保留至 `L5@v02`）。
+
+---
+
+## 四、变体 V11 合入复测记录（2026-11-27 · 已获「批准合入 V11，B0 备份」）
+
+- **B0 备份指针：** GitHub 标签 `backup/global-header-L5v01-B0`（commit `5545023`）+ Drive `build/global-header-L5v01.zip`（SHA-256 `4106fbd5ea29`）。
+- **V11 实测增量指标：**
+  - Desktop 1440px 总高：`96px`（≤96px）；Shop 面板 Cold Scene 缩略图占比从 B0 `4.88%` 降至 **`1.07%`**（严格满足 L5 §6 `≤4.0%`），面板高度 `327px`（`-80px`）。
+  - Mobile 375px 总高：**`80px`**（28+52，≤86px，较 B0 多释放 `6px` 首屏空间），`scrollWidth = 375`（`overflowX = 0`），主栏按钮与搜索胶囊均 `≥44×44px`。
+  - 令牌与门禁：`STRICT_HEX=1 scripts/check_gates.sh` 通过，0 裸 hex，0 JS 改动，0 E0 越界，0 控制台报错。
