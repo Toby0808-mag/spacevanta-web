@@ -119,7 +119,7 @@
   top: 0;
   z-index: 9500;
   padding: 10px 16px;
-  background-color: var(--sv-ink, var(--svd-ink));
+  background-color: var(--sv-ink, var(--svd-ink, currentColor));
   color: var(--sv-paper, var(--svd-paper));
   font-size: 0.875rem;
   font-weight: 600;
@@ -138,7 +138,7 @@
   z-index: 1000;
   width: 100%;
   background-color: var(--sv-paper, var(--svd-paper));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -151,7 +151,7 @@
 .sv-hdr-announce {
   width: 100%;
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 .sv-hdr-announce[hidden] {
@@ -177,7 +177,7 @@
   flex: 0 0 16px;
   width: 16px;
   height: 16px;
-  color: var(--sv-season-icon, var(--svd-season-icon, var(--sv-ink, var(--svd-ink))));
+  color: var(--sv-season-icon, var(--svd-season-icon, var(--sv-ink, var(--svd-ink, currentColor))));
 }
 
 .sv-hdr-announce__track {
@@ -187,7 +187,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 .sv-hdr-announce__sep {
@@ -228,7 +228,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   text-decoration: none;
 }
 
@@ -262,7 +262,7 @@
   align-items: center;
   min-height: 44px;
   padding: 0 4px;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.2;
@@ -296,7 +296,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   cursor: pointer;
   text-decoration: none;
   position: relative;
@@ -318,7 +318,7 @@
   padding: 0 8px;
   border: 0;
   background: transparent;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.8125rem;
   font-weight: 500;
@@ -336,7 +336,7 @@
   margin-left: 3px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 /* Visible 2px seam focus ring for keyboard navigation */
@@ -355,7 +355,7 @@
   z-index: 9200;
   max-width: min(92vw, 420px);
   padding: 10px 16px;
-  background-color: var(--sv-ink, var(--svd-ink));
+  background-color: var(--sv-ink, var(--svd-ink, currentColor));
   color: var(--sv-paper, var(--svd-paper));
   border-radius: 6px;
   font-size: 0.8125rem;
@@ -373,7 +373,7 @@
   left: 0;
   right: 0;
   background-color: var(--sv-paper, var(--svd-paper));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   border-bottom: 1px solid var(--sv-paper-line, var(--svd-line));
   padding: 20px 24px 28px;
   max-height: 85vh;
@@ -386,7 +386,7 @@
   bottom: 0;
   width: min(100vw, 400px);
   background-color: var(--sv-paper, var(--svd-paper));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -419,7 +419,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 .sv-hdr-eyebrow {
@@ -451,7 +451,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-size: 0.9375rem;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -477,7 +477,7 @@
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   max-width: 320px;
 }
 
@@ -510,7 +510,7 @@
 .sv-hdr-scene-card__title {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -558,7 +558,7 @@
   padding: 0 8px;
   border: 0;
   background: transparent;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 600;
@@ -583,7 +583,7 @@
   border: 1px solid var(--sv-paper-line, var(--svd-line));
   border-radius: 6px;
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.9375rem;
 }
@@ -596,7 +596,7 @@
   padding: 0 20px;
   border: 0;
   border-radius: 6px;
-  background-color: var(--sv-ink, var(--svd-ink));
+  background-color: var(--sv-ink, var(--svd-ink, currentColor));
   color: var(--sv-paper, var(--svd-paper));
   font-family: inherit;
   font-size: 0.875rem;
@@ -635,7 +635,7 @@
   border-radius: 6px;
   border: 1px solid var(--sv-paper-line, var(--svd-line));
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-size: 0.8125rem;
   text-decoration: none;
 }
@@ -667,7 +667,7 @@
   border: 1px solid var(--sv-paper-line, var(--svd-line));
   border-radius: 6px;
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.9375rem;
 }
@@ -686,28 +686,11 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
-/* L5 No-JS Fallback: when JS has not mounted RootModalPortal, keep SSR nav & search accessible inline */
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-overlays-source {
-  padding: 12px 16px;
-  border-top: 1px solid var(--sv-paper-line, var(--svd-line));
-  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-}
-
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-panel,
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-drawer {
-  position: static;
-  width: auto;
-  max-height: none;
-  border: 0;
-  padding: 8px 0;
-  background: transparent;
-}
-
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-shop-panel,
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-market-drawer {
+/* Hide overlay source container until mounted in #sv-root-portal (L5 No-JS uses <noscript>) */
+.sv-hdr-overlays-source {
   display: none;
 }
 
@@ -855,7 +838,7 @@
 }
 
 .sv-hdr-pill:hover {
-  border-color: var(--sv-ink, var(--svd-ink));
+  border-color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 @media (max-width: 1023px) {
@@ -878,6 +861,13 @@
   transition-duration: 0ms;
 }
 </style>
+<noscript data-sv-l5="global-header">
+  <style>
+    .sv-hdr-overlays-source { display: block !important; padding: 12px 16px; border-top: 1px solid var(--sv-paper-line, var(--svd-line)); }
+    .sv-hdr-panel, .sv-hdr-drawer { position: static !important; width: auto !important; max-height: none !important; border: 0 !important; padding: 8px 0 !important; }
+    .sv-hdr-shop-panel, .sv-hdr-market-drawer { display: none !important; }
+  </style>
+</noscript>
 
 <a class="sv-hdr-skip" href="#main-content" data-i18n="header.a11y.skip_to_main">Skip to main content</a>
 
@@ -886,12 +876,12 @@
   class="sv-hdr"
   data-sv-section="global-header"
   data-sv-state="header_idle_top"
-  data-sv-sticky="{{#if section.settings.sticky_enabled}}true{{else}}false{{/if}}"
-  data-sv-announcement-enabled="{{#if section.settings.announcement_enabled}}true{{else}}false{{/if}}"
-  data-sv-announcement-hide-checkout="{{#if section.settings.announcement_hide_on_checkout}}true{{else}}false{{/if}}"
-  data-sv-season-allow="{{#if section.settings.season_allow_override}}true{{else}}false{{/if}}"
-  data-sv-market-default="{{#if market.code}}{{market.code}}{{else}}en-us{{/if}}"
-  data-sv-currency-default="{{#if market.currency_symbol}}{{market.currency_symbol}}{{else}}${{/if}}"
+  data-sv-sticky="{{#if section.settings.sticky_enabled}}true{{#else /}}false{{/if}}"
+  data-sv-announcement-enabled="{{#if section.settings.announcement_enabled}}true{{#else /}}false{{/if}}"
+  data-sv-announcement-hide-checkout="{{#if section.settings.announcement_hide_on_checkout}}true{{#else /}}false{{/if}}"
+  data-sv-season-allow="{{#if section.settings.season_allow_override}}true{{#else /}}false{{/if}}"
+  data-sv-market-default="{{#if market.code}}{{market.code}}{{#else /}}en-us{{/if}}"
+  data-sv-currency-default="{{#if market.currency_symbol}}{{market.currency_symbol}}{{#else /}}${{/if}}"
 >
   {{!-- Slot 1: header-announcement-bar (Desktop <=32px, Mobile 375px <=30px, 0px null on 3s timeout/missing) --}}
   <div
@@ -970,7 +960,7 @@
         >
           {{#if section.settings.logo_desktop}}
             <img class="sv-hdr-logo__img sv-hdr-logo__img--desktop" src="{{section.settings.logo_desktop}}" alt="SpaceVanta" height="24" decoding="async">
-          {{else}}
+          {{#else /}}
             <svg class="sv-hdr-logo__svg" viewBox="0 0 168 24" width="140" height="20" fill="none" role="img" aria-label="SpaceVanta">
               <g fill="currentColor">
                 <path d="M4 5.5C4 4.12 5.12 3 6.5 3h8.5v2.4H6.8c-.33 0-.6.27-.6.6v3.1c0 .33.27.6.6.6h6.4c1.38 0 2.5 1.12 2.5 2.5v5.3c0 1.38-1.12 2.5-2.5 2.5H4v-2.4h9.1c.33 0 .6-.27.6-.6v-4.1c0-.33-.27-.6-.6-.6H6.5C5.12 12.3 4 11.18 4 9.8V5.5z"/>
@@ -1056,9 +1046,9 @@
           aria-label="Change delivery market and language"
           data-i18n-aria="header.a11y.open_market"
         >
-          <span class="sv-hdr-market-btn__code" data-sv-market-code>{{#if market.code_short}}{{market.code_short}}{{else}}US{{/if}}</span>
+          <span class="sv-hdr-market-btn__code" data-sv-market-code>{{#if market.code_short}}{{market.code_short}}{{#else /}}US{{/if}}</span>
           <span class="sv-hdr-market-btn__dot" aria-hidden="true">·</span>
-          <span class="sv-hdr-market-btn__curr" data-sv-market-currency>{{#if market.currency_symbol}}{{market.currency_symbol}}{{else}}${{/if}}</span>
+          <span class="sv-hdr-market-btn__curr" data-sv-market-currency>{{#if market.currency_symbol}}{{market.currency_symbol}}{{#else /}}${{/if}}</span>
         </button>
 
         <a
@@ -1072,7 +1062,7 @@
           <svg class="sv-hdr-ico" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
             <use href="#sv-ico-bag"></use>
           </svg>
-          <span class="sv-hdr-bag-count" data-sv-cart-count>{{#if cart.item_count}}{{cart.item_count}}{{else}}0{{/if}}</span>
+          <span class="sv-hdr-bag-count" data-sv-cart-count>{{#if cart.item_count}}{{cart.item_count}}{{#else /}}0{{/if}}</span>
         </a>
       </div>
     </div>
@@ -1125,7 +1115,7 @@
                   loading="lazy"
                   decoding="async"
                 >
-              {{else}}
+              {{#else /}}
                 <svg class="sv-hdr-scene-card__img" viewBox="0 0 640 400" width="640" height="400" fill="none" role="img" aria-label="SpaceVanta modular desk scene">
                   <rect width="640" height="400" fill="var(--sv-paper-subtle, var(--svd-paper-subtle))"/>
                   <rect x="48" y="48" width="544" height="304" fill="var(--sv-paper, var(--svd-paper))" stroke="var(--sv-paper-line, var(--svd-line))" stroke-width="2"/>
@@ -1318,12 +1308,12 @@
     {
       "@type": "Organization",
       "name": "SpaceVanta",
-      "url": "{{#if shop.url}}{{shop.url}}{{else}}/{{/if}}"
+      "url": "{{#if shop.url}}{{shop.url}}{{#else /}}/{{/if}}"
     },
     {
       "@type": "WebSite",
       "name": "SpaceVanta",
-      "url": "{{#if shop.url}}{{shop.url}}{{else}}/{{/if}}",
+      "url": "{{#if shop.url}}{{shop.url}}{{#else /}}/{{/if}}",
       "potentialAction": {
         "@type": "SearchAction",
         "target": "{{#if shop.url}}{{shop.url}}{{/if}}/search?q={search_term_string}",
@@ -1339,6 +1329,7 @@
 </script>
 
 <script data-sv-inline="global-header">
+if (!window.SVRootPortal) {
 /**
  * SpaceVanta RootModalPortal (L5@v01)
  * Mounts overlay slots (P1..P4) as direct children of <body> to physically
@@ -1543,6 +1534,7 @@
     create: createRootPortal
   };
 })(window);
+}
 
 /**
  * SpaceVanta Global Header Runtime (L5@v01 · sv_flow_global_header_v01)
@@ -2119,6 +2111,8 @@
   } else {
     boot();
   }
+
+  document.addEventListener('shopline:section:load', boot);
 
   global.SVGlobalHeader = {
     init: initGlobalHeader

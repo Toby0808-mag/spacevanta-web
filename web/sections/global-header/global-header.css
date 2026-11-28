@@ -1,3 +1,78 @@
+/* SpaceVanta Reusable Brand Seam Primitive (<=1px)
+ * Token-only: zero bare hex values. References --sv-* with --svd-* fallback.
+ */
+.sv-seam-rail {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--sv-paper-line, var(--svd-line));
+  transition: background-color var(--sv-dur, var(--svd-dur, 180ms)) ease;
+  pointer-events: none;
+}
+
+.sv-seam-rail--active {
+  background-color: var(--sv-seam, var(--svd-seam));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-seam-rail {
+    transition-duration: 0ms;
+  }
+}
+
+[data-sv-motion="off"] .sv-seam-rail {
+  transition-duration: 0ms;
+}
+
+/* SpaceVanta RootModalPortal (direct child of <body>)
+ * Isolates overlays from clip-path / 3D transform ancestors.
+ * Token-only: zero bare hex values.
+ */
+.sv-root-portal {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.sv-root-portal[data-open="true"] {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.sv-root-portal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--sv-ink, var(--svd-ink));
+  opacity: 0;
+  transition: opacity var(--sv-dur, var(--svd-dur, 180ms)) ease;
+  cursor: pointer;
+}
+
+.sv-root-portal[data-open="true"] .sv-root-portal__backdrop {
+  opacity: 0.36;
+}
+
+.sv-root-portal__slot {
+  position: relative;
+  z-index: 1;
+}
+
+.sv-root-portal__slot[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-root-portal__backdrop {
+    transition-duration: 0ms;
+  }
+}
+
+[data-sv-motion="off"] .sv-root-portal__backdrop {
+  transition-duration: 0ms;
+}
+
 /* SpaceVanta Global Header CSS (L5@v01)
  * Strict token discipline: ZERO bare hex values.
  * Zero backdrop-filter, zero drop shadow on sticky, zero seam blue on small text/links.
@@ -11,7 +86,7 @@
   top: 0;
   z-index: 9500;
   padding: 10px 16px;
-  background-color: var(--sv-ink, var(--svd-ink));
+  background-color: var(--sv-ink, var(--svd-ink, currentColor));
   color: var(--sv-paper, var(--svd-paper));
   font-size: 0.875rem;
   font-weight: 600;
@@ -30,7 +105,7 @@
   z-index: 1000;
   width: 100%;
   background-color: var(--sv-paper, var(--svd-paper));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -43,7 +118,7 @@
 .sv-hdr-announce {
   width: 100%;
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 .sv-hdr-announce[hidden] {
@@ -69,7 +144,7 @@
   flex: 0 0 16px;
   width: 16px;
   height: 16px;
-  color: var(--sv-season-icon, var(--svd-season-icon, var(--sv-ink, var(--svd-ink))));
+  color: var(--sv-season-icon, var(--svd-season-icon, var(--sv-ink, var(--svd-ink, currentColor))));
 }
 
 .sv-hdr-announce__track {
@@ -79,7 +154,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 .sv-hdr-announce__sep {
@@ -120,7 +195,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   text-decoration: none;
 }
 
@@ -154,7 +229,7 @@
   align-items: center;
   min-height: 44px;
   padding: 0 4px;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.2;
@@ -188,7 +263,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   cursor: pointer;
   text-decoration: none;
   position: relative;
@@ -210,7 +285,7 @@
   padding: 0 8px;
   border: 0;
   background: transparent;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.8125rem;
   font-weight: 500;
@@ -228,7 +303,7 @@
   margin-left: 3px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 /* Visible 2px seam focus ring for keyboard navigation */
@@ -247,7 +322,7 @@
   z-index: 9200;
   max-width: min(92vw, 420px);
   padding: 10px 16px;
-  background-color: var(--sv-ink, var(--svd-ink));
+  background-color: var(--sv-ink, var(--svd-ink, currentColor));
   color: var(--sv-paper, var(--svd-paper));
   border-radius: 6px;
   font-size: 0.8125rem;
@@ -265,7 +340,7 @@
   left: 0;
   right: 0;
   background-color: var(--sv-paper, var(--svd-paper));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   border-bottom: 1px solid var(--sv-paper-line, var(--svd-line));
   padding: 20px 24px 28px;
   max-height: 85vh;
@@ -278,7 +353,7 @@
   bottom: 0;
   width: min(100vw, 400px);
   background-color: var(--sv-paper, var(--svd-paper));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -311,7 +386,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 .sv-hdr-eyebrow {
@@ -343,7 +418,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-size: 0.9375rem;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -369,7 +444,7 @@
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   max-width: 320px;
 }
 
@@ -402,7 +477,7 @@
 .sv-hdr-scene-card__title {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -450,7 +525,7 @@
   padding: 0 8px;
   border: 0;
   background: transparent;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 600;
@@ -475,7 +550,7 @@
   border: 1px solid var(--sv-paper-line, var(--svd-line));
   border-radius: 6px;
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.9375rem;
 }
@@ -488,7 +563,7 @@
   padding: 0 20px;
   border: 0;
   border-radius: 6px;
-  background-color: var(--sv-ink, var(--svd-ink));
+  background-color: var(--sv-ink, var(--svd-ink, currentColor));
   color: var(--sv-paper, var(--svd-paper));
   font-family: inherit;
   font-size: 0.875rem;
@@ -527,7 +602,7 @@
   border-radius: 6px;
   border: 1px solid var(--sv-paper-line, var(--svd-line));
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-size: 0.8125rem;
   text-decoration: none;
 }
@@ -559,7 +634,7 @@
   border: 1px solid var(--sv-paper-line, var(--svd-line));
   border-radius: 6px;
   background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
   font-family: inherit;
   font-size: 0.9375rem;
 }
@@ -578,28 +653,11 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--sv-ink, var(--svd-ink));
+  color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
-/* L5 No-JS Fallback: when JS has not mounted RootModalPortal, keep SSR nav & search accessible inline */
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-overlays-source {
-  padding: 12px 16px;
-  border-top: 1px solid var(--sv-paper-line, var(--svd-line));
-  background-color: var(--sv-paper-subtle, var(--svd-paper-subtle, var(--svd-paper-2)));
-}
-
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-panel,
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-drawer {
-  position: static;
-  width: auto;
-  max-height: none;
-  border: 0;
-  padding: 8px 0;
-  background: transparent;
-}
-
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-shop-panel,
-.sv-hdr:not([data-sv-js-ready="true"]) .sv-hdr-market-drawer {
+/* Hide overlay source container until mounted in #sv-root-portal (L5 No-JS uses <noscript>) */
+.sv-hdr-overlays-source {
   display: none;
 }
 
@@ -747,7 +805,7 @@
 }
 
 .sv-hdr-pill:hover {
-  border-color: var(--sv-ink, var(--svd-ink));
+  border-color: var(--sv-ink, var(--svd-ink, currentColor));
 }
 
 @media (max-width: 1023px) {

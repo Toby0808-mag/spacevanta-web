@@ -1,14 +1,14 @@
 # Antigravity 代码清单：全局/驱动层共用代码
 
 PULLED_SHA: 892cacf021247b51f50512022a0e6e13ad1b7625
-UPDATED_AT: 2026-11-28 02:23
+UPDATED_AT: 2026-11-28 02:28
 UPDATED_BY: ag/global-header-L5v01-sline-fix
 
 规则：开工前 pull、完工后 submit，随 PR 提交。其他模板要调用本模板内部组件，请先读本清单，并用 `dep` 登记依赖。
 
 ## 1. 在途施工锁
 <!-- LOCKS -->
-LOCK|ag/global-header-L5v01-sline-fix|web/public/sv-header/|892cacf021|2026-11-28 02:23|ACTIVE
+LOCK|ag/global-header-L5v01-sline-fix|web/public/sv-header/|892cacf021|2026-11-28 02:23|DONE
 <!-- /LOCKS -->
 
 ## 2. 文件台账
@@ -23,6 +23,8 @@ FILE|web/i18n/zh.json|b2264475141e|8e9c7b0|L5@v01|ag
 ## 3. 变更记录
 <!-- CHANGES -->
 CHG|2026-11-28 01:55|ag/global-header-L5v01-sline-fix|L5@v01|D:web/public/sv-header/sv-logo-wordmark.svg D:web/public/sv-header/sv-scene-card-thumb.webp D:web/public/sv-header/sv-season-icon.svg D:web/public/sv-header/sv-ui-icons.svg
+CHG|2026-11-28 02:23|ag/global-header-L5v01-sline-fix|L5@v01|无文件变动
+CHG|2026-11-28 02:28|ag/global-header-L5v01-sline-fix|L5@v01|无文件变动
 <!-- /CHANGES -->
 
 ## 4. 拉取记录
