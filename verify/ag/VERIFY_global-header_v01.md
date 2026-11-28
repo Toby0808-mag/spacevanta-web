@@ -54,3 +54,14 @@
   - Desktop 1440px 总高：`96px`（≤96px）；Shop 面板 Cold Scene 缩略图占比从 B0 `4.88%` 降至 **`1.07%`**（严格满足 L5 §6 `≤4.0%`），面板高度 `327px`（`-80px`）。
   - Mobile 375px 总高：**`80px`**（28+52，≤86px，较 B0 多释放 `6px` 首屏空间），`scrollWidth = 375`（`overflowX = 0`），主栏按钮与搜索胶囊均 `≥44×44px`。
   - 令牌与门禁：`STRICT_HEX=1 scripts/check_gates.sh` 通过，0 裸 hex，0 JS 改动，0 E0 越界，0 控制台报错。
+
+---
+
+## 五、r2 修复复测（2026-11-28 · Shopline Sline 语法 & `public/` 格式合规）
+
+- **问题 1 修复（`InvalidSyntaxInSline`）：** 将 `web/sections/global-header/global-header.html` 中全部 8 处 Liquid 风格 `| default:` 过滤器替换为纯 Sline/Handlebars `{{#if ...}}...{{else}}...{{/if}}`（静态扫描管道过滤表达式 = `0`）。
+- **问题 2 修复（`public/` 不支持 `.svg` 与 `.webp`）：**
+  - 删除 `web/public/sv-header/` 下 3 个 `.svg` 与 1 个 `.webp` 文件；
+  - UI 图标雪碧图（1.5 KB）、Logo（757 B）、季节图标（345 B）全部内联进 `global-header.html`（`currentColor`，0 外部 `.svg`）；
+  - Cold Scene 缩略图转码为 `web/public/global-header/sv-scene-card-thumb.png`（640×400，**5.5 KB ≤ 90 KB**，归入模板内部目录，100% 兼容 Shopline `public/`）。
+- **Chromium 实测与五道硬闸（含 v2.4 第 0 道清单闸）：** `dt_h = 96px`、`mb_h = 80px`、`scrollW = 375`、`sv-scene-card-thumb.png` `complete = true / naturalW = 640 / 占比 = 1.07%`、`0` 404、`0` 控制台报错；`STRICT_HEX=1 scripts/check_gates.sh`（含 `code_checklist.py check`）全绿。
