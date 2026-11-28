@@ -23,7 +23,7 @@ allowed(){ # $1=path
   esac
   [ "$ROLE" = ag ] && case "$p" in assets/3d/ecosystem/cu/*) handover "$p" && return 0;; esac
   case "$ROLE" in
-    ag) case "$p" in web/*|assets/3d/products/*|assets/3d/ecosystem/ag/*|verify/ag/*) return 0;; esac;;
+    ag) case "$p" in web/*|assets/3d/products/*|assets/3d/ecosystem/ag/*|verify/ag/*|code-checklist/*) return 0;; esac;;
     cu) case "$p" in workers/*|agent/*|contracts/*|assets/3d/ecosystem/cu/*|verify/cu/*) return 0;; esac;;
     design) case "$p" in design/*|docs/brand/*) return 0;; esac;;
     gov) case "$p" in .github/*|.cursor/*|scripts/*|docs/protocols/*|AGENTS.md) return 0;; esac;;
@@ -50,5 +50,9 @@ if [ "$ROLE" = ag ]; then
     echo "WARN: 新增行出现 hex（应改用 var(--svd-*)）："; echo "$hits"
     [ "${STRICT_HEX:-0}" = 1 ] && fail=1
   fi
+fi
+# Antigravity：代码清单闸（开工前拉取、完工提交、基线不过期、锁不冲突）
+if [ "$ROLE" = ag ]; then
+  python3 "$(dirname "$0")/code_checklist.py" check "$BASE" "$HEAD" "$BRANCH" || fail=1
 fi
 [ $fail = 0 ] && echo "OK: gates passed ($ROLE)" || exit 1
